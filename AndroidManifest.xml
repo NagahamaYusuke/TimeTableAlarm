@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="14" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -20,7 +22,14 @@
         <activity
             android:name="com.timetablealarm.twitter.TwitterOAuthActivity"
             android:label="@string/title_activity_twitter_oauth" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />  
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="foo" android:host="bar"/>
+            </intent-filter>
         </activity>
     </application>
-
+    
+    
 </manifest>
