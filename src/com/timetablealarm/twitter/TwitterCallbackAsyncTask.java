@@ -9,6 +9,9 @@ import android.util.Log;
 public class TwitterCallbackAsyncTask extends
 		AsyncTask<Uri, Integer, AccessToken> {
 
+	private String token;
+	private String tokenSecret;
+	
 	@Override
 	protected AccessToken doInBackground(Uri... params) {
 		Uri callbackUri = params[0];
@@ -33,13 +36,23 @@ public class TwitterCallbackAsyncTask extends
             /* String token = result.getToken();
             /* String tokenSecret = result.getTokenSecret();
              */
-        	String token = result.getToken();
-        	String tokenSecret = result.getTokenSecret();
-        	Log.d("token", token);
-        	Log.d("tokenSecret", tokenSecret);
+
+            Log.d("aaa","7");
+        	this.token = result.getToken();
+        	this.tokenSecret = result.getTokenSecret();
+        	Log.d("token", this.token);
+        	Log.d("tokenSecret", this.tokenSecret);
         } else {
             Log.v("ERR","callback task error.");
         }
+	}
+
+    public String getToken(){
+    	return this.token;
+    }
+    
+    public String getTokenSecret(){
+    	return this.tokenSecret;
     }
 
 }

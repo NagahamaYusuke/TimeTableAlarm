@@ -2,6 +2,7 @@ package com.timetablealarm.twitter;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import twitter4j.*;
 import twitter4j.auth.*;
@@ -18,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +34,11 @@ public class TwitterOAuthActivity extends Activity {
 	final String CONSUMER_SECRET = "F8GkUMK4t7nGtB4QtJZKXhKCRcpevu1HtpdEY6i81ffXerr1xs";
 	final String CALLBACK_URL = "foo://bar";  
 	final String OAUTH_VERIFIER = "oauth_verifier";
+	final String KEY_TOKEN ="pikachu";  
+	final String KEY_TOKEN_SECRET ="kairyu";  
+	private AccessToken accessToken;
+	private String token;
+	private String tokenSecret;
 	
 
     public static RequestToken _req = null;
@@ -52,6 +59,17 @@ public class TwitterOAuthActivity extends Activity {
                 startTwitterOAuth();
 			}
 		});
+		
+		Button btn2 = (Button)findViewById(R.id.button2);
+		btn2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自動生成されたメソッド・スタブ
+
+                Tweet();
+			}
+		});
 	}
 	
 	@Override
@@ -62,6 +80,15 @@ public class TwitterOAuthActivity extends Activity {
         if(uri != null && uri.toString().startsWith("demotwittercallback://TwitterOAuthActivity")){
             TwitterCallbackAsyncTask callbackTask = new TwitterCallbackAsyncTask();
             callbackTask.execute(uri);
+            try {
+				this.accessToken = callbackTask.get();
+			} catch (InterruptedException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
         }
 	}
 	
@@ -89,4 +116,15 @@ public class TwitterOAuthActivity extends Activity {
         startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse(uri)));
         finish();
     }
+	
+	private void Tweet(){
+		Twitter twitter = new TwitterFactory().getInstance();  
+		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
+		twitter.setOAuthAccessToken(this.accessToken);  
+		try {  
+			twitter.updateStatus("Test");  
+		} catch (TwitterException e) {  
+		    android.util.Log.e("TwitterException", e.toString());  
+		}  
+	}
 }
