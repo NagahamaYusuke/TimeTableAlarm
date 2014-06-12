@@ -1,5 +1,8 @@
 package com.timetablealarm.twitter;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import twitter4j.*;
 import twitter4j.auth.*;
 import twitter4j.conf.Configuration;
@@ -11,14 +14,17 @@ import com.timetablealarm.R.layout;
 
 import android.app.Activity;
 import android.content.*;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class TwitterOAuthActivity extends Activity {
 
@@ -36,6 +42,7 @@ public class TwitterOAuthActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
 		setContentView(R.layout.activity_twitter_oauth);
 		Button btn = (Button)findViewById(R.id.button1);
 		btn.setOnClickListener(new OnClickListener() {
@@ -76,38 +83,41 @@ public class TwitterOAuthActivity extends Activity {
         try {
             //認証後アプリに戻るようにcallbackを設定
             _req = _oauth.getOAuthRequestToken("demotwittercallback://TwitterOAuthActivity");
+    		Log.d("aaaa","Aaaa");
         } catch (TwitterException e) {
-            Log.v("TEST", "err:" + e.getErrorMessage(), e);
+            Log.d("TEST", "err:" + e.getErrorMessage(), e);
         }
+		Log.d("aaaa","Aaaa111");
         String uri = _req.getAuthorizationURL();
 
+		Log.d("aaaa","Aaaa");
         //ブラウザーアプリへ移動、RequestTokenを取得するために
         startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse(uri)));
         finish();
     }
-	
-	private void executeOauth(){
-        //Twitetr4Jの設定を読み込む
-    	Log.e("aaa","aaa");
-        Configuration conf = ConfigurationContext.getInstance();
- 
-        //Oauth認証オブジェクト作成
-    	Log.e("aaa","aaa");
-        _oauth = new OAuthAuthorization(conf);
-        //Oauth認証オブジェクトにconsumerKeyとconsumerSecretを設定
-    	Log.e("aaa","aaa");
-        _oauth.setOAuthConsumer("iy2FEHXmSXNReJ6nYQ8FRg", "KYro4jM8BHlLSMsSdTylnTcm3pYaTCiG2UZrYK1yI4");
-        //アプリの認証オブジェクト作成
-        try {
-            _req = _oauth.getOAuthRequestToken("Callback://CallBackActivity");
-        } catch (TwitterException e) {
-        	Log.e("aaa","aaa");
-            e.printStackTrace();
-        }
-        String _uri;
-        _uri = _req.getAuthorizationURL();
-        startActivityForResult(new Intent(Intent.ACTION_VIEW , Uri.parse(_uri)), 0);
-    }
+//	
+//	private void executeOauth(){
+//        //Twitetr4Jの設定を読み込む
+//    	Log.e("aaa","aaa");
+//        Configuration conf = ConfigurationContext.getInstance();
+// 
+//        //Oauth認証オブジェクト作成
+//    	Log.e("aaa","aaa");
+//        _oauth = new OAuthAuthorization(conf);
+//        //Oauth認証オブジェクトにconsumerKeyとconsumerSecretを設定
+//    	Log.e("aaa","aaa");
+//        _oauth.setOAuthConsumer("iy2FEHXmSXNReJ6nYQ8FRg", "KYro4jM8BHlLSMsSdTylnTcm3pYaTCiG2UZrYK1yI4");
+//        //アプリの認証オブジェクト作成
+//        try {
+//            _req = _oauth.getOAuthRequestToken("Callback://CallBackActivity");
+//        } catch (TwitterException e) {
+//        	Log.e("aaa","aaa");
+//            e.printStackTrace();
+//        }
+//        String _uri;
+//        _uri = _req.getAuthorizationURL();
+//        startActivityForResult(new Intent(Intent.ACTION_VIEW , Uri.parse(_uri)), 0);
+//    }
 //	
 //	private void doOAuth(){
 //		ConfigurationBuilder cbuilder = new ConfigurationBuilder();
