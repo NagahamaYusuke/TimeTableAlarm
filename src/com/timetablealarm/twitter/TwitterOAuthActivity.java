@@ -63,10 +63,13 @@ public class TwitterOAuthActivity extends Activity {
 	
 	private void startTwitterOAuth(){
         //Twitetr4jの設定を読み込む
-        Configuration conf = ConfigurationContext.getInstance();
- 
+		try{
+			ConfigurationBuilder cb = new ConfigurationBuilder();
+	        _oauth = new OAuthAuthorization(cb.build());
+		} catch (Exception e) {
+            Log.v("TEST", "err:" + e.getMessage(), e);
+        }
         //Oauth認証オブジェクト作成
-        _oauth = new OAuthAuthorization(conf);
         //Oauth認証オブジェクトにconsumerKeyとconsumerSecretを設定
         _oauth.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
         //アプリの認証オブジェクト作成
