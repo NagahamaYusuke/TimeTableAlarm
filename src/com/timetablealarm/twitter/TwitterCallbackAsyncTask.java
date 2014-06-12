@@ -24,5 +24,22 @@ public class TwitterCallbackAsyncTask extends
         }
         return accToken;
 	}
+	
+	@Override
+    protected void onPostExecute(AccessToken result){
+        if (result != null) {
+            /**
+            /* tokenとtokenSecretの取得
+            /* String token = result.getToken();
+            /* String tokenSecret = result.getTokenSecret();
+             */
+        	String token = result.getToken();
+        	String tokenSecret = result.getTokenSecret();
+        	Log.d("token", token);
+        	Log.d("tokenSecret", tokenSecret);
+        } else {
+            Log.v("ERR","callback task error.");
+        }
+    }
 
 }
