@@ -10,7 +10,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final String DB_NAME = "TimeTableAlarm";
 	private static final int DATABASE_VERSION = 1;
 	
- 	private static final String CLEATE_TABLE_SQL_TWITTERTOKEN = "" + "vreate table topics (" + "rowId INTEGER primary key autoincrement," +
+ 	private static final String CLEATE_TABLE_SQL_TWITTERTOKEN = "" + "create table twitter (" + "rowID INTEGER primary key autoincrement," +
  																"privateID INTEGER," +
  																"accessTokenSecret TEXT," +
  																"accessTokenKey TEXT" +
