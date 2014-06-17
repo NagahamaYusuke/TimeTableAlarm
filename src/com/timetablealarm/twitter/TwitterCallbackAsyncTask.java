@@ -1,5 +1,7 @@
 package com.timetablealarm.twitter;
 
+import com.model.DBHelper;
+
 import twitter4j.*;
 import twitter4j.auth.*;
 import android.net.Uri;
@@ -36,12 +38,6 @@ public class TwitterCallbackAsyncTask extends
             /* String token = result.getToken();
             /* String tokenSecret = result.getTokenSecret();
              */
-
-            Log.d("aaa","7");
-        	this.token = result.getToken();
-        	this.tokenSecret = result.getTokenSecret();
-        	Log.d("token", this.token);
-        	Log.d("tokenSecret", this.tokenSecret);
         } else {
             Log.v("ERR","callback task error.");
         }

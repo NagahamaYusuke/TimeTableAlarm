@@ -7,7 +7,6 @@ import twitter4j.auth.AccessToken;
 public class TwitterDBEntity implements Serializable {
 	
 	private int rowID;
-	private int privateID;
 	private String accessTokenSecret;
 	private String accessTokenKey;
 	private AccessToken accessToken;
@@ -18,14 +17,6 @@ public class TwitterDBEntity implements Serializable {
 	
 	public void setRowID(int rowID){
 		this.rowID = rowID;
-	}
-	
-	public int getPrivateID(){
-		return privateID;
-	}
-
-	public void setPrivateID(int privateID){
-		this.privateID = privateID;
 	}
 	
 	public String getAccessTokenSecret(){
@@ -54,6 +45,8 @@ public class TwitterDBEntity implements Serializable {
 	}
 	
 	public void setAccessToken(String accessTokenSecret, String accessTokenKey){
-		this.accessToken = new AccessToken(accessTokenKey, accessTokenSecret);
+		this.accessTokenKey = accessTokenKey;
+		this.accessTokenSecret = accessTokenSecret;
 	}
+	
 }

@@ -2,6 +2,7 @@ package com.timetablealarm.twitter;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import twitter4j.*;
@@ -10,11 +11,15 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.conf.ConfigurationContext;
 
+import com.model.DBHelper;
+import com.model.TwitterDB;
+import com.model.TwitterDBEntity;
 import com.timetablealarm.R;
 import com.timetablealarm.R.layout;
 
 import android.app.Activity;
 import android.content.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +44,9 @@ public class TwitterOAuthActivity extends Activity {
 	private AccessToken accessToken;
 	private String token;
 	private String tokenSecret;
+	private DBHelper helper;
+	private SQLiteDatabase db;
+	private TwitterDB dao;
 	
 
     public static RequestToken _req = null;
@@ -70,6 +78,11 @@ public class TwitterOAuthActivity extends Activity {
                 Tweet();
 			}
 		});
+		
+		helper = new DBHelper(this);
+		db = helper.getReadableDatabase();
+		dao = new TwitterDB(db);
+		
 	}
 	
 	@Override
@@ -82,6 +95,7 @@ public class TwitterOAuthActivity extends Activity {
             callbackTask.execute(uri);
             try {
 				this.accessToken = callbackTask.get();
+				dao.insert(this.accessToken.getTokenSecret(), this.accessToken.getToken());
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
@@ -101,7 +115,7 @@ public class TwitterOAuthActivity extends Activity {
             Log.v("TEST", "err:" + e.getMessage(), e);
         }
         //Oauth認証オブジェクト作成
-        //Oauth認証オブジェクトにconsumerKeyとconsumerSecretを設定
+        //Oauth認証オブジ£ェクトにconsumerKeyとconsumerSecretを設定
         _oauth.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
         //アプリの認証オブジェクト作成
         try {
@@ -120,6 +134,7 @@ public class TwitterOAuthActivity extends Activity {
 	private void Tweet(){
 		Twitter twitter = new TwitterFactory().getInstance();  
 		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
+		List<TwitterDBEntity> entitylist = dao.findAll();
 		twitter.setOAuthAccessToken(this.accessToken);  
 		try {  
 			twitter.updateStatus("Test");  

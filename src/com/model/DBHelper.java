@@ -11,7 +11,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	
  	private static final String CLEATE_TABLE_SQL_TWITTERTOKEN = "" + "create table twitter (" + "rowID INTEGER primary key autoincrement," +
- 																"privateID INTEGER," +
  																"accessTokenSecret TEXT," +
  																"accessTokenKey TEXT" +
  																")";
