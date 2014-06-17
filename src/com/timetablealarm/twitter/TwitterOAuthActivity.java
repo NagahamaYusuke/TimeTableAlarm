@@ -75,7 +75,7 @@ public class TwitterOAuthActivity extends Activity {
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 
-                Tweet();
+                Tweet("test");
 			}
 		});
 		
@@ -131,13 +131,14 @@ public class TwitterOAuthActivity extends Activity {
         finish();
     }
 	
-	private void Tweet(){
+	private void Tweet(String text){
 		Twitter twitter = new TwitterFactory().getInstance();  
 		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
 		List<TwitterDBEntity> entitylist = dao.findAll();
-		twitter.setOAuthAccessToken(this.accessToken);  
+		
+		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken());  
 		try {  
-			twitter.updateStatus("Test");  
+			twitter.updateStatus(text);  
 		} catch (TwitterException e) {  
 		    android.util.Log.e("TwitterException", e.toString());  
 		}  
