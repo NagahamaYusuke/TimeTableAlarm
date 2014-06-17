@@ -14,7 +14,15 @@ public class DBHelper extends SQLiteOpenHelper {
  																"accessTokenSecret TEXT," +
  																"accessTokenKey TEXT" +
  																")";
-	
+ 	
+ 	private static final String CLEATE_TABLE_SQL_TIMETABLE = "" + "create table timetable (" + "rowID INTEGER primary key autoincrement," +
+ 															 "NAME TEXT," +
+ 															 "Day TEXT," +
+ 															 "TIME INTEGER," +
+ 															 "teacher TEXT," +
+ 															 "CLASS TEXT," +
+ 															 "CONTINUATION INTEGER" +
+ 															 ")";
 	/***
 	 * コンストラクタ
 	 * @param context
@@ -28,6 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO 自動生成されたメソッド・スタブ
 		db.execSQL(CLEATE_TABLE_SQL_TWITTERTOKEN);
+		db.execSQL(CLEATE_TABLE_SQL_TIMETABLE);
 	}
 
 	@Override
