@@ -63,8 +63,10 @@ public class TwitterOAuthActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
-
-                startTwitterOAuth();
+				if(dao.findAll() == null)
+					startTwitterOAuth();
+				else
+					Log.d("aa","AA");
 			}
 		});
 		

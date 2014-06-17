@@ -28,6 +28,8 @@ public class TwitterDB {
 			entity.setAccessToken(cursor.getString(1), cursor.getString(2));
 			entityList.add(entity);
 		}
+		if(entityList.size() == 0)
+			entityList = null;
 		return entityList;
 	}
 	
