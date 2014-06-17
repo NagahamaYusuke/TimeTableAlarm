@@ -12,6 +12,8 @@ import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.conf.ConfigurationContext;
 
 import com.model.DBHelper;
+import com.model.TimeTableDB;
+import com.model.TimeTableDBEntity;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 import com.timetablealarm.R;
@@ -48,6 +50,7 @@ public class TwitterOAuthActivity extends Activity {
 	private SQLiteDatabase db;
 	private TwitterDB dao;
 	
+	private TimeTableDB dao2;
 
     public static RequestToken _req = null;
     public static OAuthAuthorization _oauth = null;
@@ -75,14 +78,31 @@ public class TwitterOAuthActivity extends Activity {
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 
-                Tweet("test");
+				TimeTableDBEntity entity = new TimeTableDBEntity();
+				entity.setName("情報通信工学");
+				entity.setDay("月曜日");
+				entity.setTime(1);
+				entity.setTeacher("のぶのぶ");
+				entity.setClassRoom("理工A201");
+				entity.setContinuation(false);
+				dao2.insert(entity);
+				
+				entity.setName("情報通信工学");
+				entity.setDay("月曜日");
+				entity.setTime(3);
+				entity.setTeacher("のぶのぶ");
+				entity.setClassRoom("理工A201");
+				entity.setContinuation(true);
+				dao2.insert(entity);
+				
+                //Tweet("test");
 			}
 		});
 		
 		helper = new DBHelper(this);
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
-		
+		dao2 = new TimeTableDB(db);
 	}
 	
 	@Override
