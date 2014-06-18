@@ -82,6 +82,7 @@ public class TwitterOAuthActivity extends Activity {
 				dao.insert(this.accessToken.getTokenSecret(), this.accessToken.getToken());
 				Intent intent = new Intent(TwitterOAuthActivity.this,MenuSelectActivity.class);
 				startActivity(intent);
+				db.close();
 				this.finish();
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック
