@@ -21,8 +21,7 @@ public class TwitterCallbackAsyncTask extends
         AccessToken accToken = null;
         String verifier = callbackUri.getQueryParameter("oauth_verifier");
         try {
-            accToken = TwitterOAuthActivity._oauth.getOAuthAccessToken(
-            		TwitterOAuthActivity._req, verifier);
+            accToken = TwitterOAuthActivity._oauth.getOAuthAccessToken(TwitterOAuthActivity._req, verifier);
         } catch (TwitterException e) {
             Log.v("ERR","callback err:" + e.getMessage());
             return null;

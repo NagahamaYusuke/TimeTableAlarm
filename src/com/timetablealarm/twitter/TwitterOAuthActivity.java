@@ -14,6 +14,7 @@ import twitter4j.conf.ConfigurationContext;
 import com.model.DBHelper;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
+import com.timetablealarm.MenuSelectActivity;
 import com.timetablealarm.R;
 import com.timetablealarm.R.layout;
 
@@ -57,34 +58,15 @@ public class TwitterOAuthActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
 		setContentView(R.layout.activity_twitter_oauth);
-		Button btn = (Button)findViewById(R.id.button1);
-		btn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
-				if(dao.findAll() == null)
-					startTwitterOAuth();
-				else
-					Log.d("aa","AA");
-			}
-		});
-		
-		Button btn2 = (Button)findViewById(R.id.button2);
-		btn2.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
-
-                Tweet("test");
-			}
-		});
 		
 		helper = new DBHelper(this);
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
+
+		Uri uri = getIntent().getData();
 		
+		if(dao.findAll() == null && uri == null)
+			startTwitterOAuth();
 	}
 	
 	@Override
@@ -92,12 +74,15 @@ public class TwitterOAuthActivity extends Activity {
 		super.onResume();
 		
 		Uri uri = getIntent().getData();
-        if(uri != null && uri.toString().startsWith("demotwittercallback://TwitterOAuthActivity")){
+        if(uri != null && uri.toString().startsWith("twittercallback://TwitterOAuthActivity")){
             TwitterCallbackAsyncTask callbackTask = new TwitterCallbackAsyncTask();
             callbackTask.execute(uri);
             try {
 				this.accessToken = callbackTask.get();
 				dao.insert(this.accessToken.getTokenSecret(), this.accessToken.getToken());
+				Intent intent = new Intent(TwitterOAuthActivity.this,MenuSelectActivity.class);
+				startActivity(intent);
+				this.finish();
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
@@ -122,7 +107,7 @@ public class TwitterOAuthActivity extends Activity {
         //アプリの認証オブジェクト作成
         try {
             //認証後アプリに戻るようにcallbackを設定
-            _req = _oauth.getOAuthRequestToken("demotwittercallback://TwitterOAuthActivity");
+            _req = _oauth.getOAuthRequestToken("twittercallback://TwitterOAuthActivity");
         } catch (TwitterException e) {
             Log.v("TEST", "err:" + e.getErrorMessage(), e);
         }
@@ -133,16 +118,16 @@ public class TwitterOAuthActivity extends Activity {
         finish();
     }
 	
-	private void Tweet(String text){
-		Twitter twitter = new TwitterFactory().getInstance();  
-		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
-		List<TwitterDBEntity> entitylist = dao.findAll();
-		
-		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken());  
-		try {  
-			twitter.updateStatus(text);  
-		} catch (TwitterException e) {  
-		    android.util.Log.e("TwitterException", e.toString());  
-		}  
-	}
+//	private void Tweet(String text){
+//		Twitter twitter = new TwitterFactory().getInstance();  
+//		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
+//		List<TwitterDBEntity> entitylist = dao.findAll();
+//		
+//		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken());  
+//		try {  
+//			twitter.updateStatus(text);  
+//		} catch (TwitterException e) {  
+//		    android.util.Log.e("TwitterException", e.toString());  
+//		}  
+//	}
 }
