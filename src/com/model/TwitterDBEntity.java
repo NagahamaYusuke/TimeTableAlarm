@@ -6,10 +6,10 @@ import twitter4j.auth.AccessToken;
 
 public class TwitterDBEntity implements Serializable {
 	
+	private static final long serialVersionUID = -7740999299367315495L;
 	private int rowID;
 	private String accessTokenSecret;
 	private String accessTokenKey;
-	private AccessToken accessToken;
 	
 	public int getRowID(){
 		return rowID;

@@ -32,16 +32,19 @@
 
                 <data android:scheme="twittercallback" />
             </intent-filter>
+
         </activity>
         <activity
             android:name="com.timetablealarm.MenuSelectActivity"
             android:label="@string/title_activity_menu_select" >
             
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
     </application>
 

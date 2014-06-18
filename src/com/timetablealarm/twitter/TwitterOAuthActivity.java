@@ -12,6 +12,8 @@ import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.conf.ConfigurationContext;
 
 import com.model.DBHelper;
+import com.model.TimeTableDB;
+import com.model.TimeTableDBEntity;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 import com.timetablealarm.MenuSelectActivity;
@@ -49,6 +51,7 @@ public class TwitterOAuthActivity extends Activity {
 	private SQLiteDatabase db;
 	private TwitterDB dao;
 	
+	private TimeTableDB dao2;
 
     public static RequestToken _req = null;
     public static OAuthAuthorization _oauth = null;
@@ -58,15 +61,18 @@ public class TwitterOAuthActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
 		setContentView(R.layout.activity_twitter_oauth);
+
 		
 		helper = new DBHelper(this);
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
 
+
 		Uri uri = getIntent().getData();
 		
 		if(dao.findAll() == null && uri == null)
 			startTwitterOAuth();
+
 	}
 	
 	@Override
