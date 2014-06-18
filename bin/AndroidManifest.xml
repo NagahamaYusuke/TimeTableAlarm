@@ -16,13 +16,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <receiver android:name="com.timetablealarm.MyAlarmReceiver" >
+        <receiver android:name="com.timetablealarm.alarm.MyAlarmReceiver" >
             <intent-filter>
                 <action android:name="MyAlarmAction" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.timetablealarm.MyAlarmService" >
+        <service android:name="com.timetablealarm.alarm.MyAlarmService" >
         </service>
 
         <activity

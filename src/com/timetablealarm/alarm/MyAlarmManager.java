@@ -24,11 +24,11 @@ public class MyAlarmManager {
 		mAlarmSender = PendingIntent.getService(c, -1, new Intent(c, MyAlarmService.class), PendingIntent.FLAG_UPDATE_CURRENT);
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(Calendar.MINUTE, 1);
-		cal.add(Calendar.SECOND, 0);
+		cal.add(Calendar.MINUTE, 0);
+		cal.add(Calendar.SECOND, 10);
 		cal.add(Calendar.MILLISECOND, 0);
 		Log.v("MyAlarmManagerLog", cal.getTimeInMillis() + "ms");
-		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), mAlarmSender);
+		am.set(AlarmManager.RTC_WAKEUP,  cal.getTimeInMillis() , mAlarmSender);
 		Log.v("MyAlarmManagerLog", "アラームセット完了");
 	}
 }
