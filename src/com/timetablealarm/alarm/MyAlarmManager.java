@@ -25,7 +25,7 @@ public class MyAlarmManager {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(System.currentTimeMillis());
 		cal.add(Calendar.MINUTE, 0);
-		cal.add(Calendar.SECOND, 10);
+		cal.add(Calendar.SECOND, 30);
 		cal.add(Calendar.MILLISECOND, 0);
 		Log.v("MyAlarmManagerLog", cal.getTimeInMillis() + "ms");
 		am.set(AlarmManager.RTC_WAKEUP,  cal.getTimeInMillis() , mAlarmSender);
