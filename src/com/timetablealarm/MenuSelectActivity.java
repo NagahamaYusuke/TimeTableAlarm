@@ -8,7 +8,6 @@ import twitter4j.auth.OAuthAuthorization;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
-import com.crawler.ScheduleCrawler;
 import com.model.DBHelper;
 import com.model.TwitterDB;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
