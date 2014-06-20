@@ -8,11 +8,17 @@ import twitter4j.auth.OAuthAuthorization;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
+import com.crawler.ScheduleCrawler;
 import com.model.DBHelper;
 import com.model.TwitterDB;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
 import com.timetablealarm.twitter.TwitterOAuthActivity;
 
+import edu.uci.ics.crawler4j.crawler.CrawlConfig;
+import edu.uci.ics.crawler4j.crawler.CrawlController;
+import edu.uci.ics.crawler4j.fetcher.PageFetcher;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
