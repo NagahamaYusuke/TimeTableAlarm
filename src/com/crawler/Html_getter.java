@@ -9,9 +9,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import android.util.Log;
 
 
 public class Html_getter {
@@ -20,11 +23,13 @@ public class Html_getter {
 	private static final String charset = "UTF8";
 	private String htmlArea;
 	private List<String> htmlTabString;
+	private List<HtmlCrawlerEntity> htmlCrawlerData;
 	
     public Html_getter() {
 		// TODO 自動生成されたコンストラクター・スタブ
     	htmlTabString = new ArrayList<String>();
     	htmlArea = new String();
+    	htmlCrawlerData = new ArrayList<HtmlCrawlerEntity>();
         try {
         	URL url = new URL(targetURL);
             // 接続
@@ -44,6 +49,8 @@ public class Html_getter {
         }    
     	this.Delete_Comment();
     	this.Tab_Divide();
+    	for(int i = 0; i < this.htmlTabString.size(); i++)
+    		EventInfomation(htmlTabString.get(i));
 	}
     
     private void Delete_Comment(){
@@ -58,15 +65,33 @@ public class Html_getter {
     	Matcher matcher = pattern.matcher(htmlArea);
     	while(matcher.find())
     		htmlTabString.add(matcher.group());
-//    	
-//    	for(int i= 0; i < htmlTabString.size(); i++){
-//    		System.out.println("正規表現" + i + "個目");
-//    		System.out.println(htmlTabString.get(i));
-//    	}
+    	
     }
     
-    public List<String> gethtmlTabString(){
-    	return this.htmlTabString;
+    private void EventInfomation(String htmlTab){
+    	String EventName = "";
+    	String EventDay = "";
+    	Pattern pattern = Pattern.compile("<td>.+?(<br />|</td>)", Pattern.DOTALL);
+    	Pattern pattern2 = Pattern.compile("<.+?>", Pattern.DOTALL);
+    	Matcher matcher = pattern.matcher(htmlTab);
+    	int i = 0;
+    	while(matcher.find()){
+    		Matcher matcher2 = pattern2.matcher(matcher.group());
+    		String replaceString = matcher2.replaceAll("");
+    		if(EventName.equals(""))
+    			EventName = replaceString;
+    		else {
+    			EventDay = replaceString;
+    			this.htmlCrawlerData.add(new HtmlCrawlerEntity(EventName, EventDay));
+    			Log.d("Crawler", "EventName:" + this.htmlCrawlerData.get(this.htmlCrawlerData.size() - 1).getEventName());
+    			Log.d("Crawler", "EventDay:" + this.htmlCrawlerData.get(this.htmlCrawlerData.size() - 1).getEventDay());
+    		}
+    		
+    	}
+    }
+    
+    public List<HtmlCrawlerEntity> gethtmlCrawlerData(){
+    	return this.htmlCrawlerData;
     }
     
 }
