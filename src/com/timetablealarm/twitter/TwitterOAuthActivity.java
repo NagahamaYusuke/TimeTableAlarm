@@ -36,8 +36,8 @@ import android.widget.TextView;
 
 public class TwitterOAuthActivity extends Activity {
 
-	final String CONSUMER_KEY = "vaglMm7Ya2a5ND7RxT6KkWE8j";
-	final String CONSUMER_SECRET = "F8GkUMK4t7nGtB4QtJZKXhKCRcpevu1HtpdEY6i81ffXerr1xs";
+	public static final String CONSUMER_KEY = "vaglMm7Ya2a5ND7RxT6KkWE8j";
+	public static final String CONSUMER_SECRET = "F8GkUMK4t7nGtB4QtJZKXhKCRcpevu1HtpdEY6i81ffXerr1xs";
 	final String CALLBACK_URL = "foo://bar";  
 	final String OAUTH_VERIFIER = "oauth_verifier";
 	final String KEY_TOKEN ="pikachu";  
@@ -67,6 +67,7 @@ public class TwitterOAuthActivity extends Activity {
 		
 		if(dao.findAll() == null && uri == null)
 			startTwitterOAuth();
+		
 	}
 	
 	@Override

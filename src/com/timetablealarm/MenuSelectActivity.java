@@ -11,11 +11,13 @@ import twitter4j.conf.ConfigurationBuilder;
 import com.model.DBHelper;
 import com.model.TwitterDB;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
+import com.timetablealarm.twitter.TwitterMode;
 import com.timetablealarm.twitter.TwitterOAuthActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -100,7 +102,9 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.timebutton){
-			
+			TwitterMode twitterMode = new TwitterMode(dao.firstAccessToken());
+			twitterMode.Tweet("test");
+			twitterMode.TweetWithPicture("ScreenshotTest", getViewBitmap(this.findViewById(R.id.linearLayout1)));
 		}
 		if(v == this.sleepbutton){
 			
@@ -118,6 +122,17 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			}
 			
 		}
+	}
+	
+	public Bitmap getViewBitmap(View view){
+	    view.setDrawingCacheEnabled(true);
+	    Bitmap cache = view.getDrawingCache();
+	    if(cache == null){
+	        return null;
+	    }
+	    Bitmap bitmap = Bitmap.createBitmap(cache);
+	    view.setDrawingCacheEnabled(false);
+	    return bitmap;
 	}
 	
 }
