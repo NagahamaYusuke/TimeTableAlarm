@@ -103,8 +103,6 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.timebutton){
 			TwitterMode twitterMode = new TwitterMode(dao.firstAccessToken());
-			twitterMode.Tweet("test");
-			twitterMode.TweetWithPicture("ScreenshotTest", getViewBitmap(this.findViewById(R.id.linearLayout1)));
 		}
 		if(v == this.sleepbutton){
 			

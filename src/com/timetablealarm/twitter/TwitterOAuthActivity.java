@@ -1,5 +1,7 @@
 package com.timetablealarm.twitter;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
@@ -21,6 +23,7 @@ import com.timetablealarm.R.layout;
 import android.app.Activity;
 import android.content.*;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -81,6 +84,8 @@ public class TwitterOAuthActivity extends Activity {
             try {
 				this.accessToken = callbackTask.get();
 				dao.insert(this.accessToken.getTokenSecret(), this.accessToken.getToken());
+				this.TweetWithPicture("Test", this.getViewBitmap(this.findViewById(R.id.linearLayout1)));
+				
 				Intent intent = new Intent(TwitterOAuthActivity.this,MenuSelectActivity.class);
 				startActivity(intent);
 				db.close();
@@ -120,16 +125,50 @@ public class TwitterOAuthActivity extends Activity {
         finish();
     }
 	
-//	private void Tweet(String text){
-//		Twitter twitter = new TwitterFactory().getInstance();  
-//		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
-//		List<TwitterDBEntity> entitylist = dao.findAll();
-//		
-//		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken());  
-//		try {  
-//			twitter.updateStatus(text);  
-//		} catch (TwitterException e) {  
-//		    android.util.Log.e("TwitterException", e.toString());  
-//		}  
-//	}
+	private void Tweet(String text){
+		Twitter twitter = new TwitterFactory().getInstance();  
+		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
+		List<TwitterDBEntity> entitylist = dao.findAll();
+		
+		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken());  
+		try {  
+			twitter.updateStatus(text);  
+		} catch (TwitterException e) {  
+		    android.util.Log.e("TwitterException", e.toString());  
+		}  
+	}
+	
+	
+	public Status TweetWithPicture(String text,Bitmap bitmap){
+		Twitter twitter = new TwitterFactory().getInstance();  
+		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
+		List<TwitterDBEntity> entitylist = dao.findAll();
+		
+		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken()); 
+		
+		StatusUpdate status = new StatusUpdate(text);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+		InputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+		status.media("screenshot", inputStream);
+		
+		try {
+			return twitter.updateStatus(status);
+		} catch (TwitterException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Bitmap getViewBitmap(View view){
+	    view.setDrawingCacheEnabled(true);
+	    Bitmap cache = view.getDrawingCache();
+	    if(cache == null){
+	        return null;
+	    }
+	    Bitmap bitmap = Bitmap.createBitmap(cache);
+	    view.setDrawingCacheEnabled(false);
+	    return bitmap;
+	}
 }
