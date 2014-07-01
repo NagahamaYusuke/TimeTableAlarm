@@ -17,13 +17,22 @@ import twitter4j.auth.OAuthAuthorization;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
+import com.crawler.HtmlCrawlerEntity;
+import com.crawler.Html_getter;
 import com.model.DBHelper;
+import com.model.ScheduleDB;
+import com.model.ScheduleDBEntity;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
 import com.timetablealarm.twitter.TwitterMode;
 import com.timetablealarm.twitter.TwitterOAuthActivity;
 
+import edu.uci.ics.crawler4j.crawler.CrawlConfig;
+import edu.uci.ics.crawler4j.crawler.CrawlController;
+import edu.uci.ics.crawler4j.fetcher.PageFetcher;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -53,6 +62,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private DBHelper helper;
 	private SQLiteDatabase db;
 	private TwitterDB dao;
+	private ScheduleDB dao2;
 	
 
     public static RequestToken _req = null;
@@ -81,6 +91,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		helper = new DBHelper(this);
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
+		dao2 = new ScheduleDB(db);
 		
 		if (android.os.Build.VERSION.SDK_INT > 8) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -113,10 +124,20 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.timebutton){
-			TwitterMode twitterMode = new TwitterMode(dao.firstAccessToken());
+			if(dao2.findAll() == null){
+				Html_getter html_getter = new Html_getter();
+				List<HtmlCrawlerEntity> entityList = html_getter.gethtmlCrawlerData();
+				for(int i = 0; i < entityList.size(); i++)
+					dao2.insert(new ScheduleDBEntity(entityList.get(i)));
+			}
 		}
 		if(v == this.sleepbutton){
-			
+			List<ScheduleDBEntity> entity = dao2.findAll();
+			for(int i = 0; i < entity.size(); i++){
+				Log.d("DBdata","rowID:" + entity.get(i).getRowID());
+				Log.d("DBdata","Name:" + entity.get(i).getEventName());
+				Log.d("DBdata","Day:" + entity.get(i).getEventDay());
+			}
 		}
 		if(v == this.attendancebutton){
 			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));

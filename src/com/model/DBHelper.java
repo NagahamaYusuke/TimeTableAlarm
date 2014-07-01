@@ -23,6 +23,11 @@ public class DBHelper extends SQLiteOpenHelper {
  															 "CLASS TEXT," +
  															 "CONTINUATION INTEGER" +
  															 ")";
+ 	
+ 	private static final String CLEATE_TABLESQL_YEARSCHEDULE = "" + "create table yearschedule (" + "rowID INTEGER primary key autoincrement," +
+ 															   "NAME TEXT," +
+ 															   "Day TEXT" + 
+ 															   ")";
 	/***
 	 * コンストラクタ
 	 * @param context
@@ -37,6 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		// TODO 自動生成されたメソッド・スタブ
 		db.execSQL(CLEATE_TABLE_SQL_TWITTERTOKEN);
 		db.execSQL(CLEATE_TABLE_SQL_TIMETABLE);
+		db.execSQL(CLEATE_TABLESQL_YEARSCHEDULE);
 	}
 
 	@Override
