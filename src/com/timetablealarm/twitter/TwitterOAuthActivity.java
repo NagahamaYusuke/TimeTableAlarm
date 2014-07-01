@@ -3,6 +3,7 @@ package com.timetablealarm.twitter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -84,7 +85,7 @@ public class TwitterOAuthActivity extends Activity {
             try {
 				this.accessToken = callbackTask.get();
 				dao.insert(this.accessToken.getTokenSecret(), this.accessToken.getToken());
-				this.TweetWithPicture("Test", this.getViewBitmap(this.findViewById(R.id.linearLayout1)));
+				this.TweetWithPicture("Test", this.getViewBitmap(this.findViewById(R.id.twitter_oauth_layout)));
 				
 				Intent intent = new Intent(TwitterOAuthActivity.this,MenuSelectActivity.class);
 				startActivity(intent);
@@ -147,9 +148,9 @@ public class TwitterOAuthActivity extends Activity {
 		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken()); 
 		
 		StatusUpdate status = new StatusUpdate(text);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		OutputStream bos = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-		InputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+		InputStream inputStream = new ByteArrayInputStream(((ByteArrayOutputStream) bos).toByteArray());
 		status.media("screenshot", inputStream);
 		
 		try {
@@ -163,11 +164,7 @@ public class TwitterOAuthActivity extends Activity {
 	
 	public Bitmap getViewBitmap(View view){
 	    view.setDrawingCacheEnabled(true);
-	    Bitmap cache = view.getDrawingCache();
-	    if(cache == null){
-	        return null;
-	    }
-	    Bitmap bitmap = Bitmap.createBitmap(cache);
+	    Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
 	    view.setDrawingCacheEnabled(false);
 	    return bitmap;
 	}
