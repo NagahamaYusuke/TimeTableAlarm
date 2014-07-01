@@ -2,6 +2,7 @@ package com.model;
 
 import java.util.*;
 
+import twitter4j.auth.AccessToken;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +32,14 @@ public class TwitterDB {
 		if(entityList.size() == 0)
 			entityList = null;
 		return entityList;
+	}
+	
+	public AccessToken firstAccessToken(){
+		Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_ID + " DESC");
+		while(cursor.moveToNext())
+			return new AccessToken(cursor.getString(1), cursor.getString(2));
+		
+		return null;
 	}
 	
 	public long insert(String accessTokenSecret, String accessTokenKey){
