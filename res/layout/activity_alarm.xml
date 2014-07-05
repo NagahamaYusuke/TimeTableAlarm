@@ -25,14 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.50"
-            android:text="Button" />
+            android:text="STOP" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.48"
-            android:text="Button" />
+            android:text="スヌーズ" />
     </LinearLayout>
 
     <GridLayout
@@ -48,7 +48,7 @@
             android:layout_gravity="left"
             android:background="@drawable/balloon"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="" />
 
         <ImageView
             android:id="@+id/imageView1"
