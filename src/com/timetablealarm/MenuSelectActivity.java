@@ -108,7 +108,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			}
         }
 	}
-
+	GPSLoad gps;
 	@Override
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -122,6 +122,18 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
 		}
 		if(v == this.alarmbutton){
+			gps = new GPSLoad(this);
+			(new Thread (new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO 自動生成されたメソッド・スタブ
+					while(!gps.getFlag());
+
+					Log.d("Menu:GPS", gps.getLaitude() + ":" + gps.getLongitude());
+				}
+			})).start();
+			
 			
 		}
 		if(v == this.twitterbutton){

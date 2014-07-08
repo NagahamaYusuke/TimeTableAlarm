@@ -9,8 +9,10 @@
         android:targetSdkVersion="14" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -19,7 +21,6 @@
         <activity
             android:name="com.timetablealarm.AlarmActivity"
             android:label="@string/title_activity_alarm" >
-            
         </activity>
         <activity
             android:name="com.timetablealarm.twitter.TwitterOAuthActivity"
@@ -32,19 +33,19 @@
 
                 <data android:scheme="twittercallback" />
             </intent-filter>
-
         </activity>
         <activity
             android:name="com.timetablealarm.MenuSelectActivity"
             android:label="@string/title_activity_menu_select" >
-            
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
+        </activity>
+        <activity
+            android:name="com.timetablealarm.GPSActivity"
+            android:label="@string/title_activity_gps" >
         </activity>
     </application>
 
