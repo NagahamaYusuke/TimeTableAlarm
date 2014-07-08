@@ -8,5 +8,6 @@
     <string name="title_activity_twitter_oauth">TwitterOAuthActivity</string>
     <string name="title_activity_call_back">CallBackActivity</string>
     <string name="title_activity_menu_select">MenuSelectActivity</string>
+    <string name="title_activity_alarm_menu">AlarmMenuActivity</string>
 
 </resources>

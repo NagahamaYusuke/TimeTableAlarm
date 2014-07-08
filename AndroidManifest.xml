@@ -34,6 +34,13 @@
             
         </activity>
         
+        
+        <activity
+            android:name="com.timetablealarm.alarm.AlarmMenuActivity"
+            android:label="@string/title_activity_alarm_menu" >
+            
+        </activity>
+        
         <activity
             android:name="com.timetablealarm.alarm.MainActivity"
             android:label="@string/title_activity_alarm" >
