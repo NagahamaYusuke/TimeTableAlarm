@@ -33,6 +33,12 @@
             android:label="@string/title_activity_alarm" >
             
         </activity>
+        
+        <activity
+            android:name="com.timetablealarm.alarm.MainActivity"
+            android:label="@string/title_activity_alarm" >
+            
+        </activity>
         <activity
             android:name="com.timetablealarm.twitter.TwitterOAuthActivity"
             android:label="@string/title_activity_twitter_oauth" >

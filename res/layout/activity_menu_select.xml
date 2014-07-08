@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.24"
-        android:text="Button" />
+        android:text="TimeTable" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"
@@ -23,14 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.50"
-            android:text="Button" />
+            android:text="Attend" />
 
         <Button
             android:id="@+id/sleepbutton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.48"
-            android:text="Button" />
+            android:text="Sleep" />
     </LinearLayout>
 
     <Button
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.24"
-        android:text="Button" />
+        android:text="Alarm" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.92"
-            android:text="Button" />
+            android:text="Twitter" />
     </LinearLayout>
 
     <TableRow

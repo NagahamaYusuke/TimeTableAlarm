@@ -24,6 +24,7 @@ import com.model.ScheduleDB;
 import com.model.ScheduleDBEntity;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
+import com.timetablealarm.alarm.MyAlarmManager;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
 import com.timetablealarm.twitter.TwitterMode;
 import com.timetablealarm.twitter.TwitterOAuthActivity;
@@ -143,7 +144,9 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
 		}
 		if(v == this.alarmbutton){
-			
+
+			MyAlarmManager mam = new MyAlarmManager(this);
+			mam.addAlarm();
 		}
 		if(v == this.twitterbutton){
 			if(dao.findAll() == null){
