@@ -2,11 +2,23 @@ package com.timetablealarm;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import twitter4j.MediaEntity;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -31,6 +43,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
@@ -41,8 +54,6 @@ import android.widget.Button;
 
 public class MenuSelectActivity extends Activity implements OnClickListener {
 
-	private final String CONSUMER_KEY = "vaglMm7Ya2a5ND7RxT6KkWE8j";
-	private final String CONSUMER_SECRET = "F8GkUMK4t7nGtB4QtJZKXhKCRcpevu1HtpdEY6i81ffXerr1xs";
 	
 	private Button timebutton;
 	private Button sleepbutton;
@@ -120,8 +131,13 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		}
 		if(v == this.attendancebutton){
 			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
+			
 		}
 		if(v == this.alarmbutton){
+			TwitterMode tm = new TwitterMode(dao.firstAccessToken());
+			tm.Tweet("test");
+			tm.QueryBitmap(this);
+			
 			
 		}
 		if(v == this.twitterbutton){
@@ -147,10 +163,10 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	
 	public Status TweetWithPicture(String text,Bitmap bitmap){
 		Twitter twitter = new TwitterFactory().getInstance();  
-		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);  
+		twitter.setOAuthConsumer(TwitterOAuthActivity.CONSUMER_KEY, TwitterOAuthActivity.CONSUMER_SECRET);  
 		List<TwitterDBEntity> entitylist = dao.findAll();
 		
-		twitter.setOAuthAccessToken(entitylist.get(0).getAccessToken()); 
+		twitter.setOAuthAccessToken(accessToken); 
 		
 		StatusUpdate status = new StatusUpdate(text);
 		OutputStream bos = new ByteArrayOutputStream();
