@@ -51,6 +51,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class MenuSelectActivity extends Activity implements OnClickListener {
 
@@ -136,7 +137,9 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		if(v == this.alarmbutton){
 			TwitterMode tm = new TwitterMode(dao.firstAccessToken());
 			tm.Tweet("test");
-			tm.QueryBitmap(this);
+			ImageView imageView = (ImageView)findViewById(R.id.Twittericon);
+			imageView.setImageBitmap(tm.QueryBitmap(this));
+			
 			
 			
 		}

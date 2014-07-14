@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -17,7 +18,9 @@ import java.text.SimpleDateFormat;
 import com.timetablealarm.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
@@ -80,7 +83,7 @@ private AccessToken accessToken;
 		return null;
 	}
 	
-	public void QueryBitmap(Activity activity){
+	public Bitmap QueryBitmap(Activity activity){
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(TwitterOAuthActivity.CONSUMER_KEY, TwitterOAuthActivity.CONSUMER_SECRET);  
 		
@@ -100,16 +103,50 @@ private AccessToken accessToken;
 				for(MediaEntity media : arrMedia){
 					if(media.getMediaURL().endsWith(".png")){
 						Log.d("Query", media.getMediaURL());
-						URL website = new URL(media.getMediaURL());
-						ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+//						URL website = new URL(media.getMediaURL());
+//						//ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+//						
+//				        HttpURLConnection connection = (HttpURLConnection) website.openConnection();  
+//				        connection.setDoInput(true);  
+//				        connection.connect();  
+//				        InputStream input = connection.getInputStream();  
 						DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+						InputStream input = new URL(media.getMediaURL()).openStream();
+						OutputStream imageOs = activity.openFileOutput(df.format(sts.getCreatedAt()) + ".png",activity.MODE_PRIVATE);
+						
+						try{
+							byte[] buf = new byte[1024];
+							int len = 0;
+															
+							while((len = input.read(buf)) > 0){
+								imageOs.write(buf, 0, len);
+							}
+							imageOs.flush();
+						} finally {
+							imageOs.close();
+							input.close();
+						}
+						
+//				        Bitmap myBitmap = BitmapFactory.decodeStream(input);  
+//						DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+//						String FileName = Environment.getExternalStorageDirectory().getPath() + File.separator +
+//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png";
+//						File file = new File(FileName);
+//					    FileOutputStream outputStream;
+//					    
+//					    outputStream = new FileOutputStream(file);
+//					    myBitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
+//					       
+//					    outputStream.close();
+//					    return myBitmap;
+					    
 //						File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator +
 //								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
-						FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + File.separator +
-								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
-						Log.d("save", Environment.getExternalStorageDirectory().getPath() + File.separator +
-								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
-						fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+//						FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + File.separator +
+//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
+//						Log.d("save", Environment.getExternalStorageDirectory().getPath() + File.separator +
+//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
+//						fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 //						if(!file.getParentFile().exists()){
 //							file.getParentFile().mkdir();
 //							createNomedia(file);
@@ -131,6 +168,7 @@ private AccessToken accessToken;
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	private void createNomedia(File file){
