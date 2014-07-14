@@ -37,7 +37,7 @@ public class TwitterDB {
 	public AccessToken firstAccessToken(){
 		Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_ID + " DESC");
 		while(cursor.moveToNext())
-			return new AccessToken(cursor.getString(1), cursor.getString(2));
+			return new AccessToken(cursor.getString(2), cursor.getString(1));
 		
 		return null;
 	}
