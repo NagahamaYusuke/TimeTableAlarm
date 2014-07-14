@@ -44,27 +44,24 @@
         android:id="@+id/LinearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.24" >
+        android:layout_weight="0.15"
+        android:background="#00B0ED"
+        android:gravity="center" >
 
         <ImageView
             android:id="@+id/Twittericon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.19"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/aboutlogousage" />
 
         <Button
             android:id="@+id/twitterbutton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.92"
+        android:background="#00FFFFFF"
             android:text="Twitter" />
     </LinearLayout>
-
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
 
 </TableLayout>

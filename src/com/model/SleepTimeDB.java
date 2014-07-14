@@ -28,7 +28,7 @@ public class SleepTimeDB {
 		while(cursor.moveToNext()){
 			SleepTimeDBEntity entity = new SleepTimeDBEntity();
 			entity.setrowID(cursor.getInt(0));
-			entity.setSleepTime(cursor.getInt(1));
+			entity.setSleepTime(cursor.getLong(1));
 			entity.setYear(cursor.getInt(2));
 			entity.setMonth(cursor.getInt(3));
 			entity.setDay(cursor.getInt(4));

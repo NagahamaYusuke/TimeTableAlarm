@@ -37,6 +37,11 @@ public class DBHelper extends SQLiteOpenHelper {
  															 "FLAG INTEGER" +
  															 ")";
  	
+ 	private static final String CLEATE_TABLESQL_ATTEND = "" + "create table attend (" + "rowID INTEGER primary key autoincrement," +
+ 														 "NAME STRING," +
+ 														 "NUM INTEGER" +
+ 														 ")";
+ 	
 	/***
 	 * コンストラクタ
 	 * @param context
@@ -53,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(CLEATE_TABLE_SQL_TIMETABLE);
 		db.execSQL(CLEATE_TABLESQL_YEARSCHEDULE);
 		db.execSQL(CLEATE_TABLESQL_SLEEPTABLE);
+		db.execSQL(CLEATE_TABLESQL_ATTEND);
 	}
 
 	@Override

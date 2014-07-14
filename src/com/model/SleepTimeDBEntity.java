@@ -11,7 +11,7 @@ public class SleepTimeDBEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 6185943356812884562L;
 	private int rowID;
-	private int sleeptime;
+	private long sleeptime;
 	private int year;
 	private int month;
 	private int day;
@@ -21,7 +21,7 @@ public class SleepTimeDBEntity implements Serializable {
 		this.rowID = rowID;
 	}
 	
-	public void setSleepTime(int sleeptime){
+	public void setSleepTime(long sleeptime){
 		this.sleeptime = sleeptime;
 	}
 	
@@ -37,6 +37,10 @@ public class SleepTimeDBEntity implements Serializable {
 		this.day = day;
 	}
 	
+	/***
+	 * 
+	 * @param flag true:寝た時間　false:起きた時間
+	 */
 	public void setFlag(boolean flag){
 		this.flag = flag;
 	}
@@ -50,7 +54,7 @@ public class SleepTimeDBEntity implements Serializable {
 		return this.rowID;
 	}
 	
-	public int getSleeptime(){
+	public long getSleeptime(){
 		return this.sleeptime;
 	}
 	

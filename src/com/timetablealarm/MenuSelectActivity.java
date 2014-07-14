@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -19,9 +20,13 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import com.crawler.HtmlCrawlerEntity;
 import com.crawler.Html_getter;
+import com.model.AttendDB;
+import com.model.AttendDBEntity;
 import com.model.DBHelper;
 import com.model.ScheduleDB;
 import com.model.ScheduleDBEntity;
+import com.model.SleepTimeDB;
+import com.model.SleepTimeDBEntity;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 import com.timetablealarm.alarm.AlarmMenuActivity;
@@ -65,6 +70,10 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private SQLiteDatabase db;
 	private TwitterDB dao;
 	private ScheduleDB dao2;
+	private SleepTimeDB dao3;
+	private AttendDB dao4;
+	
+	private Calendar mCalender;
 	
 
     public static RequestToken _req = null;
@@ -94,6 +103,11 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
 		dao2 = new ScheduleDB(db);
+		dao3 = new SleepTimeDB(this.db);
+		dao4 = new AttendDB(this.db);
+		
+		
+		this.mCalender = Calendar.getInstance();
 		
 		if (android.os.Build.VERSION.SDK_INT > 8) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -142,7 +156,31 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			}
 		}
 		if(v == this.attendancebutton){
-			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
+			List<AttendDBEntity> entityList = dao4.findALL();
+			for(int i = 0; i < entityList.size(); i++){
+				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+			}
+			
+			dao4.update(1);
+
+			for(int i = 0; i < entityList.size(); i++){
+				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+			}
+			
+			dao4.update(2);
+			for(int i = 0; i < entityList.size(); i++){
+				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+			}
+			
+			dao4.update(3);
+			
+
+			for(int i = 0; i < entityList.size(); i++){
+				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+			}
+			
+			
+//			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
 		}
 		if(v == this.alarmbutton){
 
