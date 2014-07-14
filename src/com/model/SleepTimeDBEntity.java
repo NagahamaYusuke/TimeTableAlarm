@@ -2,6 +2,8 @@ package com.model;
 
 import java.io.Serializable;
 
+import android.R.bool;
+
 public class SleepTimeDBEntity implements Serializable {
 
 	/**
@@ -13,6 +15,7 @@ public class SleepTimeDBEntity implements Serializable {
 	private int year;
 	private int month;
 	private int day;
+	private boolean flag;
 	
 	public void setrowID(int rowID){
 		this.rowID = rowID;
@@ -34,6 +37,15 @@ public class SleepTimeDBEntity implements Serializable {
 		this.day = day;
 	}
 	
+	public void setFlag(boolean flag){
+		this.flag = flag;
+	}
+	
+	public void setFlag(int flag){
+		if(flag == 1) this.flag = true;
+		else this.flag = false;
+	}
+	
 	public int getrowID(){
 		return this.rowID;
 	}
@@ -53,5 +65,18 @@ public class SleepTimeDBEntity implements Serializable {
 	public int getDay(){
 		return this.day;
 	}
+	
+	public int getFlagForDB(){
+		if(this.flag) return 1;
+		else return 0;
+	}
+	
+	public boolean getFlag(){
+		return this.flag;
+	}
+	
+	
+	
+	
 
 }

@@ -28,6 +28,9 @@ import android.widget.LinearLayout;
 
 public class AlarmMenuActivity extends Activity implements OnClickListener {
 	
+	private Button AlarmSetButton;
+	private ImageButton SleepGPSButton;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -37,10 +40,10 @@ public class AlarmMenuActivity extends Activity implements OnClickListener {
 		GraphicalView graphicalView = TimeChartView();
 		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
 		layout.addView(graphicalView);
-		Button button = (Button)findViewById(R.id.AlarmSetButton);
-		button.setOnClickListener(this);
-		ImageButton button1 = (ImageButton)findViewById(R.id.SleepGPSButton);
-		button1.setOnClickListener(this);
+		AlarmSetButton = (Button)findViewById(R.id.AlarmSetButton);
+		AlarmSetButton.setOnClickListener(this);
+		ImageButton SleepGPSButton = (ImageButton)findViewById(R.id.SleepGPSButton);
+		SleepGPSButton.setOnClickListener(this);
 	}
 	
 	
@@ -149,6 +152,11 @@ public class AlarmMenuActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
+		if(v == this.SleepGPSButton){
+			
+		} else if(v == this.AlarmSetButton){
+			
+		}
 	}
 
 }

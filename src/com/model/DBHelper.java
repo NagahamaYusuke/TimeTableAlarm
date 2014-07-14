@@ -30,10 +30,11 @@ public class DBHelper extends SQLiteOpenHelper {
  															   ")";
  	
  	private static final String CLEATE_TABLESQL_SLEEPTABLE = "" + "create table sleeptable (" + "rowID INTEGER primary key autoincrement," +
- 															 "SLEEPTIME INTEGER," +
+ 															 "TIME INTEGER," +
  															 "YEAR INTEGER," +
  															 "MONTH INTEGER," +
- 															 "DAY INTEGER" +
+ 															 "DAY INTEGER," +
+ 															 "FLAG INTEGER" +
  															 ")";
  	
 	/***

@@ -15,6 +15,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		MyAlarmManager mam = new MyAlarmManager(this);
-		mam.addAlarm();
+		mam.addAlarm(0,0,0,1);
 	}
 }
