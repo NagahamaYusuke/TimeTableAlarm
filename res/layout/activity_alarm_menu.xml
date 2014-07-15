@@ -130,7 +130,9 @@
             android:background="#00FFFFFF"
             android:gravity="left|center_vertical"
             android:text="          +目覚ましに追加"
-            android:textColor="#0040FF" />
+            android:textColor="#0040FF"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </TableLayout>
 
 </TableLayout>

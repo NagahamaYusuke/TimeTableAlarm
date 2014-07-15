@@ -45,6 +45,16 @@ public class DBHelper extends SQLiteOpenHelper {
  														 "NUM INTEGER" +
  														 ")";
  	
+ 	private static final String CLEATE_TABLESQL_ALARMTIME = "" + "create table alarmtime (" + "rowID INTEGER primary key autoincrement," +
+														 	"DAY STRING," +
+														 	"FLAG INTEGER," +
+														 	"HOUR INTEGER," +
+														 	"MIN INTEGER," +
+														 	"SOUND STRING," +
+														 	"SNOOZ INTEGER," +
+														 	"TWEET INTEGER" +
+														 	")";
+ 	
 	/***
 	 * コンストラクタ
 	 * @param context
@@ -62,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(CLEATE_TABLESQL_YEARSCHEDULE);
 		db.execSQL(CLEATE_TABLESQL_SLEEPTABLE);
 		db.execSQL(CLEATE_TABLESQL_ATTEND);
+		db.execSQL(CLEATE_TABLESQL_ALARMTIME);
 	}
 
 	@Override

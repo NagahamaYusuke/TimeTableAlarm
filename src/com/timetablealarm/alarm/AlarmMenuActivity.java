@@ -12,6 +12,8 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import com.model.AlarmTimeDB;
+import com.model.AlarmTimeDBEntity;
 import com.model.AttendDB;
 import com.model.AttendDBEntity;
 import com.model.DBHelper;
@@ -20,6 +22,7 @@ import com.model.SleepTimeDBEntity;
 import com.timetablealarm.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
@@ -28,24 +31,35 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class AlarmMenuActivity extends Activity implements OnClickListener {
+public class AlarmMenuActivity extends Activity implements OnClickListener, OnItemClickListener {
 	
 	private Button AlarmSetButton;
 	private ImageButton SleepGPSButton;
+	private ListView listView;
+	
 	private DBHelper dBHelper;
 	private SQLiteDatabase db;
 	private AttendDB dao;
 	private SleepTimeDB dao2;
+	private AlarmTimeDB dao3;
+	
 	private TextView AttendanceText;
 	private TextView DelayText;
 	private TextView AbsenceText;
 	private final int MAXLENGTH = 60;
+	
+	List<AlarmTimeDBEntity> entity;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +67,12 @@ public class AlarmMenuActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_menu);
 		
-//		GraphicalView graphicalView = TimeChartView();
-//		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
-//		layout.addView(graphicalView);
+		this.listView = (ListView)findViewById(R.id.SetUpAlarmButtons);
+		this.listView.setOnItemClickListener(this);
+		
+		GraphicalView graphicalView = TimeChartView();
+		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
+		layout.addView(graphicalView);
 		AlarmSetButton = (Button)findViewById(R.id.AlarmSetButton);
 		AlarmSetButton.setOnClickListener(this);
 		ImageButton SleepGPSButton = (ImageButton)findViewById(R.id.SleepGPSButton);
@@ -64,7 +81,7 @@ public class AlarmMenuActivity extends Activity implements OnClickListener {
 		db = dBHelper.getReadableDatabase();
 		dao = new AttendDB(this.db);
 		dao2 = new SleepTimeDB(this.db);
-		
+		dao3 = new AlarmTimeDB(this.db);
 
 		this.AbsenceText = (TextView)findViewById(R.id.AbsenceText);
 		this.AttendanceText = (TextView)findViewById(R.id.AttendanceText);
@@ -89,28 +106,16 @@ public class AlarmMenuActivity extends Activity implements OnClickListener {
 		layout.addView(graphicalView);
 	}
 	
+	@Override
+	protected void onStart() {
+		// TODO 自動生成されたメソッド・スタブ
+		super.onStart();
+		this.entity = dao3.findALL();
+	}
+	
 	
 	private GraphicalView TimeChartView() 
     {
-        // (1)グラフデータの準備
-        // x軸 時刻
-//        String [] xStrValue={"","2012/04/01 10:00","2012/04/01 11:00",
-//                          "2012/04/01 12:00","2012/04/01 13:00","2012/04/01 14:00",
-//                          "2012/04/01 15:00","2012/04/01 16:00","2012/04/01 17:00",
-//                          "2012/04/01 18:00","2012/04/01 19:00","2012/04/01 20:00",
-//                          "2012/04/01 21:00","2012/04/01 22:00","2012/04/01 23:00", 
-//                          "2012/04/02 00:00","2012/04/02 01:00","2012/04/02 02:00",
-//                          "2012/04/02 03:00","2012/04/02 04:00","2012/04/02 05:00" 
-//                         };
-//        // y軸 気温
-//        double[] yDoubleValue={-1.0,1.0,3.0,
-//                                8.0,12.0,10.0,
-//                                9.0,5.0,2.0,
-//                                2.0,3.0,1.0,
-//                                1.0,0.0,1.0,
-//                                -1.0,-2.0,-2.0,
-//                                -1.0,1.0,2.0
-//                               };
 		
         List<SleepTimeDBEntity> entity;
         
@@ -274,4 +279,60 @@ public class AlarmMenuActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO 自動生成されたメソッド・スタブ
+		ListView list = (ListView) parent;
+		long s = list.getItemIdAtPosition(position);
+		
+		
+	}
+
+	private class ListArrayAdeapter extends BaseAdapter{
+
+		@Override
+		public int getCount() {
+			// TODO 自動生成されたメソッド・スタブ
+			return entity.size();
+		}
+
+		@Override
+		public AlarmTimeDBEntity getItem(int position) {
+			// TODO 自動生成されたメソッド・スタブ
+			return entity.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO 自動生成されたメソッド・スタブ
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO 自動生成されたメソッド・スタブ
+			Context context = AlarmMenuActivity.this;
+			AlarmTimeDBEntity item = this.getItem(position);
+			if(convertView == null){
+				LinearLayout layout = new LinearLayout(context);
+				layout.setPadding(10, 10, 10, 10);
+				convertView = layout;
+				
+				TextView textView = new TextView(context);
+				textView.setTextAppearance(context, android.R.attr.textAppearanceMedium);
+				textView.setTag("text");
+				if(item.getFlag())
+					textView.setText("最初の授業の" + item.getHour() + "時間" + item.getMin() + "分前");
+				else
+					textView.setText(item.getDay() + "曜日の"+ item.getHour() + ":" + item.getMin());
+				layout.addView(textView);
+				
+			}
+					
+			return null;
+		}
+		
+	}
+	
 }
