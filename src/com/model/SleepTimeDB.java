@@ -22,9 +22,9 @@ public class SleepTimeDB {
 		this.db = db;
 	}
 	
-	public List<SleepTimeDBEntity> findAll(){
+	public List<SleepTimeDBEntity> findAll(int num){
 		List<SleepTimeDBEntity> entityList = new ArrayList<SleepTimeDBEntity>();
-		Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_ID + " DESC", "30");
+		Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_ID + " DESC", num + "");
 		while(cursor.moveToNext()){
 			SleepTimeDBEntity entity = new SleepTimeDBEntity();
 			entity.setrowID(cursor.getInt(0));
@@ -41,7 +41,7 @@ public class SleepTimeDB {
 	}
 	
 	public boolean checkDay(int year, int month, int day, boolean flag){
-		List<SleepTimeDBEntity> result = findAll();
+		List<SleepTimeDBEntity> result = findAll(30);
 		for(int i = 0; i < result.size(); i++){
 			if(result.get(i).getYear() == year && result.get(i).getMonth() == month && result.get(i).getDay() == day && result.get(i).getFlag() == flag)
 				return false;

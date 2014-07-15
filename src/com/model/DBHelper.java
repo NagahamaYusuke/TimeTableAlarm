@@ -39,6 +39,9 @@ public class DBHelper extends SQLiteOpenHelper {
  	
  	private static final String CLEATE_TABLESQL_ATTEND = "" + "create table attend (" + "rowID INTEGER primary key autoincrement," +
  														 "NAME STRING," +
+														 "YEAR INTEGER," +
+														 "MONTH INTEGER," +
+														 "DAY INTEGER," +
  														 "NUM INTEGER" +
  														 ")";
  	

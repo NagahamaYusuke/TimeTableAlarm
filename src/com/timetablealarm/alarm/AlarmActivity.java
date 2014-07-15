@@ -1,7 +1,10 @@
 package com.timetablealarm.alarm;
 
 import java.util.Calendar;
+import java.util.List;
 
+import com.model.AttendDB;
+import com.model.AttendDBEntity;
 import com.model.DBHelper;
 import com.model.SleepTimeDB;
 import com.model.SleepTimeDBEntity;
@@ -26,6 +29,8 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class AlarmActivity extends Activity implements OnClickListener {
 	
@@ -34,6 +39,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 	private DBHelper dBHelper;
 	private SQLiteDatabase db;
 	private SleepTimeDB dao;
+	private AttendDB dao2;
 	private Calendar mCalender;
 	
 	@Override
@@ -47,6 +53,8 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		SnoozeButton = (Button)findViewById(R.id.SnoozeButton);
 		SnoozeButton.setOnClickListener(this);
 		
+		
+		
 		dBHelper = new DBHelper(this);
 		db = dBHelper.getReadableDatabase();
 		dao = new SleepTimeDB(this.db);
@@ -59,15 +67,20 @@ public class AlarmActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.StopButton){
-			SleepTimeDBEntity entity = new SleepTimeDBEntity();
-			entity.setYear(mCalender.get(Calendar.YEAR));
-			entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
-			entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH));
-			entity.setFlag(false);
-			entity.setSleepTime(System.currentTimeMillis());
-			dao.insert(entity);
+			if(dao.findAll(30).get(0).getFlag()){
+				SleepTimeDBEntity entity = new SleepTimeDBEntity();
+				entity.setYear(mCalender.get(Calendar.YEAR));
+				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
+				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH));
+				entity.setFlag(false);
+				entity.setSleepTime(System.currentTimeMillis());
+				dao.insert(entity);
+			}
+			finish();
 		}
 		if(v == this.SnoozeButton){
+			MyAlarmManager mam = new MyAlarmManager(this);
+			mam.addAlarm(0,5,0,0);
 			
 		}
 	}

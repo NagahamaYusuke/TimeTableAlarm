@@ -10,5 +10,6 @@
     <string name="title_activity_menu_select">MenuSelectActivity</string>
     <string name="title_activity_gps">GPSActivity</string>
     <string name="title_activity_alarm_menu">AlarmMenuActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

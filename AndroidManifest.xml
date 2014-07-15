@@ -9,12 +9,10 @@
         android:targetSdkVersion="14" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -22,9 +20,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        
-       <receiver android:name="com.timetablealarm.alarm.MyAlarmReceiver" >
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <receiver android:name="com.timetablealarm.alarm.MyAlarmReceiver" >
             <intent-filter>
                 <action android:name="MyAlarmAction" />
             </intent-filter>
@@ -32,20 +29,15 @@
 
         <service android:name="com.timetablealarm.alarm.MyAlarmService" >
         </service>
-        
+
         <activity
             android:name="com.timetablealarm.alarm.AlarmActivity"
             android:label="@string/title_activity_alarm" >
-            
         </activity>
-        
-        
         <activity
             android:name="com.timetablealarm.alarm.AlarmMenuActivity"
             android:label="@string/title_activity_alarm_menu" >
-            
         </activity>
-        
         <activity
             android:name="com.timetablealarm.alarm.MainActivity"
             android:label="@string/title_activity_alarm" >
@@ -65,15 +57,20 @@
         <activity
             android:name="com.timetablealarm.MenuSelectActivity"
             android:label="@string/title_activity_menu_select" >
+        </activity>
+        <activity
+            android:name="com.timetablealarm.GPSActivity"
+            android:label="@string/title_activity_gps" >
+        </activity>
+        <activity
+            android:name="com.timetablealarm.SplashActivity"
+            android:label="@string/title_activity_splash" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.timetablealarm.GPSActivity"
-            android:label="@string/title_activity_gps" >
         </activity>
     </application>
 

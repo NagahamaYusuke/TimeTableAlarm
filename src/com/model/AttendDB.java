@@ -15,8 +15,11 @@ public class AttendDB {
 	private static final String TABLE_NAME = "attend";
 	private static final String COLUMN_ID = "rowID";
 	private static final String COLUMN_NAME = "NAME";
+	private static final String COLUMN_YEAR = "YEAR";
+	private static final String COLUMN_MONTH = "MONTH";
+	private static final String COLUMN_DAY = "DAY";
 	private static final String COLUMN_NUM = "NUM";
-	private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_NUM};
+	private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAY, COLUMN_NUM};
 	
 	private SQLiteDatabase db;
 	
@@ -41,13 +44,24 @@ public class AttendDB {
 			AttendDBEntity entity = new AttendDBEntity();
 			entity.setRowID(cursor.getInt(0));
 			entity.setName(cursor.getString(1));
-			entity.setNum(cursor.getInt(2));
+			entity.setYear(cursor.getInt(2));
+			entity.setMonth(cursor.getInt(3));
+			entity.setDay(cursor.getInt(4));
+			entity.setNum(cursor.getInt(5));
 			entityList.add(entity);
 		}
 		if(entityList.size() == 0){
 			entityList = null;
 		}
 		return entityList;
+	}
+	
+	public boolean checkDay(int num, int year, int month, int day){
+		List<AttendDBEntity> entitylist = this.findALL();
+		AttendDBEntity entity = entitylist.get(num - 1);
+		if(entity.getYear() == year && entity.getMonth() == month && entity.getDay() == day) return false;
+		this.update(num, year, month, day);
+		return true;
 	}
 	
 	private long insert(AttendDBEntity entity){
@@ -62,9 +76,12 @@ public class AttendDB {
 	 * @param num 1:attend 2:delay 3:absent
 	 * @return
 	 */
-	public long update(int num){
+	private long update(int num, int year, int month, int day){
 		ContentValues cv = new ContentValues();
 		cv.put(COLUMN_NUM, (findALL().get(num - 1).getNum()) + 1);
+		cv.put(COLUMN_YEAR, year);
+		cv.put(COLUMN_MONTH, month);
+		cv.put(COLUMN_DAY, day);
 		return db.update(TABLE_NAME, cv, COLUMN_ID + " = " + num, null);
 	}
 	

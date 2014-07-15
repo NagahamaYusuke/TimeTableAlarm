@@ -68,6 +68,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MenuSelectActivity extends Activity implements OnClickListener {
 
@@ -86,7 +87,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private AttendDB dao4;
 	
 	private Calendar mCalender;
-	
+	private int k ;
 
     public static RequestToken _req = null;
     public static OAuthAuthorization _oauth = null;
@@ -118,7 +119,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		dao3 = new SleepTimeDB(this.db);
 		dao4 = new AttendDB(this.db);
 		
-		
+		this.k = 0;
 		this.mCalender = Calendar.getInstance();
 		
 		if (android.os.Build.VERSION.SDK_INT > 8) {
@@ -160,39 +161,64 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			}
 		}
 		if(v == this.sleepbutton){
-			List<ScheduleDBEntity> entity = dao2.findAll();
-			for(int i = 0; i < entity.size(); i++){
-				Log.d("DBdata","rowID:" + entity.get(i).getRowID());
-				Log.d("DBdata","Name:" + entity.get(i).getEventName());
-				Log.d("DBdata","Day:" + entity.get(i).getEventDay());
+
+			if(dao3.findAll(30) == null){
+				Toast.makeText(this, "おやすみなさい2", Toast.LENGTH_SHORT).show();
+				SleepTimeDBEntity entity = new SleepTimeDBEntity();
+				entity.setYear(mCalender.get(Calendar.YEAR));
+				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
+				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH));
+				entity.setFlag(true);
+				entity.setSleepTime(System.currentTimeMillis());
+				dao3.insert(entity);
+			} else if(!dao3.findAll(30).get(0).getFlag()){
+				Toast.makeText(this, "おやすみなさい1", Toast.LENGTH_SHORT).show();
+				SleepTimeDBEntity entity = new SleepTimeDBEntity();
+				entity.setYear(mCalender.get(Calendar.YEAR));
+				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
+				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH) + k);
+				entity.setFlag(true);
+				entity.setSleepTime(System.currentTimeMillis());
+				dao3.insert(entity);
+			} else {
+				SleepTimeDBEntity entity = new SleepTimeDBEntity();
+				entity.setYear(mCalender.get(Calendar.YEAR));
+				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
+				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH) + k++);
+				entity.setFlag(false);
+				entity.setSleepTime(System.currentTimeMillis());
+				dao3.insert(entity);
 			}
 		}
 		if(v == this.attendancebutton){
 //			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
-			
+
+			Toast.makeText(this, "出席しました", Toast.LENGTH_SHORT).show();
+
 
 			List<AttendDBEntity> entityList = dao4.findALL();
-			for(int i = 0; i < entityList.size(); i++){
-				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
-			}
-			
-			dao4.update(1);
 
 			for(int i = 0; i < entityList.size(); i++){
 				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
 			}
 			
-			dao4.update(2);
+			if(dao4.checkDay(1, mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH) + 1, mCalender.get(Calendar.DAY_OF_MONTH)));
+			
+			entityList = dao4.findALL();
+			
 			for(int i = 0; i < entityList.size(); i++){
 				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
 			}
-			
-			dao4.update(3);
-			
 
+			if(dao4.checkDay(2, mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH) + 1, mCalender.get(Calendar.DAY_OF_MONTH)));
+
+			entityList = dao4.findALL();
+			
 			for(int i = 0; i < entityList.size(); i++){
 				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
 			}
+
+			
 			
 			
 //			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
@@ -200,23 +226,29 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		}
 		if(v == this.alarmbutton){
 			
-			gps = new GPSLoad(this);
-			(new Thread (new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO 自動生成されたメソッド・スタブ
-					while(!gps.getFlag());
+//			gps = new GPSLoad(this);
+//			(new Thread (new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					// TODO 自動生成されたメソッド・スタブ
+//					while(!gps.getFlag());
+//
+//					Log.d("Menu:GPS", gps.getLaitude() + ":" + gps.getLongitude());
+//				}
+//			})).start();
+			
 
-					Log.d("Menu:GPS", gps.getLaitude() + ":" + gps.getLongitude());
-				}
-			})).start();
+			Intent intent = new Intent(MenuSelectActivity.this, AlarmMenuActivity.class);
+			startActivity(intent);
 			
 		}
 		if(v == this.twitterbutton){
 			if(dao.findAll() == null){
 				Intent intent = new Intent(MenuSelectActivity.this, TwitterOAuthActivity.class);
 				startActivity(intent);
+			} else {
+				Toast.makeText(this, "登録済みです", Toast.LENGTH_SHORT);
 			}
 			
 		}
