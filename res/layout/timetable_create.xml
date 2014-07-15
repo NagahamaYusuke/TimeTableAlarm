@@ -89,10 +89,6 @@
             android:layout_height="wrap_content"
             android:text="連続" />
 
-        <android.support.v7.widget.Space
-            android:id="@+id/space1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </TableRow>
 

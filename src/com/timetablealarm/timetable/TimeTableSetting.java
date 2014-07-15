@@ -6,8 +6,10 @@ package com.timetablealarm.timetable;
 //import android.support.v4.app.Fragment;
 import com.timetablealarm.R;
 
+import android.app.Activity;
 import android.app.AliasActivity;
 import android.os.Bundle;
+import android.view.View;
 //import android.view.LayoutInflater;
 //import android.view.Menu;
 //import android.view.MenuItem;
@@ -22,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 
-public abstract class TimeTableSetting extends AliasActivity implements OnClickListener {
+public class TimeTableSetting extends Activity implements OnClickListener {
 	
 	private EditText subjectName;
 	private Spinner day;
@@ -41,35 +43,38 @@ public abstract class TimeTableSetting extends AliasActivity implements OnClickL
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.timetable_create);
+		setContentView(R.layout.timetable_setting);
 		
-		this.subjectName = (EditText)getText(R.id.subjectName);
-		String sbjName = subjectName.getText().toString();
+		this.subjectName = (EditText)findViewById(R.id.subjectName);
+//		String sbjName = subjectName.getText().toString();
 		
 		
 		this.day = (Spinner)findViewById(R.id.day);
 		
-		LinearLayout linearLayout = new LinearLayout(this);
-		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-		setContentView(linearLayout);
 		
-		linearLayout.addView(day, createParam(100, WC));
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.id.day, date);
+//		linearLayout.addView(day, createParam(100, WC));
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinerrow, date);
 		
 		day.setAdapter(arrayAdapter);
 		
 		
-		this.Period = (EditText)getText(R.id.period);
-		String str = Period.toString();
-		this.period = Integer.parseInt(str);
+		this.Period = (EditText)findViewById(R.id.period);
+//		String str = Period.toString();
+//		this.period = Integer.parseInt(str);
 		
-		if (savedInstanceState == null) {
-//			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}
+//		if (savedInstanceState == null) {
+////			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+//		}
 	}    
 	
 	private LinearLayout.LayoutParams createParam(int w, int h){
         return new LinearLayout.LayoutParams(w, h);
     }
+
+	@Override
+	public void onClick(View v) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
 		
 }

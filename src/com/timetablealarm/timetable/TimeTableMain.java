@@ -2,6 +2,7 @@ package com.timetablealarm.timetable;
 
 import com.timetablealarm.R;
 
+import android.app.Activity;
 import android.app.AliasActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,29 +14,30 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 //import android.os.Build;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-public abstract class TimeTableMain extends AliasActivity implements OnClickListener {
+public class TimeTableMain extends Activity implements OnClickListener {
 
-	private Button AddTimeTable;
-	private Button MenuManage;
-	private Button ShareMenu;
-	private Button InfoDetails;
+	private ImageButton AddTimeTable;
+	private ImageButton MenuManage;
+	private ImageButton ShareMenu;
+	private ImageButton InfoDetails;
 	
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timetable_main);
 
-		this.AddTimeTable = (Button)findViewById(R.id.AddTimeTable);
+		this.AddTimeTable = (ImageButton)findViewById(R.id.AddTimeTable);
 		this.AddTimeTable.setOnClickListener(this);
 
-		this.MenuManage = (Button)findViewById(R.id.MenuManage);
+		this.MenuManage = (ImageButton)findViewById(R.id.MenuManage);
 		this.MenuManage.setOnClickListener(this);
 		
-		this.ShareMenu=(Button)findViewById(R.id.ShareMenu);
+		this.ShareMenu=(ImageButton)findViewById(R.id.ShareMenu);
 		this.ShareMenu.setOnClickListener(this);
 		
-		this.InfoDetails = (Button)findViewById(R.id.InfoDetails);
+		this.InfoDetails = (ImageButton)findViewById(R.id.InfoDetails);
 		this.InfoDetails.setOnClickListener(this);
 	
 

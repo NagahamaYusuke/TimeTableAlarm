@@ -10,6 +10,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import com.model.DBHelper;
 import com.model.TwitterDB;
+import com.timetablealarm.timetable.TimeTableMain;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
 import com.timetablealarm.twitter.TwitterOAuthActivity;
 
@@ -100,7 +101,9 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.timebutton){
-			
+
+			Intent intent = new Intent(MenuSelectActivity.this, TimeTableMain.class);
+			startActivity(intent);
 		}
 		if(v == this.sleepbutton){
 			
