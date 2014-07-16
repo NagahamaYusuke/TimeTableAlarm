@@ -20,13 +20,14 @@ public class MyAlarmManager {
 		Log.v("MyAlarmManager", "初期化完了");
 	}
 	
-	public void addAlarm(){
+	public void addAlarm(int h,int M, int s, int ms){
 		mAlarmSender = PendingIntent.getService(c, -1, new Intent(c, MyAlarmService.class), PendingIntent.FLAG_UPDATE_CURRENT);
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(Calendar.MINUTE, 0);
-		cal.add(Calendar.SECOND, 30);
-		cal.add(Calendar.MILLISECOND, 0);
+		cal.add(Calendar.HOUR, h);
+		cal.add(Calendar.MINUTE, M);
+		cal.add(Calendar.SECOND, s);
+		cal.add(Calendar.MILLISECOND, ms);
 		Log.v("MyAlarmManagerLog", cal.getTimeInMillis() + "ms");
 		am.set(AlarmManager.RTC_WAKEUP,  cal.getTimeInMillis() , mAlarmSender);
 		Log.v("MyAlarmManagerLog", "アラームセット完了");

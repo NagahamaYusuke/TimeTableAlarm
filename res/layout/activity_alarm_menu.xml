@@ -7,22 +7,29 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right" >
+        android:gravity="left|right" >
 
-        <ImageButton
-            android:id="@+id/SleepGPSButton"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_manage" />
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="睡眠時間グラフ"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <ImageButton
+                android:id="@+id/SleepGPSButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@android:drawable/ic_menu_manage" />
+
+        </RelativeLayout>
 
     </TableRow>
-
-	
-	<TextView
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="睡眠時間グラフ"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <LinearLayout
         android:id="@+id/GraphView"
@@ -35,7 +42,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp" >
+         >
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +79,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/DirayText"
+                android:id="@+id/DerayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -123,7 +130,9 @@
             android:background="#00FFFFFF"
             android:gravity="left|center_vertical"
             android:text="          +目覚ましに追加"
-            android:textColor="#0040FF" />
+            android:textColor="#0040FF"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </TableLayout>
 
 </TableLayout>

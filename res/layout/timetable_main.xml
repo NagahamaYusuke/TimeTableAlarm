@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <ImageButton
+        android:id="@+id/AddTimeTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@android:drawable/ic_menu_add" />
+
+    <ImageButton
+        android:id="@+id/MenuManage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/AddTimeTable"
+        android:src="@android:drawable/ic_menu_manage" />
+
+    <ImageButton
+        android:id="@+id/ShareMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/MenuManage"
+        android:src="@android:drawable/ic_menu_share" />
+
+    <ImageButton
+        android:id="@+id/InfoDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/ShareMenu"
+        android:src="@android:drawable/ic_menu_info_details" />
+
+</RelativeLayout>

@@ -28,6 +28,33 @@ public class DBHelper extends SQLiteOpenHelper {
  															   "NAME TEXT," +
  															   "Day TEXT" + 
  															   ")";
+ 	
+ 	private static final String CLEATE_TABLESQL_SLEEPTABLE = "" + "create table sleeptable (" + "rowID INTEGER primary key autoincrement," +
+ 															 "TIME INTEGER," +
+ 															 "YEAR INTEGER," +
+ 															 "MONTH INTEGER," +
+ 															 "DAY INTEGER," +
+ 															 "FLAG INTEGER" +
+ 															 ")";
+ 	
+ 	private static final String CLEATE_TABLESQL_ATTEND = "" + "create table attend (" + "rowID INTEGER primary key autoincrement," +
+ 														 "NAME STRING," +
+														 "YEAR INTEGER," +
+														 "MONTH INTEGER," +
+														 "DAY INTEGER," +
+ 														 "NUM INTEGER" +
+ 														 ")";
+ 	
+ 	private static final String CLEATE_TABLESQL_ALARMTIME = "" + "create table alarmtime (" + "rowID INTEGER primary key autoincrement," +
+														 	"DAY STRING," +
+														 	"FLAG INTEGER," +
+														 	"HOUR INTEGER," +
+														 	"MIN INTEGER," +
+														 	"SOUND STRING," +
+														 	"SNOOZ INTEGER," +
+														 	"TWEET INTEGER" +
+														 	")";
+ 	
 	/***
 	 * コンストラクタ
 	 * @param context
@@ -43,6 +70,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(CLEATE_TABLE_SQL_TWITTERTOKEN);
 		db.execSQL(CLEATE_TABLE_SQL_TIMETABLE);
 		db.execSQL(CLEATE_TABLESQL_YEARSCHEDULE);
+		db.execSQL(CLEATE_TABLESQL_SLEEPTABLE);
+		db.execSQL(CLEATE_TABLESQL_ATTEND);
+		db.execSQL(CLEATE_TABLESQL_ALARMTIME);
 	}
 
 	@Override

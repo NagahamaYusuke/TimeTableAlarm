@@ -15,10 +15,8 @@ public class MyAlarmService extends Service {
 	
 	@Override
 	public void onCreate(){
-		Log.v("MyAlarmServiceLog", "create");
 		Thread thr = new Thread(null, mTask, "MyAlarmServiceThread");
 		thr.start();
-		Log.v("MyAlarmServiceLog", "スレッド開始");
 	}
 	
 	Runnable mTask = new Runnable(){
@@ -29,9 +27,7 @@ public class MyAlarmService extends Service {
 			Intent alarmBroadcast = new Intent();
 			alarmBroadcast.setAction("MyAlarmAction");
 			sendBroadcast(alarmBroadcast);
-			Log.v("MyAlarmServiceLog", "通知起動メッセージを送った");
 			MyAlarmService.this.stopSelf();
-			Log.v("MyAlarmServiceLog", "サービス停止");
 		}
 		
 	};
