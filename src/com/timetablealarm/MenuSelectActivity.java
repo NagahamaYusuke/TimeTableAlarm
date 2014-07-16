@@ -43,6 +43,7 @@ import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 import com.timetablealarm.alarm.AlarmMenuActivity;
 import com.timetablealarm.alarm.MyAlarmManager;
+import com.timetablealarm.timetable.TimeTableMain;
 import com.timetablealarm.twitter.TwitterCallbackAsyncTask;
 import com.timetablealarm.twitter.TwitterMode;
 import com.timetablealarm.twitter.TwitterOAuthActivity;
@@ -159,6 +160,9 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 				for(int i = 0; i < entityList.size(); i++)
 					dao2.insert(new ScheduleDBEntity(entityList.get(i)));
 			}
+
+			Intent intent = new Intent(MenuSelectActivity.this, TimeTableMain.class);
+			startActivity(intent);
 		}
 		if(v == this.sleepbutton){
 

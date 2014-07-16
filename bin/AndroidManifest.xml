@@ -71,6 +71,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="com.timetablealarm.timetable.TimeTableCreate"
+            android:label="@string/title_activity_menu_select"></activity>
+        
+        <activity android:name="com.timetablealarm.timetable.TimeTableMain"
+            android:label="@string/title_activity_menu_select"></activity>
+        
+        <activity android:name="com.timetablealarm.timetable.TimeTableSetting"
+            android:label="@string/title_activity_menu_select"></activity>
     </application>
 
 </manifest>
