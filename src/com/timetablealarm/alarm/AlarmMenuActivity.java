@@ -19,10 +19,12 @@ import com.model.AttendDBEntity;
 import com.model.DBHelper;
 import com.model.SleepTimeDB;
 import com.model.SleepTimeDBEntity;
+import com.timetablealarm.MenuSelectActivity;
 import com.timetablealarm.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
@@ -273,9 +275,12 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.SleepGPSButton){
-			
+			Intent intent = new Intent(AlarmMenuActivity.this, AlarmGPSSettingActivity.class);
+			startActivity(intent);
 		} else if(v == this.AlarmSetButton){
-			
+
+			Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
+			startActivity(intent);
 		}
 	}
 
@@ -286,7 +291,9 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		ListView list = (ListView) parent;
 		long s = list.getItemIdAtPosition(position);
 		
-		
+
+		Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
+		startActivity(intent);
 	}
 
 	private class ListArrayAdeapter extends BaseAdapter{
