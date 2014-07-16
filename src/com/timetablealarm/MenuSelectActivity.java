@@ -167,7 +167,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		if(v == this.sleepbutton){
 
 			if(dao3.findAll(30) == null){
-				Toast.makeText(this, "おやすみなさい2", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "おやすみなさい", Toast.LENGTH_SHORT).show();
 				SleepTimeDBEntity entity = new SleepTimeDBEntity();
 				entity.setYear(mCalender.get(Calendar.YEAR));
 				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
@@ -176,20 +176,12 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 				entity.setSleepTime(System.currentTimeMillis());
 				dao3.insert(entity);
 			} else if(!dao3.findAll(30).get(0).getFlag()){
-				Toast.makeText(this, "おやすみなさい1", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "おやすみなさい", Toast.LENGTH_SHORT).show();
 				SleepTimeDBEntity entity = new SleepTimeDBEntity();
 				entity.setYear(mCalender.get(Calendar.YEAR));
 				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
 				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH) + k);
 				entity.setFlag(true);
-				entity.setSleepTime(System.currentTimeMillis());
-				dao3.insert(entity);
-			} else {
-				SleepTimeDBEntity entity = new SleepTimeDBEntity();
-				entity.setYear(mCalender.get(Calendar.YEAR));
-				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
-				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH) + k++);
-				entity.setFlag(false);
 				entity.setSleepTime(System.currentTimeMillis());
 				dao3.insert(entity);
 			}
