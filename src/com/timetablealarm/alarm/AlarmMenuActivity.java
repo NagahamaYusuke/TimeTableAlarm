@@ -72,18 +72,20 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		this.listView = (ListView)findViewById(R.id.SetUpAlarmButtons);
 		this.listView.setOnItemClickListener(this);
 		
-		GraphicalView graphicalView = TimeChartView();
-		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
-		layout.addView(graphicalView);
 		AlarmSetButton = (Button)findViewById(R.id.AlarmSetButton);
 		AlarmSetButton.setOnClickListener(this);
-		ImageButton SleepGPSButton = (ImageButton)findViewById(R.id.SleepGPSButton);
+		SleepGPSButton = (ImageButton)findViewById(R.id.SleepGPSButton);
 		SleepGPSButton.setOnClickListener(this);
 		dBHelper = new DBHelper(this);
 		db = dBHelper.getReadableDatabase();
 		dao = new AttendDB(this.db);
 		dao2 = new SleepTimeDB(this.db);
 		dao3 = new AlarmTimeDB(this.db);
+		
+
+		GraphicalView graphicalView = TimeChartView();
+		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
+		layout.addView(graphicalView);
 
 		this.AbsenceText = (TextView)findViewById(R.id.AbsenceText);
 		this.AttendanceText = (TextView)findViewById(R.id.AttendanceText);
@@ -121,7 +123,7 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		
         List<SleepTimeDBEntity> entity;
         
-        if(dao2.findAll(30).size() / 2 == 0 ){
+        if(dao2.DataNum() == 0 ){
 
 	        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 	        renderer.setChartTitleTextSize(20);             //
@@ -275,12 +277,15 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.SleepGPSButton){
+			Log.d("q","t");
+			
 			Intent intent = new Intent(AlarmMenuActivity.this, AlarmGPSSettingActivity.class);
 			startActivity(intent);
-		} else if(v == this.AlarmSetButton){
+		} 
+		if(v == this.AlarmSetButton){
 
-			Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
-			startActivity(intent);
+//			Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
+//			startActivity(intent);
 		}
 	}
 

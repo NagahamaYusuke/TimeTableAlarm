@@ -35,9 +35,11 @@ public class SleepTimeDB {
 			entity.setFlag(cursor.getInt(5));
 			entityList.add(entity);
 		}
-		if(entityList.size() == 0)
-			entityList = null;
 		 return entityList;
+	}
+	
+	public int DataNum(){
+		return this.findAll(30).size() / 2;
 	}
 	
 	public boolean checkDay(int year, int month, int day, boolean flag){

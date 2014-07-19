@@ -1,7 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TableLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}" >
 
-</RelativeLayout>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/SleepCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自動で就寝" />
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/GPSSetUpSleep"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="#00FFFFFF"
+            android:gravity="left|center"
+            android:text="            [位置設定]"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#0040FF" />
+
+        <Button
+            android:id="@+id/TimeTableSettUP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:text="時間設定" />
+    </TableLayout>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/AttendCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自動で出席" />
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/GPSSetUpAttend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:background="#00FFFFFF"
+            android:gravity="left"
+            android:text="            [位置設定]"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#0040FF" />
+    </TableLayout>
+
+</TableLayout>

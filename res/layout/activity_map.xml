@@ -1,0 +1,42 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <LinearLayout
+        android:id="@+id/MapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0.80" >
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/GPSText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/OKButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.50"
+            android:text="決定" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.48"
+            android:text="キャンセル" />
+
+    </LinearLayout>
+
+</TableLayout>

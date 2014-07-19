@@ -13,5 +13,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_alarm_setting">AlarmSettingActivity</string>
     <string name="title_activity_alarm_gpssetting">AlarmGPSSettingActivity</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

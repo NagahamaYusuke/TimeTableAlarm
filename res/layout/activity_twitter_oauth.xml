@@ -6,7 +6,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/GPSSetUpSleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/GPSSetUpSleep"
         android:layout_marginRight="34dp"
         android:layout_marginTop="22dp"
         android:text="Button" />
