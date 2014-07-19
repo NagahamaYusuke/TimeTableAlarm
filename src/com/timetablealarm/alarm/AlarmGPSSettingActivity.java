@@ -149,7 +149,7 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 		}
 		if(v == this.GPSSetUpSleep){
 			
-			Intent intent = new Intent(AlarmGPSSettingActivity.this, MapActivity.class);
+			Intent intent = new Intent(AlarmGPSSettingActivity.this, MapSettupActivity.class);
 			intent.putExtra("MODE", false);
 			startActivity(intent);
 		}

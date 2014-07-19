@@ -97,7 +97,7 @@
             android:label="@string/title_activity_alarm_gpssetting" >
         </activity>
         <activity
-            android:name="com.timetablealarm.alarm.MapActivity"
+            android:name="com.timetablealarm.alarm.MapSettupActivity"
             android:label="@string/title_activity_map" >
         </activity>
     </application>
