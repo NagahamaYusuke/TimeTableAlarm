@@ -55,6 +55,12 @@ public class DBHelper extends SQLiteOpenHelper {
 														 	"TWEET INTEGER" +
 														 	")";
  	
+ 	private static final String CLEATE_TABLESQL_TWEETPICTURE = "" + "create table tweetpicture (" + "rowID INTEGER primary key autoincrement," +
+ 															   "USERNAME STRING," + 
+ 															   "FILEPATH STRING," + 
+ 															   "URL STRING"+
+ 															   ")";
+ 	
 	/***
 	 * コンストラクタ
 	 * @param context
@@ -73,6 +79,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(CLEATE_TABLESQL_SLEEPTABLE);
 		db.execSQL(CLEATE_TABLESQL_ATTEND);
 		db.execSQL(CLEATE_TABLESQL_ALARMTIME);
+		db.execSQL(CLEATE_TABLESQL_TWEETPICTURE);
 	}
 
 	@Override

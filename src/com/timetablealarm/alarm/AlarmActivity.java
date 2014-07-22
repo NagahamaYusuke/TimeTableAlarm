@@ -8,6 +8,7 @@ import com.model.AttendDBEntity;
 import com.model.DBHelper;
 import com.model.SleepTimeDB;
 import com.model.SleepTimeDBEntity;
+import com.model.TimeTableDBEntity;
 import com.timetablealarm.R;
 import com.timetablealarm.R.layout;
 
@@ -59,6 +60,8 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		db = dBHelper.getReadableDatabase();
 		dao = new SleepTimeDB(this.db);
 		
+		
+		
 		this.mCalender = Calendar.getInstance();
 	    
 	}
@@ -67,14 +70,16 @@ public class AlarmActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
 		if(v == this.StopButton){
-			if(dao.findAll(30).get(0).getFlag()){
-				SleepTimeDBEntity entity = new SleepTimeDBEntity();
-				entity.setYear(mCalender.get(Calendar.YEAR));
-				entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
-				entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH));
-				entity.setFlag(false);
-				entity.setSleepTime(System.currentTimeMillis());
-				dao.insert(entity);
+			if(dao.DataNum() != 0){
+				if(dao.findAll(30).get(0).getFlag()){
+					SleepTimeDBEntity entity = new SleepTimeDBEntity();
+					entity.setYear(mCalender.get(Calendar.YEAR));
+					entity.setMonth(mCalender.get(Calendar.MONTH) + 1);
+					entity.setDay(mCalender.get(Calendar.DAY_OF_MONTH));
+					entity.setFlag(false);
+					entity.setSleepTime(System.currentTimeMillis());
+					dao.insert(entity);
+				}
 			}
 			finish();
 		}

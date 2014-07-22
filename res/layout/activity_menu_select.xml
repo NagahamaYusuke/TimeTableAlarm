@@ -9,36 +9,41 @@
         android:id="@+id/timebutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.24"
-        android:text="TimeTable" />
+        android:layout_weight="0.30"
+        android:background="#b3f492"
+        android:text="時間割" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="67dp"
-        android:layout_weight="0.24" >
+        android:layout_weight="0.17" >
 
         <Button
             android:id="@+id/attendancebutton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.50"
-            android:text="Attend" />
+            android:background="#f4b37a"
+            android:text="出席" />
 
         <Button
             android:id="@+id/sleepbutton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.48"
-            android:text="Sleep" />
+            android:background="#a492f4"
+            android:text="就寝" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/alarmbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.24"
-        android:text="Alarm" />
+        android:layout_weight="0.30"
+        android:background="#ffb6c1"
+        android:text="目覚まし管理" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"
@@ -61,7 +66,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.92"
         android:background="#00FFFFFF"
-            android:text="Twitter" />
+            android:text="Twitter設定" />
     </LinearLayout>
 
 </TableLayout>

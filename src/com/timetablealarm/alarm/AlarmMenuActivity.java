@@ -284,8 +284,8 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		} 
 		if(v == this.AlarmSetButton){
 
-//			Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
-//			startActivity(intent);
+			Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
+			startActivity(intent);
 		}
 	}
 

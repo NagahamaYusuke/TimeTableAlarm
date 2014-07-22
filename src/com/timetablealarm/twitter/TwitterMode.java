@@ -43,8 +43,10 @@ import twitter4j.auth.AccessToken;
 
 public class TwitterMode {
 	
-private AccessToken accessToken;
+	private AccessToken accessToken;
 	
+	private static final String HASH =  " #TimeTableAlarm";
+
 	public TwitterMode(AccessToken accessToken){
 		this.accessToken = accessToken;
 	}
@@ -55,7 +57,7 @@ private AccessToken accessToken;
 		
 		twitter.setOAuthAccessToken(this.accessToken); 
 		
-		StatusUpdate status = new StatusUpdate(text);
+		StatusUpdate status = new StatusUpdate(text + HASH);
 		OutputStream bos = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
 		InputStream inputStream = new ByteArrayInputStream(((ByteArrayOutputStream) bos).toByteArray());
@@ -90,14 +92,6 @@ private AccessToken accessToken;
 				MediaEntity[] arrMedia = sts.getMediaEntities();
 				for(MediaEntity media : arrMedia){
 					if(media.getMediaURL().endsWith(".png")){
-						Log.d("Query", media.getMediaURL());
-//						URL website = new URL(media.getMediaURL());
-//						//ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-//						
-//				        HttpURLConnection connection = (HttpURLConnection) website.openConnection();  
-//				        connection.setDoInput(true);  
-//				        connection.connect();  
-//				        InputStream input = connection.getInputStream();  
 						DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 						InputStream input = new URL(media.getMediaURL()).openStream();
 						OutputStream imageOs = activity.openFileOutput(df.format(sts.getCreatedAt()) + ".png",activity.MODE_PRIVATE);
@@ -115,33 +109,6 @@ private AccessToken accessToken;
 							input.close();
 						}
 						
-//				        Bitmap myBitmap = BitmapFactory.decodeStream(input);  
-//						DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-//						String FileName = Environment.getExternalStorageDirectory().getPath() + File.separator +
-//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png";
-//						File file = new File(FileName);
-//					    FileOutputStream outputStream;
-//					    
-//					    outputStream = new FileOutputStream(file);
-//					    myBitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
-//					       
-//					    outputStream.close();
-//					    return myBitmap;
-					    
-//						File file = new File(Environment.getExternalStorageDirectory().getPath() + File.separator +
-//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
-//						FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + File.separator +
-//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
-//						Log.d("save", Environment.getExternalStorageDirectory().getPath() + File.separator +
-//								activity.getString(R.string.app_name) + File.separator + "TimeTableAlarm" + df.format(sts.getCreatedAt()) + ".png");
-//						fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-//						if(!file.getParentFile().exists()){
-//							file.getParentFile().mkdir();
-//							createNomedia(file);
-//							try{
-//								
-//							}
-//						}
 					}
 				}
 			}

@@ -63,10 +63,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -127,6 +129,21 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
+		
+		WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
+	    // ディスプレイのインスタンス生成
+	    Display disp = wm.getDefaultDisplay();
+	    //ターゲットデバイスの画面横幅のみを取得する
+	    float width = disp.getWidth();
+	    //画面幅の倍率を求める。"480"はベース画面の横幅
+	    float scale = width /480;
+	 
+	    //指定のテキストビューのテキストサイズに倍率をかける
+	    this.timebutton.setTextSize(25 * scale);
+	    this.sleepbutton.setTextSize(25 * scale);
+	    this.attendancebutton.setTextSize(25 * scale);
+	    this.alarmbutton.setTextSize(25 * scale);
+	    this.twitterbutton.setTextSize(25 * scale);
 	}
 	
 	@Override
@@ -191,6 +208,8 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 
 			Toast.makeText(this, "出席しました", Toast.LENGTH_SHORT).show();
 
+			MyAlarmManager mam = new MyAlarmManager(this);
+			mam.addAlarm(0,0,30,0);
 
 			List<AttendDBEntity> entityList = dao4.findALL();
 

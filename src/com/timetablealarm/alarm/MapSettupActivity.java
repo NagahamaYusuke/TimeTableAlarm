@@ -14,6 +14,8 @@ import com.timetablealarm.R.layout;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -61,6 +63,10 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 			if(Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_ATTENDGPSLAITUDE, "0.0")) != 0.0){
 				this.Laitude = Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_ATTENDGPSLAITUDE, "0.0"));
 				this.longitude = Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_ATTENDGPSLONGITUDE, "0.0"));
+				this.makeMap();
+				PinOverlay pinOverlay = new PinOverlay(PinOverlay.PIN_VIOLET);
+				this.mapView.getOverlays().add(pinOverlay);
+				pinOverlay.addPoint(new GeoPoint((int)(this.Laitude * 1E6), (int)(this.longitude * 1E6)), this.Text);
 			} else {
 				mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 				mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -68,6 +74,16 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 				mProgDialog = new ProgressDialog(this);
 		        mProgDialog.setMessage("現在位置取得中");
 		        mProgDialog.setCancelable(true);
+		        mProgDialog.setOnCancelListener(new OnCancelListener() {
+					
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						// TODO 自動生成されたメソッド・スタブ
+
+						setResult(RESULT_CANCELED);
+						finish();
+					}
+				});
 		        mProgDialog.show();
 
 			}
@@ -76,12 +92,25 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 			if(Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_SLEEPGPSLAITUDE, "0.0")) != 0.0){
 				this.Laitude = Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_SLEEPGPSLAITUDE, "0.0"));
 				this.longitude = Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_SLEEPGPSLONGITUDE, "0.0"));
+				this.makeMap();
+				PinOverlay pinOverlay = new PinOverlay(PinOverlay.PIN_VIOLET);
+				this.mapView.getOverlays().add(pinOverlay);
+				pinOverlay.addPoint(new GeoPoint((int)(this.Laitude * 1E6), (int)(this.longitude * 1E6)), this.Text);
 			} else {
 				mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 				mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 				
 				mProgDialog = new ProgressDialog(this);
 		        mProgDialog.setMessage("現在位置取得中");
+
+		        mProgDialog.setOnCancelListener(new OnCancelListener() {
+					
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						// TODO 自動生成されたメソッド・スタブ
+						finish();
+					}
+				});
 		        mProgDialog.setCancelable(true);
 		        mProgDialog.show();
 			}
@@ -95,25 +124,23 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 	@Override
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+		if(v == this.cancelButton){
+			setResult(RESULT_CANCELED);
+			finish();
+		}
+		if(v == this.OKButton){
+			Intent data = new Intent();
+			Bundle bundle = new Bundle();
+			bundle.putDouble("Laitude", this.Laitude);
+			bundle.putDouble("Longitude", this.longitude);
+			data.putExtras(bundle);
+			if(this.FLAG)
+				setResult(RESULT_OK, data);
+			else
+				setResult(RESULT_FIRST_USER, data);
+			finish();
+		}
 	}
-
-//	
-//	@Override
-//	protected void onPause() {
-//		// TODO 自動生成されたメソッド・スタブ
-//		super.onPause();
-//		this.mapView.onPause();
-//	}
-//	
-//	@Override
-//	protected void onResume() {
-//		// TODO 自動生成されたメソッド・スタブ
-//		super.onResume();
-//		this.mapView.onResume();
-//	}
-
-
 
 	@Override
 	protected boolean isRouteDisplayed() {
@@ -137,12 +164,36 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 		this.Laitude = location.getLatitude();
 		this.longitude = location.getLongitude();
 		
+//		this.mapView = new MapView(this,this.YMAP_KEY);
+//		MapController c = this.mapView.getMapController();
+//		c.setCenter(new GeoPoint((int)(this.Laitude * 1E6), (int)(this.longitude * 1E6)));
+//		c.setZoom(4);
+//		this.mapView.setBuiltInZoomControls(true);
+//		this.mapView.setMapTouchListener(this);
+//		
+//		this.OKButton = (Button)findViewById(R.id.OKButton);
+//		this.OKButton.setOnClickListener(this);
+//		
+//		this.cancelButton = (Button)findViewById(R.id.cancelButton);
+//		this.cancelButton.setOnClickListener(this);
+//		
+//		this.GPStext = (TextView)findViewById(R.id.GPSText);
+//		
+//		this.MapLayout = (LinearLayout)findViewById(R.id.MapView);
+//		this.MapLayout.addView(mapView);
+//		this.mapView.setLongPress(true);
+		
+		this.makeMap();
+		
+	}
+
+	private void makeMap(){
 		this.mapView = new MapView(this,this.YMAP_KEY);
 		MapController c = this.mapView.getMapController();
 		c.setCenter(new GeoPoint((int)(this.Laitude * 1E6), (int)(this.longitude * 1E6)));
 		c.setZoom(4);
 		this.mapView.setBuiltInZoomControls(true);
-		
+		this.mapView.setMapTouchListener(this);
 		
 		this.OKButton = (Button)findViewById(R.id.OKButton);
 		this.OKButton.setOnClickListener(this);
@@ -154,11 +205,8 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 		
 		this.MapLayout = (LinearLayout)findViewById(R.id.MapView);
 		this.MapLayout.addView(mapView);
-		
-		
+		this.mapView.setLongPress(true);
 	}
-
-
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -188,9 +236,21 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 	public boolean onLongPress(MapView arg0, Object arg1, PinOverlay arg2,
 			GeoPoint point) {
 		// TODO 自動生成されたメソッド・スタブ
+		Log.d("testm","test");
+		if(this.mapView.getOverlays().size() != 0){
+			
+			for(int i = this.mapView.getOverlays().size() - 1;i >= 0; i--)
+				this.mapView.getOverlays().remove(i);
+		}
 		PinOverlay pinOverlay = new PinOverlay(PinOverlay.PIN_VIOLET);
 		this.mapView.getOverlays().add(pinOverlay);
 		pinOverlay.addPoint(point, this.Text);
+		if(this.FLAG)
+			this.GPStext.setText("学校をピンの位置にセットする");
+		else
+			this.GPStext.setText("自宅をピンの位置にセットする");
+		this.longitude = point.getLongitude();
+		this.Laitude = point.getLatitude();
 		
 		return false;
 	}

@@ -12,6 +12,7 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,11 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 	private int timeHour;
 	private int timeMin;
 	private boolean timeFlag;
+	
+	private double SleepLaitude;
+	private double SleepLongitude;
+	private double AttendLaitude;
+	private double AttendLongitude;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +115,7 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 			}
 		};
 		
+		Log.d("test",Double.parseDouble(this.pref.getString(AlarmGPSSettingActivity.KEY_SLEEPGPSLAITUDE, "0.0")) + "");
 	}
 
 	@Override
@@ -140,6 +147,10 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 			editor.putInt(KEY_TIMEHOUR, timeHour);
 			editor.putInt(KEY_TIMEMIN, timeMin);
 			editor.putBoolean(KEY_TIMESETFLAG, timeFlag);
+			editor.putString(KEY_ATTENDGPSLAITUDE, this.AttendLaitude + "");
+			editor.putString(KEY_ATTENDGPSLONGITUDE, this.AttendLongitude + "");
+			editor.putString(KEY_SLEEPGPSLAITUDE, this.SleepLaitude + "");
+			editor.putString(KEY_SLEEPGPSLONGITUDE, this.SleepLongitude + "");
 			editor.commit();
 			finish();
 		}
@@ -151,9 +162,39 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 			
 			Intent intent = new Intent(AlarmGPSSettingActivity.this, MapSettupActivity.class);
 			intent.putExtra("MODE", false);
-			startActivity(intent);
+			startActivityForResult(intent, 123);
+		}
+		if(v == this.GPSSetUpAttend){
+
+			Intent intent = new Intent(AlarmGPSSettingActivity.this, MapSettupActivity.class);
+			intent.putExtra("MODE", true);
+			startActivityForResult(intent, 123);
 		}
 		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO 自動生成されたメソッド・スタブ
+		super.onActivityResult(requestCode, resultCode, data);
+		 
+	    switch (requestCode) {
+	    case 123:
+	      if (resultCode == RESULT_OK) {
+	  		  Bundle bundle = data.getExtras();
+	    	  this.AttendLaitude = bundle.getDouble("Laitude");
+	    	  this.AttendLongitude = bundle.getDouble("Longitude");
+	      } else if (resultCode == RESULT_FIRST_USER) {
+	  		  Bundle bundle = data.getExtras();
+	    	  this.SleepLaitude = bundle.getDouble("Laitude");
+	    	  this.SleepLongitude = bundle.getDouble("Longitude");
+	    	  Log.d("Test",this.SleepLaitude + ":" + this.SleepLongitude);
+	      }
+	      break;
+	 
+	    default:
+	      break;
+	    }
 	}
 
 }
