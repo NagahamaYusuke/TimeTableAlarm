@@ -33,9 +33,9 @@
     
     <LinearLayout
         android:id="@+id/GraphView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.40"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.30"
         android:orientation="vertical" >
     </LinearLayout>
 
@@ -106,9 +106,9 @@
     </TableLayout>
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.20" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.40" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
             android:id="@+id/SetUpAlarmButtons"
             android:layout_width="match_parent"
             android:layout_height="146dp"
-            android:layout_weight="0.71" >
+            android:layout_weight="0.89" >
         </ListView>
 
         <Button

@@ -180,6 +180,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 
 			Intent intent = new Intent(MenuSelectActivity.this, TimeTableMain.class);
 			startActivity(intent);
+			db.close();
 		}
 		if(v == this.sleepbutton){
 
@@ -256,6 +257,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 
 			Intent intent = new Intent(MenuSelectActivity.this, AlarmMenuActivity.class);
 			startActivity(intent);
+			db.close();
 			
 		}
 		if(v == this.twitterbutton){

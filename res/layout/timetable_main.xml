@@ -37,4 +37,16 @@
         android:layout_toLeftOf="@+id/ShareMenu"
         android:src="@android:drawable/ic_menu_info_details" />
 
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:columnCount="6"
+        android:rowCount="5"
+        android:layout_below="@+id/InfoDetails" >
+
+    </GridLayout>
+
 </RelativeLayout>

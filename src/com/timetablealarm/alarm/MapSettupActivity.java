@@ -22,6 +22,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,9 +98,14 @@ public class MapSettupActivity extends MapActivity implements OnClickListener ,L
 				this.mapView.getOverlays().add(pinOverlay);
 				pinOverlay.addPoint(new GeoPoint((int)(this.Laitude * 1E6), (int)(this.longitude * 1E6)), this.Text);
 			} else {
+				String gpsStatus = android.provider.Settings.Secure.getString(getContentResolver(), Secure.LOCATION_PROVIDERS_ALLOWED);
 				mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-				mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 				
+				if (gpsStatus.indexOf("gps", 0) < 0){
+					mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 10, this);
+				} else {
+					mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+				}
 				mProgDialog = new ProgressDialog(this);
 		        mProgDialog.setMessage("現在位置取得中");
 

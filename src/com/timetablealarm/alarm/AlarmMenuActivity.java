@@ -21,6 +21,7 @@ import com.model.SleepTimeDB;
 import com.model.SleepTimeDBEntity;
 import com.timetablealarm.MenuSelectActivity;
 import com.timetablealarm.R;
+import com.timetablealarm.R.layout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,8 +36,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -69,6 +72,8 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_menu);
 		
+
+		
 		this.listView = (ListView)findViewById(R.id.SetUpAlarmButtons);
 		this.listView.setOnItemClickListener(this);
 		
@@ -76,28 +81,13 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		AlarmSetButton.setOnClickListener(this);
 		SleepGPSButton = (ImageButton)findViewById(R.id.SleepGPSButton);
 		SleepGPSButton.setOnClickListener(this);
-		dBHelper = new DBHelper(this);
-		db = dBHelper.getReadableDatabase();
-		dao = new AttendDB(this.db);
-		dao2 = new SleepTimeDB(this.db);
-		dao3 = new AlarmTimeDB(this.db);
 		
 
-		GraphicalView graphicalView = TimeChartView();
-		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
-		layout.addView(graphicalView);
 
 		this.AbsenceText = (TextView)findViewById(R.id.AbsenceText);
 		this.AttendanceText = (TextView)findViewById(R.id.AttendanceText);
 		this.DelayText = (TextView)findViewById(R.id.DerayText);
 		
-		List<AttendDBEntity> entityList = dao.findALL();
-		this.AttendanceText.setText(entityList.get(0).getNum() + "日");
-		Log.d("text",entityList.get(0).getNum() + "日");
-		this.DelayText.setText(entityList.get(1).getNum() + "日");
-		Log.d("text",entityList.get(1).getNum() + "日");
-		this.AbsenceText.setText(entityList.get(2).getNum() + "日");
-		Log.d("text",entityList.get(2).getNum() + "日");
 	}
 	
 	@Override
@@ -105,16 +95,56 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		// TODO 自動生成されたメソッド・スタブ
 		super.onResume();
 
-		GraphicalView graphicalView = TimeChartView();
-		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
-		layout.addView(graphicalView);
+//		GraphicalView graphicalView = TimeChartView();
+//		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
+//		layout.addView(graphicalView);
 	}
 	
 	@Override
 	protected void onStart() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onStart();
+		
+
+		dBHelper = new DBHelper(this);
+		db = dBHelper.getReadableDatabase();
+		dao = new AttendDB(this.db);
+		dao2 = new SleepTimeDB(this.db);
+		dao3 = new AlarmTimeDB(this.db);
+		Log.d("statrt", "S");
+
 		this.entity = dao3.findALL();
+		this.listView.setAdapter(new ListArrayAdeapter());
+		this.listView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO 自動生成されたメソッド・スタブ
+				
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO 自動生成されたメソッド・スタブ
+				
+			}
+		});
+		
+
+		List<AttendDBEntity> entityList = dao.findALL();
+		this.AttendanceText.setText(entityList.get(0).getNum() + "日");
+		Log.d("text",entityList.get(0).getNum() + "日");
+		this.DelayText.setText(entityList.get(1).getNum() + "日");
+		Log.d("text",entityList.get(1).getNum() + "日");
+		this.AbsenceText.setText(entityList.get(2).getNum() + "日");
+		Log.d("text",entityList.get(2).getNum() + "日");
+		
+
+		GraphicalView graphicalView = TimeChartView();
+		LinearLayout layout = (LinearLayout)findViewById(R.id.GraphView);
+		layout.addView(graphicalView);
+		
 	}
 	
 	
@@ -281,11 +311,13 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 			
 			Intent intent = new Intent(AlarmMenuActivity.this, AlarmGPSSettingActivity.class);
 			startActivity(intent);
+			db.close();
 		} 
 		if(v == this.AlarmSetButton){
 
 			Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
 			startActivity(intent);
+			db.close();
 		}
 	}
 
@@ -296,9 +328,10 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		ListView list = (ListView) parent;
 		long s = list.getItemIdAtPosition(position);
 		
-
 		Intent intent = new Intent(AlarmMenuActivity.this, AlarmSettingActivity.class);
+		intent.putExtra("rowID", (int) s);
 		startActivity(intent);
+		db.close();
 	}
 
 	private class ListArrayAdeapter extends BaseAdapter{
@@ -326,8 +359,8 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 			// TODO 自動生成されたメソッド・スタブ
 			Context context = AlarmMenuActivity.this;
 			AlarmTimeDBEntity item = this.getItem(position);
+			LinearLayout layout = new LinearLayout(context);
 			if(convertView == null){
-				LinearLayout layout = new LinearLayout(context);
 				layout.setPadding(10, 10, 10, 10);
 				convertView = layout;
 				
@@ -337,12 +370,13 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 				if(item.getFlag())
 					textView.setText("最初の授業の" + item.getHour() + "時間" + item.getMin() + "分前");
 				else
-					textView.setText(item.getDay() + "曜日の"+ item.getHour() + ":" + item.getMin());
+					textView.setText(item.getDay() + "曜日:"+ item.getHour() + "時" + item.getMin() + "分");
 				layout.addView(textView);
 				
 			}
+			
 					
-			return null;
+			return convertView;
 		}
 		
 	}

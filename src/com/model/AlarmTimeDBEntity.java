@@ -10,6 +10,8 @@ public class AlarmTimeDBEntity {
 	private String sound;
 	private int snooz;
 	private boolean tweet;
+
+    private String[] date = {"月", "火", "水", "木","金","土","日"};
 	
 	public void setRowID(int rowID){
 		this.rowID = rowID;
@@ -59,6 +61,14 @@ public class AlarmTimeDBEntity {
 	
 	public String getDay(){
 		return this.Day;
+	}
+	
+	public int getDayInt(){
+		for(int i = 0; i < this.date.length; i++)
+			if(this.date.equals(this.Day))
+				return i;
+		
+		return -1;
 	}
 	
 	public boolean getFlag(){
