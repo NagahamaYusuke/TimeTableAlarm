@@ -45,6 +45,8 @@ public abstract class TimeTableMain extends AliasActivity implements OnClickList
 		this.db = this.helper.getReadableDatabase();
 		this.dao = new TimeTableDB(this.db);
 		
+		
+		
 		List<TimeTableDBEntity> timetable = dao.findAll();
 		System.out.println(timetable);
 		
