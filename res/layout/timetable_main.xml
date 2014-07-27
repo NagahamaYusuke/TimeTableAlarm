@@ -137,51 +137,51 @@
             android:id="@+id/button11"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_column="1"
             android:layout_gravity="left|center_vertical"
             android:layout_row="1"
-            android:background="@drawable-hdpi/text_border" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button21"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_column="2"
             android:layout_gravity="left|top"
             android:layout_row="1"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button31"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_column="3"
             android:layout_gravity="left|top"
             android:layout_row="1"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button41"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_column="4"
             android:layout_gravity="left|top"
             android:layout_row="1"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button51"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_column="5"
             android:layout_gravity="left|top"
             android:layout_row="1"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button22"
@@ -191,7 +191,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="2"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button32"
@@ -201,7 +201,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="2"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button42"
@@ -211,7 +211,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="2"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button23"
@@ -221,7 +221,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="3"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button33"
@@ -231,7 +231,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="3"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button43"
@@ -241,7 +241,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="3"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button24"
@@ -251,7 +251,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="4"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button25"
@@ -261,7 +261,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="5"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button26"
@@ -271,7 +271,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="6"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button34"
@@ -281,7 +281,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="4"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button44"
@@ -291,7 +291,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="4"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button35"
@@ -301,7 +301,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="5"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button45"
@@ -311,17 +311,17 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="5"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button36"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_column="3"
             android:layout_gravity="left|top"
             android:layout_row="6"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button46"
@@ -329,9 +329,9 @@
             android:layout_column="4"
             android:layout_gravity="left|top"
             android:layout_width="59dp"
-            android:layout_height="63dp"
+            android:layout_height="65dp"
             android:layout_row="6"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button52"
@@ -341,7 +341,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="2"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button53"
@@ -351,7 +351,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="3"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button54"
@@ -361,7 +361,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="4"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button55"
@@ -371,7 +371,7 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="5"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button56"
@@ -381,62 +381,57 @@
             android:layout_width="59dp"
             android:layout_height="65dp"
             android:layout_row="6"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button12"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
-            android:layout_colum="1"
+            android:layout_height="65dp"
             android:layout_column="1"
             android:layout_gravity="center_horizontal|top"
             android:layout_row="2"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button13"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
-            android:layout_colum="1"
+            android:layout_height="65dp"
             android:layout_column="1"
             android:layout_gravity="right|top"
             android:layout_row="3"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button14"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
-            android:layout_colum="1"
+            android:layout_height="65dp"
             android:layout_column="1"
             android:layout_gravity="center_horizontal|top"
             android:layout_row="4"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button15"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
-            android:layout_colum="1"
+            android:layout_height="65dp"
             android:layout_column="1"
             android:layout_gravity="center_horizontal|top"
             android:layout_row="5"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
         <Button
             android:id="@+id/button16"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="59dp"
-            android:layout_height="63dp"
-            android:layout_colum="1"
+            android:layout_height="65dp"
             android:layout_column="1"
             android:layout_gravity="center_horizontal|top"
             android:layout_row="6"
-            android:background="#FFFFFF" />
+            android:background="@drawable/text_border" />
 
     </GridLayout>
 
