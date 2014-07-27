@@ -71,6 +71,8 @@ public class AttendActivity extends Activity implements LocationListener {
 		}
 		Calendar mmCalendar = Calendar.getInstance();
 		mmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1,0, 0);
+		MyAlarmManager mA = new MyAlarmManager(this);
+		mA.addAtend(mmCalendar.getTimeInMillis());
 		finish();
 	}
 

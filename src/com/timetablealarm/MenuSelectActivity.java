@@ -32,6 +32,8 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import com.crawler.HtmlCrawlerEntity;
 import com.crawler.Html_getter;
+import com.model.AlarmTimeDB;
+import com.model.AlarmTimeDBEntity;
 import com.model.AttendDB;
 import com.model.AttendDBEntity;
 import com.model.DBHelper;
@@ -87,7 +89,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private ScheduleDB dao2;
 	private SleepTimeDB dao3;
 	private AttendDB dao4;
-	
+	private AlarmTimeDB dao5;
 	
 	private Calendar mCalender;
 	private int k ;
@@ -121,6 +123,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		dao2 = new ScheduleDB(db);
 		dao3 = new SleepTimeDB(this.db);
 		dao4 = new AttendDB(this.db);
+		dao5 = new AlarmTimeDB(this.db);
 		
 		this.k = 0;
 		this.mCalender = Calendar.getInstance();
@@ -157,6 +160,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			dao2 = new ScheduleDB(db);
 			dao3 = new SleepTimeDB(this.db);
 			dao4 = new AttendDB(this.db);
+			dao5 = new AlarmTimeDB(this.db);
 		}
 		
 		Uri uri = getIntent().getData();
@@ -194,8 +198,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			db = null;
 		}
 		if(v == this.sleepbutton){
-
-			if(dao3.findAll(30) == null){
+			if(dao3.findAll(30).size() == 0){
 				Toast.makeText(this, "おやすみなさい", Toast.LENGTH_SHORT).show();
 				SleepTimeDBEntity entity = new SleepTimeDBEntity();
 				entity.setYear(mCalender.get(Calendar.YEAR));
@@ -214,6 +217,23 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 				entity.setSleepTime(System.currentTimeMillis());
 				dao3.insert(entity);
 			}
+			MyAlarmManager mA = new MyAlarmManager(this);
+			int week = mCalender.get(Calendar.DAY_OF_WEEK) % 7;
+			List<AlarmTimeDBEntity> entitylist = dao5.findALL();
+			for(int i = 0; i < entitylist.size(); i++){
+				AlarmTimeDBEntity entity = entitylist.get(i);
+				Calendar AlarmCalendar = Calendar.getInstance();
+				if(!entity.getFlag() && (entity.getDayInt() + 1) % 7 == week){
+					MyAlarmManager mAlarmManager = new MyAlarmManager(this);
+					AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH), entity.getHour(), entity.getHour(), 0);
+					if(System.currentTimeMillis() > AlarmCalendar.getTimeInMillis())
+						AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1, entity.getHour(), entity.getHour(), 0);
+					mAlarmManager.addAlarm(AlarmCalendar.getTimeInMillis());
+				} else {
+					
+				}
+			}
+			
 		}
 		if(v == this.attendancebutton){
 //			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));

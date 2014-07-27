@@ -33,6 +33,15 @@ public class MyAlarmManager {
 		Log.v("MyAlarmManagerLog", "アラームセット完了");
 	}
 	
+	public void addAlarm(long ms){
+		mAlarmSender = PendingIntent.getService(c, -1, new Intent(c, MyAlarmService.class), PendingIntent.FLAG_UPDATE_CURRENT);
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(System.currentTimeMillis());
+		Log.v("MyAlarmManagerLog", cal.getTimeInMillis() + "ms");
+		am.set(AlarmManager.RTC_WAKEUP, ms , mAlarmSender);
+		Log.v("MyAlarmManagerLog", "アラームセット完了");
+	}
+	
 	public void addAtend(long ms){
 		mAlarmSender = PendingIntent.getService(c, -1, new Intent(c, AttendService.class), PendingIntent.FLAG_UPDATE_CURRENT);
 		Calendar cal = Calendar.getInstance();

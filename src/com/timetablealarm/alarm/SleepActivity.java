@@ -1,10 +1,9 @@
 package com.timetablealarm.alarm;
 
 import java.util.Calendar;
+import java.util.List;
 
-import com.model.DBHelper;
-import com.model.SleepTimeDB;
-import com.model.SleepTimeDBEntity;
+import com.model.*;
 import com.timetablealarm.R;
 import com.timetablealarm.R.layout;
 
@@ -34,6 +33,8 @@ public class SleepActivity extends Activity implements LocationListener {
 	private SQLiteDatabase db;
 	private DBHelper helper;
 	private SleepTimeDB dao;
+	private AlarmTimeDB dao2;
+	private TimeTableDB dao3;
 	private Calendar mCalender;
 	
 	@Override
@@ -58,6 +59,8 @@ public class SleepActivity extends Activity implements LocationListener {
 		helper = new DBHelper(this);
 		this.db = helper.getReadableDatabase();
 		dao = new SleepTimeDB(db);
+		dao2 = new AlarmTimeDB(db);
+		dao3 = new TimeTableDB(db);
 		this.mCalender = Calendar.getInstance();
 	}
 
@@ -89,10 +92,26 @@ public class SleepActivity extends Activity implements LocationListener {
 				entity.setSleepTime(System.currentTimeMillis());
 				dao.insert(entity);
 			}
+			MyAlarmManager mA = new MyAlarmManager(this);
+			int week = mCalender.get(Calendar.DAY_OF_WEEK) % 7;
+			List<AlarmTimeDBEntity> entitylist = dao2.findALL();
+			for(int i = 0; i < entitylist.size(); i++){
+				AlarmTimeDBEntity entity = entitylist.get(i);
+				Calendar AlarmCalendar = Calendar.getInstance();
+				if(!entity.getFlag() && (entity.getDayInt() + 1) % 7 == week){
+					MyAlarmManager mAlarmManager = new MyAlarmManager(this);
+					AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1, entity.getHour(), entity.getHour(), 0);
+					mAlarmManager.addAlarm(AlarmCalendar.getTimeInMillis());
+				} else {
+					
+				}
+			}
 		}
 		
 		Calendar mmCalendar = Calendar.getInstance();
 		mmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1,pref.getInt(AlarmGPSSettingActivity.KEY_TIMEHOUR, 0), pref.getInt(AlarmGPSSettingActivity.KEY_TIMEMIN, 0));
+		MyAlarmManager mA = new MyAlarmManager(this);
+		mA.addTime(mmCalendar.getTimeInMillis());
 		finish();
 	}
 

@@ -3,6 +3,7 @@ package com.timetablealarm.alarm;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import com.model.AttendDB;
 import com.model.AttendDBEntity;
@@ -10,14 +11,17 @@ import com.model.DBHelper;
 import com.model.SleepTimeDB;
 import com.model.SleepTimeDBEntity;
 import com.model.TimeTableDBEntity;
+import com.model.TwitterDB;
 import com.timetablealarm.R;
 import com.timetablealarm.R.layout;
+import com.timetablealarm.twitter.TwitterMode;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
 import android.app.KeyguardManager.OnKeyguardExitResult;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -25,6 +29,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,19 +42,35 @@ import android.widget.Toast;
 
 public class AlarmActivity extends Activity implements OnClickListener {
 	
+	private static final String PREF_KEY = "SnoozNum";
+	private static final String KEY_FLAGNUM = "flagnum";
 	private Button StopButton;
 	private Button SnoozeButton;
 	private DBHelper dBHelper;
 	private SQLiteDatabase db;
 	private SleepTimeDB dao;
-	private AttendDB dao2;
+	private TwitterDB dao2;
 	private Calendar mCalender;
 	private MediaPlayer player;
+	
+	private SharedPreferences pref;
+	private SharedPreferences.Editor editor;
+	private static final int MAXNUM = 3;
+	
+	private static final String[] TweetText = {"まだこいつおきないぞ！何時だと思ってるんだ！",
+											   "今日も安定の一コマ目は遅刻ですね",
+											   "これは，もはやセンスやな！寝坊のセンス",
+											   "ﾌﾄﾝ( ˘ω˘ )ｽﾔｧ",
+											   "ﾌﾄﾝVS単位　　　ﾌﾄﾝの勝ち",
+											   "単位なんて夢の中でも取れるもん！！"
+											   };
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm);
+		
+		pref = getSharedPreferences(this.PREF_KEY, Activity.MODE_PRIVATE);
 
 		StopButton = (Button)findViewById(R.id.StopButton);
 		StopButton.setOnClickListener(this);
@@ -62,6 +83,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		dBHelper = new DBHelper(this);
 		db = dBHelper.getReadableDatabase();
 		dao = new SleepTimeDB(this.db);
+		dao2 = new TwitterDB(db);
 		
 		this.mCalender = Calendar.getInstance();
 	    
@@ -112,15 +134,43 @@ public class AlarmActivity extends Activity implements OnClickListener {
 					dao.insert(entity);
 				}
 			}
+			editor = pref.edit();
+			editor.putInt(KEY_FLAGNUM, 0);
+			editor.commit();
 			player.stop();
 			finish();
 		}
 		if(v == this.SnoozeButton){
 			MyAlarmManager mam = new MyAlarmManager(this);
 			mam.addAlarm(0,5,0,0);
+			if(pref.getInt(KEY_FLAGNUM, 0) >= MAXNUM){
+				if(dao2.findAll() != null){
+					TwitterMode TMR = new TwitterMode(dao2.firstAccessToken());
+					TMR.Tweet(this.RandomTweetText());
+				}
+				editor = pref.edit();
+				editor.putInt(KEY_FLAGNUM, pref.getInt(PREF_KEY, 0) + 1);
+				editor.commit();
+			} else {
+				editor = pref.edit();
+				editor.putInt(KEY_FLAGNUM, pref.getInt(PREF_KEY, 0) + 1);
+				editor.commit();
+			}
 			player.stop();
 			
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO 自動生成されたメソッド・スタブ
+		if(keyCode == KeyEvent.KEYCODE_BACK) return false;
+		return true;
+	}
+	
+	private String RandomTweetText(){
+		Random rand = new Random();
+		return this.TweetText[rand.nextInt(this.TweetText.length)];
 	}
 	
 }

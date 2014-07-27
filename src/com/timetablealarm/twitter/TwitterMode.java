@@ -149,7 +149,7 @@ public class TwitterMode {
 		
 		twitter.setOAuthAccessToken(this.accessToken);  
 		try {  
-			return twitter.updateStatus(text);  
+			return twitter.updateStatus(text + HASH);  
 		} catch (TwitterException e) {  
 		    android.util.Log.e("TwitterException", e.toString());  
 		}  
