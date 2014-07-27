@@ -14,5 +14,7 @@
     <string name="title_activity_alarm_setting">AlarmSettingActivity</string>
     <string name="title_activity_alarm_gpssetting">AlarmGPSSettingActivity</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_attend">AttendActivity</string>
+    <string name="title_activity_sleep">SleepActivity</string>
 
 </resources>

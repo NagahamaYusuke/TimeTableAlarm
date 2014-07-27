@@ -65,7 +65,7 @@ public class AlarmTimeDBEntity {
 	
 	public int getDayInt(){
 		for(int i = 0; i < this.date.length; i++)
-			if(this.date.equals(this.Day))
+			if(this.date[i].equals(this.Day))
 				return i;
 		
 		return -1;

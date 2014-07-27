@@ -31,12 +31,12 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 	private RadioButton DayRadio;
 	private RadioButton ClassRadio;
 	private Spinner DaySpinner;
-	private Spinner TimeSpinner;
+//	private Spinner TimeSpinner;
 	private Button TimeSettingButton;
 	private Button SoundSettingButton;
 	private Button OKButton;
 	private Button CancelButton;
-	private CheckBox SnoozCheckBox;
+//	private CheckBox SnoozCheckBox;
 	private CheckBox TweetCheckBox;
     private String[] date = {"月", "火", "水", "木","金","土","日"};
     private String[] time = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
@@ -51,6 +51,7 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 	private int timeMin;
 	
 	private String Sound;
+	private int rowid;
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_alarm_setting);
 		
 		Intent intent = getIntent();
-		int rowid = intent.getIntExtra("rowID", -1);
+		rowid = intent.getIntExtra("rowID", -1);
 		
 		
 		this.DayRadio = (RadioButton)findViewById(R.id.DayRadio);
@@ -88,14 +89,14 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 			}
 		});
 		
-		this.TimeSpinner = (Spinner)findViewById(R.id.TimeSpinner);
-		for(int i = 0; i < this.time.length; i++)
-			this.time[i] += "分";
-		
-		arrayAdepter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.time);
-		arrayAdepter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.TimeSpinner.setAdapter(arrayAdepter);
-		this.TimeSpinner.setVisibility(View.GONE);
+//		this.TimeSpinner = (Spinner)findViewById(R.id.TimeSpinner);
+//		for(int i = 0; i < this.time.length; i++)
+//			this.time[i] += "分";
+//		
+//		arrayAdepter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.time);
+//		arrayAdepter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		this.TimeSpinner.setAdapter(arrayAdepter);
+//		this.TimeSpinner.setVisibility(View.GONE);
 		
 		this.TimeSettingButton = (Button)findViewById(R.id.TimeSettingButton);
 		this.TimeSettingButton.setOnClickListener(this);
@@ -109,8 +110,8 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 		this.CancelButton = (Button)findViewById(R.id.CancelButton);
 		this.CancelButton.setOnClickListener(this);
 		
-		this.SnoozCheckBox = (CheckBox)findViewById(R.id.SnoozCheckBox);
-		this.SnoozCheckBox.setOnClickListener(this);
+//		this.SnoozCheckBox = (CheckBox)findViewById(R.id.SnoozCheckBox);
+//		this.SnoozCheckBox.setOnClickListener(this);
 		
 		
 		this.TweetCheckBox = (CheckBox)findViewById(R.id.TweetCheckBox);
@@ -126,7 +127,7 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 				// TODO 自動生成されたメソッド・スタブ
 				timeHour = hourOfDay;
 				timeMin = minute;
-				if(SnoozCheckBox.isChecked())
+				if(DayRadio.isChecked())
 					TimeSettingButton.setText("時間設定[" + timeHour + "時" + timeMin +  "分]");
 				else
 					TimeSettingButton.setText("時間設定[" + timeHour + "時" + timeMin +  "分前]");
@@ -141,16 +142,19 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 			Log.d("test", rowid + "");
 			AlarmTimeDBEntity entity = dao.findALL().get(rowid);
 			this.DaySpinner.setSelection(entity.getDayInt());
-			this.DayRadio.setChecked(entity.getFlag());
-			this.ClassRadio.setChecked(!entity.getFlag());
+			this.DayRadio.setChecked(!entity.getFlag());
+			this.ClassRadio.setChecked(entity.getFlag());
+			if(entity.getFlag()){
+				this.DaySpinner.setVisibility(View.GONE);
+			}
 			this.timeHour = entity.getHour();
 			this.timeMin = entity.getMin();
 			this.Sound = entity.getSound();
-			if(entity.getSnooz() != -1){
-				this.TimeSpinner.setVisibility(View.VISIBLE);
-				this.SnoozCheckBox.setChecked(true);
-				this.TimeSpinner.setSelection(entity.getSnooz() - 1);
-			}
+//			if(entity.getSnooz() != -1){
+//				this.TimeSpinner.setVisibility(View.VISIBLE);
+//				this.SnoozCheckBox.setChecked(true);
+//				this.TimeSpinner.setSelection(entity.getSnooz() - 1);
+//			}
 			this.TweetCheckBox.setChecked(entity.getTweet());
 		}
 		
@@ -159,13 +163,13 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
-		if(v == this.SnoozCheckBox){
-			if(this.SnoozCheckBox.isChecked()){
-				this.TimeSpinner.setVisibility(View.VISIBLE);
-			} else {
-				this.TimeSpinner.setVisibility(View.GONE);
-			}
-		}
+//		if(v == this.SnoozCheckBox){
+//			if(this.SnoozCheckBox.isChecked()){
+//				this.TimeSpinner.setVisibility(View.VISIBLE);
+//			} else {
+//				this.TimeSpinner.setVisibility(View.GONE);
+//			}
+//		}
 		if(v == this.ClassRadio){
 			TimeSettingButton.setText("時間設定");
 			this.DaySpinner.setVisibility(View.GONE);
@@ -187,12 +191,15 @@ public class AlarmSettingActivity extends Activity implements OnClickListener {
 			entity.setHour(timeHour);
 			entity.setMin(timeMin);
 			entity.setSound(Sound);
-			if(this.SnoozCheckBox.isChecked())
-				entity.setSnooz(Integer.parseInt(this.ReplaceString(this.TimeSpinner.getSelectedItem().toString())));
-			else
-				entity.setSnooz(-1);
+//			if(this.SnoozCheckBox.isChecked())
+//				entity.setSnooz(Integer.parseInt(this.ReplaceString(this.TimeSpinner.getSelectedItem().toString())));
+//			else
+//				entity.setSnooz(-1);
 			entity.setTweet(this.TweetCheckBox.isChecked());
-			this.dao.insert(entity);
+			if(rowid == -1)
+				this.dao.insert(entity);
+			else
+				this.dao.update(rowid, entity);
 			finish();
 		}
 	}

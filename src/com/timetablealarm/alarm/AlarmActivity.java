@@ -1,5 +1,6 @@
 package com.timetablealarm.alarm;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import android.app.KeyguardManager.KeyguardLock;
 import android.app.KeyguardManager.OnKeyguardExitResult;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -42,6 +44,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 	private SleepTimeDB dao;
 	private AttendDB dao2;
 	private Calendar mCalender;
+	private MediaPlayer player;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +63,38 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		db = dBHelper.getReadableDatabase();
 		dao = new SleepTimeDB(this.db);
 		
-		
-		
 		this.mCalender = Calendar.getInstance();
 	    
+		this.player = new MediaPlayer();
+		player.setAudioStreamType(AudioManager.STREAM_ALARM);
+		try {
+			player.setDataSource(this, android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI);
+		} catch (IllegalArgumentException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		player.setLooping(true);
+		try {
+			player.prepare();
+		} catch (IllegalStateException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		player.seekTo(0);
+		player.start();
+		
 	}
 
 	@Override
@@ -81,11 +112,13 @@ public class AlarmActivity extends Activity implements OnClickListener {
 					dao.insert(entity);
 				}
 			}
+			player.stop();
 			finish();
 		}
 		if(v == this.SnoozeButton){
 			MyAlarmManager mam = new MyAlarmManager(this);
 			mam.addAlarm(0,5,0,0);
+			player.stop();
 			
 		}
 	}

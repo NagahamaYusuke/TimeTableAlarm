@@ -69,4 +69,16 @@ public class AlarmTimeDB {
 	}
 	
 	
+	public long update(int rowID, AlarmTimeDBEntity entity){
+		ContentValues values = new ContentValues();
+		values.put(COLUMN_DAY, entity.getDay());
+		values.put(COLUMN_FLAG, entity.getFlagForDB());
+		values.put(COLUMN_HOUR, entity.getHour());
+		values.put(COLUMN_MIN, entity.getMin());
+		values.put(COLUMN_SOUND, entity.getSound());
+		values.put(COLUMN_SNOOZ, entity.getSnooz());
+		values.put(COLUMN_TWEET, entity.getTweetForDB());
+		return db.update(TABLE_NAME, values, COLUMN_ID + " = " + rowID, null);
+	}
+	
 }

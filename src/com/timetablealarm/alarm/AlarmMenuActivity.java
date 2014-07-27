@@ -32,6 +32,7 @@ import android.graphics.Paint.Align;
 import android.net.ParseException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -114,7 +116,15 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		Log.d("statrt", "S");
 
 		this.entity = dao3.findALL();
-		this.listView.setAdapter(new ListArrayAdeapter());
+		String[] data = new String[entity.size()];
+		for(int i = 0; i < data.length; i++){
+			if(this.entity.get(i).getFlag())
+				data[i] = "最初の授業の" + this.entity.get(i).getHour() + "時間" + this.entity.get(i).getMin() + "分前";
+			else
+				data[i] = this.entity.get(i).getDay() + "曜日:"+ this.entity.get(i).getHour() + "時" + this.entity.get(i).getMin() + "分";
+			
+		}
+		this.listView.setAdapter(new ArrayAdapter<String>(this, R.layout.listviewadapter, data));
 		this.listView.setOnScrollListener(new OnScrollListener() {
 			
 			@Override
@@ -336,6 +346,17 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 
 	private class ListArrayAdeapter extends BaseAdapter{
 
+		private LayoutInflater inflater;
+		private int layoutID;
+		private Context context;
+		
+		public ListArrayAdeapter(Context context) {
+			// TODO 自動生成されたコンストラクター・スタブ
+			inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			this.layoutID = R.layout.listviewadapter;
+			this.context = context;
+		}
+		
 		@Override
 		public int getCount() {
 			// TODO 自動生成されたメソッド・スタブ
@@ -357,26 +378,57 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO 自動生成されたメソッド・スタブ
-			Context context = AlarmMenuActivity.this;
-			AlarmTimeDBEntity item = this.getItem(position);
-			LinearLayout layout = new LinearLayout(context);
-			if(convertView == null){
-				layout.setPadding(10, 10, 10, 10);
-				convertView = layout;
-				
-				TextView textView = new TextView(context);
-				textView.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-				textView.setTag("text");
-				if(item.getFlag())
-					textView.setText("最初の授業の" + item.getHour() + "時間" + item.getMin() + "分前");
-				else
-					textView.setText(item.getDay() + "曜日:"+ item.getHour() + "時" + item.getMin() + "分");
-				layout.addView(textView);
-				
+//			Context context = AlarmMenuActivity.this;
+//			View view = convertView;
+//			TextView textView ;
+//			Log.d("Day", item.getDay());
+//			Log.d("Time",item.getHour() + ":" + item.getMin());
+//			LayoutInflater layoutInflater = getLayoutInflater();
+//			if(convertView == null){
+////				layout.setPadding(10, 10, 10, 10);
+////				convertView = layout;
+////				
+////				TextView textView = new TextView(context);
+////				textView.setTextAppearance(context, android.R.attr.textAppearanceMedium);
+////				textView.setTag("text");
+////				if(item.getFlag())
+////					textView.setText("最初の授業の" + item.getHour() + "時間" + item.getMin() + "分前");
+////				else
+////					textView.setText(item.getDay() + "曜日:"+ item.getHour() + "時" + item.getMin() + "分");
+////				layout.addView(textView);
+//				Log.d("test", "TTT");
+//				view = layoutInflater.inflate(R.layout.listviewadapter, null);
+//			}
+//
+//			Log.d("test1", "TTT");
+//			textView =(TextView)findViewById(R.id.ToastMessageView);
+//			//textView.setTextAppearance(context, android.R.attr.textAppearanceMedium);
+//			textView.setTag("text");
+//			if(item.getFlag())
+//				textView.setText("最初の授業の" + item.getHour() + "時間" + item.getMin() + "分前");
+//			else
+//				textView.setText(item.getDay() + "曜日:"+ item.getHour() + "時" + item.getMin() + "分");
+//
+//			
+			View view = convertView;
+			TextView textView;
+			if(view == null){
+				view = inflater.inflate(layoutID, parent, false);
+				textView = (TextView)findViewById(R.id.ToastMessageView);
+				view.setTag(textView);
+			} else {
+				textView = (TextView)view.getTag();
 			}
+			AlarmTimeDBEntity item = this.getItem(position);
+			textView.setTextAppearance(this.context, android.R.attr.textAppearanceMedium);
+			textView.setTag("text");
+			if(item.getFlag())
+				textView.setText("最初の授業の" + item.getHour() + "時間" + item.getMin() + "分前");
+			else
+				textView.setText(item.getDay() + "曜日:"+ item.getHour() + "時" + item.getMin() + "分");
 			
 					
-			return convertView;
+			return view;
 		}
 		
 	}

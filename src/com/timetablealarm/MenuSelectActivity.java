@@ -74,7 +74,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MenuSelectActivity extends Activity implements OnClickListener {
-
 	
 	private Button timebutton;
 	private Button sleepbutton;
@@ -88,6 +87,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private ScheduleDB dao2;
 	private SleepTimeDB dao3;
 	private AttendDB dao4;
+	
 	
 	private Calendar mCalender;
 	private int k ;
@@ -150,6 +150,15 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	protected void onResume(){
 		super.onResume();
 		
+		if(this.db == null){
+			helper = new DBHelper(this);
+			db = helper.getReadableDatabase();
+			dao = new TwitterDB(db);
+			dao2 = new ScheduleDB(db);
+			dao3 = new SleepTimeDB(this.db);
+			dao4 = new AttendDB(this.db);
+		}
+		
 		Uri uri = getIntent().getData();
         if(uri != null && uri.toString().startsWith("twittercallback://MenuSelectActivity")){
             TwitterCallbackAsyncTask callbackTask = new TwitterCallbackAsyncTask();
@@ -166,6 +175,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			}
         }
 	}
+	
 	GPSLoad gps;
 	@Override
 	public void onClick(View v) {
@@ -181,6 +191,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(MenuSelectActivity.this, TimeTableMain.class);
 			startActivity(intent);
 			db.close();
+			db = null;
 		}
 		if(v == this.sleepbutton){
 
@@ -210,7 +221,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			Toast.makeText(this, "出席しました", Toast.LENGTH_SHORT).show();
 
 			MyAlarmManager mam = new MyAlarmManager(this);
-			mam.addAlarm(0,0,30,0);
+			//mam.addAlarm(0,0,30,0);
 
 			List<AttendDBEntity> entityList = dao4.findALL();
 
@@ -258,6 +269,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(MenuSelectActivity.this, AlarmMenuActivity.class);
 			startActivity(intent);
 			db.close();
+			db = null;
 			
 		}
 		if(v == this.twitterbutton){
