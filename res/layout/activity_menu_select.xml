@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}" >
-
+<!-- 
     <Button
         android:id="@+id/timebutton"
         android:layout_width="match_parent"
@@ -12,39 +12,137 @@
         android:layout_weight="0.30"
         android:background="#b3f492"
         android:text="時間割" />
-
+-->
+    <LinearLayout
+	        android:id="@+id/LinearLayout4"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.30"
+	        android:background="#b3f492"
+	        android:gravity="center" >
+	
+	        <ImageButton
+	            android:id="@+id/Timeicon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.19"
+	        	android:background="#00FFFFFF"
+	            android:src="@drawable/timetable" />
+	
+	        <Button
+	        	android:id="@+id/timebutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.92"
+	        	android:background="#00FFFFFF"
+	        	android:text="時間割" />
+	
+	    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="67dp"
         android:layout_weight="0.17" >
-
+<!-- 
         <Button
             android:id="@+id/attendancebutton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.50"
             android:background="#f4b37a"
-            android:text="出席" />
+            android:text="出席" />-->
+        
+        <LinearLayout
+	        android:id="@+id/LinearLayout4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.50"
+	        android:background="#f4b37a"
+	        android:gravity="center" >
+	
+	        <ImageButton
+	            android:id="@+id/Attendanceicon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.19"
+	        	android:background="#00FFFFFF"
+	            android:src="@drawable/attendance" />
+	
+	        <Button
+	        	android:id="@+id/attendancebutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.92"
+	        	android:background="#00FFFFFF"
+	        	android:text="出席" />
+	
+	    </LinearLayout>
 
-        <Button
+        
+        <LinearLayout
+	        android:id="@+id/LinearLayout3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.50"
+	        android:background="#a492f4"
+	        android:gravity="center" >
+	
+	        <ImageButton
+	            android:id="@+id/Sleepicon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.19"
+	        	android:background="#00FFFFFF"
+	            android:src="@drawable/sleep" />
+	
+	        <Button
+	        	android:id="@+id/sleepbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.92"
+	        	android:background="#00FFFFFF"
+	        	android:text="就寝" />
+	
+	    </LinearLayout>
+	    
+        <!--          <Button
             android:id="@+id/sleepbutton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.48"
             android:background="#a492f4"
             android:text="就寝" />
+-->
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/alarmbutton"
+     <LinearLayout
+        android:id="@+id/LinearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.30"
         android:background="#ffb6c1"
-        android:text="目覚まし管理" />
+        android:gravity="center" >
 
+        <ImageButton
+            android:id="@+id/Alarmicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.19"
+        	android:background="#00FFFFFF"
+            android:src="@drawable/alarm" />
+
+        <Button
+        	android:id="@+id/alarmbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.92"
+        	android:background="#00FFFFFF"
+        	android:text="目覚まし管理" />
+
+    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="wrap_content"
@@ -53,11 +151,12 @@
         android:background="#00B0ED"
         android:gravity="center" >
 
-        <ImageView
+        <ImageButton
             android:id="@+id/Twittericon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
+        	android:background="#00FFFFFF"
             android:src="@drawable/aboutlogousage" />
 
         <Button

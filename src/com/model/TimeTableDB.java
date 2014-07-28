@@ -44,6 +44,27 @@ public class TimeTableDB {
 		return entityList;
 	}
 	
+	/***
+	 * 
+	 * @param num 0:月曜 ~ 6:日曜
+	 * @return
+	 */
+//	public List<TimeTableDBEntity> getDay(int num){
+//		List<TimeTableDBEntity> entityList = new ArrayList<TimeTableDBEntity>();
+//		List<TimeTableDBEntity> TargetEntityList = this.findAll();
+//		for(int i = 0; i < TargetEntityList.size(); i++){
+//			TimeTableDBEntity Tentity = TargetEntityList.get(i);
+//			if(Tentity.getDayforInt() == num){
+//				TimeTableDBEntity entity = new TimeTableDBEntity();
+//				entity.setrowID(Tentity.getrowID());
+//				entity.setDay(Tentity.getDay());
+//				entity.setClassRoom(Tentity.getClassRoom());
+//				entity.setContinuation(Tentity.getContinuation());
+//				entity.setName(Tentity.getName());
+//			}
+//		}
+//	}
+	
 	public long insert(TimeTableDBEntity entity){
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_NAME, entity.getName());

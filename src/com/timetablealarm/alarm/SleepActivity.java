@@ -100,7 +100,7 @@ public class SleepActivity extends Activity implements LocationListener {
 				Calendar AlarmCalendar = Calendar.getInstance();
 				if(!entity.getFlag() && (entity.getDayInt() + 1) % 7 == week){
 					MyAlarmManager mAlarmManager = new MyAlarmManager(this);
-					AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1, entity.getHour(), entity.getHour(), 0);
+					AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1, entity.getHour(), entity.getMin(), 0);
 					mAlarmManager.addAlarm(AlarmCalendar.getTimeInMillis());
 				} else {
 					

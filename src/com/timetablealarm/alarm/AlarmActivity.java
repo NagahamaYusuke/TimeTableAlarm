@@ -44,6 +44,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 	
 	private static final String PREF_KEY = "SnoozNum";
 	private static final String KEY_FLAGNUM = "flagnum";
+	private TextView Message;
 	private Button StopButton;
 	private Button SnoozeButton;
 	private DBHelper dBHelper;
@@ -78,6 +79,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		SnoozeButton = (Button)findViewById(R.id.SnoozeButton);
 		SnoozeButton.setOnClickListener(this);
 		
+		this.Message = (TextView)findViewById(R.id.balloonTextView);
 		
 		
 		dBHelper = new DBHelper(this);
@@ -146,7 +148,9 @@ public class AlarmActivity extends Activity implements OnClickListener {
 			if(pref.getInt(KEY_FLAGNUM, 0) >= MAXNUM){
 				if(dao2.findAll() != null){
 					TwitterMode TMR = new TwitterMode(dao2.firstAccessToken());
-					TMR.Tweet(this.RandomTweetText());
+					String Tweet = this.RandomTweetText();
+					TMR.Tweet(Tweet);
+					this.Message.setText(Tweet);
 				}
 				editor = pref.edit();
 				editor.putInt(KEY_FLAGNUM, pref.getInt(PREF_KEY, 0) + 1);

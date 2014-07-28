@@ -41,6 +41,7 @@ import com.model.ScheduleDB;
 import com.model.ScheduleDBEntity;
 import com.model.SleepTimeDB;
 import com.model.SleepTimeDBEntity;
+import com.model.TimeTableDB;
 import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 import com.timetablealarm.alarm.AlarmMenuActivity;
@@ -90,6 +91,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private SleepTimeDB dao3;
 	private AttendDB dao4;
 	private AlarmTimeDB dao5;
+	private TimeTableDB dao6;
 	
 	private Calendar mCalender;
 	private int k ;
@@ -124,6 +126,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		dao3 = new SleepTimeDB(this.db);
 		dao4 = new AttendDB(this.db);
 		dao5 = new AlarmTimeDB(this.db);
+		dao6 = new TimeTableDB(this.db);
 		
 		this.k = 0;
 		this.mCalender = Calendar.getInstance();
@@ -161,6 +164,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			dao3 = new SleepTimeDB(this.db);
 			dao4 = new AttendDB(this.db);
 			dao5 = new AlarmTimeDB(this.db);
+			dao6 = new TimeTableDB(this.db);
 		}
 		
 		Uri uri = getIntent().getData();
@@ -223,13 +227,15 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			for(int i = 0; i < entitylist.size(); i++){
 				AlarmTimeDBEntity entity = entitylist.get(i);
 				Calendar AlarmCalendar = Calendar.getInstance();
-				if(!entity.getFlag() && (entity.getDayInt() + 1) % 7 == week){
+				Log.d("Alarm", "aaa");
+				if(!entity.getFlag() && ((entity.getDayInt() + 1) % 7 == week || entity.getDayInt() == (week + 5) % 7)){
+					Log.d("Alarm", week + "");
 					MyAlarmManager mAlarmManager = new MyAlarmManager(this);
-					AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH), entity.getHour(), entity.getHour(), 0);
+					AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH), entity.getHour(), entity.getMin(), 0);
 					if(System.currentTimeMillis() > AlarmCalendar.getTimeInMillis())
-						AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1, entity.getHour(), entity.getHour(), 0);
+						AlarmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1, entity.getHour(), entity.getMin(), 0);
 					mAlarmManager.addAlarm(AlarmCalendar.getTimeInMillis());
-				} else {
+				} else if(entity.getFlag()){
 					
 				}
 			}
@@ -241,7 +247,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			Toast.makeText(this, "出席しました", Toast.LENGTH_SHORT).show();
 
 			MyAlarmManager mam = new MyAlarmManager(this);
-			//mam.addAlarm(0,0,30,0);
+			mam.addAlarm(0,0,30,0);
 
 			List<AttendDBEntity> entityList = dao4.findALL();
 

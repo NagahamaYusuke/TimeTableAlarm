@@ -12,6 +12,8 @@ public class TimeTableDBEntity implements Serializable{
 	private String teacher;
 	private String ClassRoom;
 	private boolean continuation;
+
+    private String[] date = {"月", "火", "水", "木","金","土","日"};
 	
 	public void setrowID(int rowID){
 		this.rowID = rowID;
@@ -35,6 +37,14 @@ public class TimeTableDBEntity implements Serializable{
 	
 	public String getDay(){
 		return this.Day;
+	}
+	
+	public int getDayforInt(){
+		for(int i = 0; i < this.date.length; i++)
+			if(this.date[i].equals(this.Day))
+				return i;
+		
+		return -1;
 	}
 	
 	public void setTime(int time){
