@@ -4,10 +4,12 @@ package com.timetablealarm.timetable;
 //import android.support.v7.app.ActionBarActivity;
 //import android.support.v7.app.ActionBar;
 //import android.support.v4.app.Fragment;
+import com.model.*;
 import com.timetablealarm.R;
 
 import android.app.Activity;
 import android.app.AliasActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 //import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 //import android.os.Build;
 //import android.widget.Button;
@@ -31,14 +34,17 @@ public class TimeTableCreate extends Activity implements OnClickListener {
 	private EditText Period;
 	private int period;
 	private Boolean continuity;
-	private int endPeriod;
 	private String ProfName;
 	private String site;
-	
-	private final int FP = ViewGroup.LayoutParams.FILL_PARENT;
-    private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
+	private String sbjName;
+	private DBHelper helper;
+	private SQLiteDatabase db;
+	private TimeTableDB dao;
+	private Button OKButton;
+	private Button CancelButton;
+
+	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
     private String[] date = {"月", "火", "水", "木","金","土","日"};
-    private String[] time = {"1","2","3","4","5","6","7"};
     
 
 	
@@ -46,19 +52,36 @@ public class TimeTableCreate extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timetable_create);
 		
-		this.subjectName = (EditText)findViewById(R.id.subjectName);
-		String sbjName = subjectName.getText().toString();
+		
+		this.CancelButton = (Button)findViewById(R.id.CancelButton);
+		this.CancelButton.setOnClickListener(this);
+		
+		this.OKButton = (Button)findViewById(R.id.OKButton);
+		this.OKButton.setOnClickListener(this);
+		
+		this.subjectName = (EditText)getText(R.id.subjectName);
+		sbjName = subjectName.getText().toString();
 		
 		
 		this.day = (Spinner)findViewById(R.id.day);
 		
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinerrow, date);
-
+		LinearLayout linearLayout = new LinearLayout(this);
+		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+		setContentView(linearLayout);
+		
+		linearLayout.addView(day, createParam(100, WC));
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.id.day, date);
+		
 		day.setAdapter(arrayAdapter);
 		
 		
+		this.Period = (EditText)getText(R.id.period);
+		String str = Period.toString();
+		this.period = Integer.parseInt(str);
 		
-		this.Period = (EditText)findViewById(R.id.period);
+		this.helper = new DBHelper(this);
+		this.db = this.helper.getReadableDatabase();
+		this.dao = new TimeTableDB(this.db);
 	}    
 	
 	private LinearLayout.LayoutParams createParam(int w, int h){
@@ -68,7 +91,21 @@ public class TimeTableCreate extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+		if(v == this.OKButton){
+			TimeTableDBEntity entity = new TimeTableDBEntity();
+			entity.setName(sbjName);
+			entity.setDay(day.toString());
+			entity.setTime(period);
+			entity.setContinuation(continuity);
+			entity.setTeacher(ProfName);
+			entity.setClassRoom(site);
+			
+			dao.insert(entity);
+			db.close();
+			finish();
+		} if(v == this.CancelButton){
+			finish();
+		}
 	}
 		
 }
