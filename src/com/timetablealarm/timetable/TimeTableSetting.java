@@ -45,7 +45,7 @@ public class TimeTableSetting extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timetable_setting);
 		
-		this.subjectName = (EditText)findViewById(R.id.subjectName);
+		this.subjectName = (EditText)findViewById(R.id.subjectName1);
 //		String sbjName = subjectName.getText().toString();
 		
 		

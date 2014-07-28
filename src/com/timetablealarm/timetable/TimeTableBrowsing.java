@@ -35,9 +35,9 @@ public class TimeTableBrowsing extends Activity implements OnClickListener{
 		this.share = (Button)findViewById(R.id.button1);
 		this.share.setOnClickListener(this);
 		
-		LinearLayout linearLayout = new LinearLayout(this);
-		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-		setContentView(linearLayout);
+//		LinearLayout linearLayout = new LinearLayout(this);
+//		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+//		setContentView(linearLayout);
 		
 		if (savedInstanceState == null) {
 //			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
