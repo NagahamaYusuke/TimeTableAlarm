@@ -159,5 +159,30 @@
         android:layout_height="wrap_content" >
 
     </TableRow>
+    
+    
+		    <LinearLayout
+		        android:id="@+id/LinearLayout1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:layout_marginTop="50dp" >
+		
+		        <Button
+		            android:id="@+id/OKButton"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="bottom"
+		            android:layout_weight="0.49"
+		            android:text="決定" />
+		
+		        <Button
+		            android:id="@+id/CancelButton"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="bottom"
+		            android:layout_weight="0.50"
+		            android:text="キャンセル" />
+		        
+		    </LinearLayout>
 
 </TableLayout>

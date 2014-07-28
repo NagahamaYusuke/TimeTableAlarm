@@ -39,6 +39,7 @@ public class TimeTableCreate extends Activity implements OnClickListener {
     private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
     private String[] date = {"月", "火", "水", "木","金","土","日"};
     private String[] time = {"1","2","3","4","5","6","7"};
+    
 
 	
 	protected void onCreate(Bundle savedInstanceState) {

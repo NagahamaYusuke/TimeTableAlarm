@@ -82,19 +82,21 @@ public class TimeTableDB {
 	
 	public TimeTableDBEntity getSingle(){
 		final Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_ID + " DESC"); 
-		cursor.moveToNext();
-		TimeTableDBEntity entity = new TimeTableDBEntity();
-		entity.setrowID(cursor.getInt(0));
-		entity.setName(cursor.getString(1));
-		entity.setDay(cursor.getString(2));
-		entity.setTime(cursor.getInt(3));
-		entity.setTeacher(cursor.getString(4));
-		entity.setClassRoom(cursor.getString(5));
-		if(cursor.getInt(6) == 1)
-			entity.setContinuation(true);
-		else 
-			entity.setContinuation(false);
-		return entity;
+		if(cursor.moveToNext()){
+			TimeTableDBEntity entity = new TimeTableDBEntity();
+			entity.setrowID(cursor.getInt(0));
+			entity.setName(cursor.getString(1));
+			entity.setDay(cursor.getString(2));
+			entity.setTime(cursor.getInt(3));
+			entity.setTeacher(cursor.getString(4));
+			entity.setClassRoom(cursor.getString(5));
+			if(cursor.getInt(6) == 1)
+				entity.setContinuation(true);
+			else 
+				entity.setContinuation(false);
+			return entity;
+		}
+		return null;
 	}
 	
 	

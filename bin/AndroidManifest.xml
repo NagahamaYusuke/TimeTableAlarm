@@ -31,9 +31,9 @@
                 <action android:name="AttendAction" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.timetablealarm.alarm.SleepReciver">
-            <intent-filter >
-                <action android:name="SleepAction"/>
+        <receiver android:name="com.timetablealarm.alarm.SleepReciver" >
+            <intent-filter>
+                <action android:name="SleepAction" />
             </intent-filter>
         </receiver>
 
@@ -41,7 +41,8 @@
         </service>
         <service android:name="com.timetablealarm.alarm.AttendService" >
         </service>
-        <service android:name="com.timetablealarm.alarm.SleepService"></service>
+        <service android:name="com.timetablealarm.alarm.SleepService" >
+        </service>
 
         <activity
             android:name="com.timetablealarm.alarm.AlarmActivity"
@@ -120,6 +121,14 @@
         <activity
             android:name="com.timetablealarm.SleepActivity"
             android:label="@string/title_activity_sleep" >
+        </activity>
+        <activity
+            android:name="com.timetablealarm.timetable.TimeTableBrowsing"
+            android:label="@string/title_activity_time_table_browsing" >
+        </activity>
+        <activity
+            android:name="com.timetablealarm.timetable.TimeTableInfomation"
+            android:label="@string/title_activity_time_table_infomation" >
         </activity>
     </application>
 

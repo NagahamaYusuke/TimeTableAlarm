@@ -16,5 +16,7 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_attend">AttendActivity</string>
     <string name="title_activity_sleep">SleepActivity</string>
+    <string name="title_activity_time_table_browsing">TimeTableBrowsing</string>
+    <string name="title_activity_time_table_infomation">TimeTableInfomation</string>
 
 </resources>
