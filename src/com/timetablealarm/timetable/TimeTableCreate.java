@@ -11,11 +11,6 @@ import android.os.Bundle;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-//import com.example.pl2.MainActivity.PlaceholderFragment;
-//import android.support.v7.app.ActionBarActivity;
-//import android.support.v7.app.ActionBar;
-//import android.support.v4.app.Fragment;
-//import android.os.Build;
 
 public abstract class TimeTableCreate extends AliasActivity implements OnClickListener {
 	
