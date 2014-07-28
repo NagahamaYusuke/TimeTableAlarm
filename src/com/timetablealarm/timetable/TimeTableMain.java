@@ -7,7 +7,6 @@ import com.timetablealarm.R;
 
 import android.app.AliasActivity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.*;
@@ -24,7 +23,7 @@ public abstract class TimeTableMain extends AliasActivity implements OnClickList
 	private SQLiteDatabase db;
 	private TimeTableDB dao;
 	private Button[][] button = new Button[5][6];
-	
+	private TimeTableDBEntity entity;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,23 +47,57 @@ public abstract class TimeTableMain extends AliasActivity implements OnClickList
 		
 		setButton();
 		
+		while((entity = this.dao.getSingle())!=null){
+		
+		if(entity.getDay()=="月"&&entity.getTime()==1)this.button[0][0].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&entity.getTime()==2)this.button[0][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&entity.getTime()==3)this.button[0][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&entity.getTime()==4)this.button[0][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&entity.getTime()==5)this.button[0][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&entity.getTime()==6)this.button[0][5].setText(entity.getClass().toString());
+
+		if(entity.getDay()=="火"&&entity.getTime()==1)this.button[1][0].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&entity.getTime()==2)this.button[1][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&entity.getTime()==3)this.button[1][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&entity.getTime()==4)this.button[1][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&entity.getTime()==5)this.button[1][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&entity.getTime()==6)this.button[1][5].setText(entity.getClass().toString());
+		
+		if(entity.getDay()=="水"&&entity.getTime()==1)this.button[2][0].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&entity.getTime()==2)this.button[2][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&entity.getTime()==3)this.button[2][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&entity.getTime()==4)this.button[2][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&entity.getTime()==5)this.button[2][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&entity.getTime()==6)this.button[2][5].setText(entity.getClass().toString());
+
+		if(entity.getDay()=="木"&&entity.getTime()==1)this.button[3][0].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&entity.getTime()==2)this.button[3][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&entity.getTime()==3)this.button[3][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&entity.getTime()==4)this.button[3][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&entity.getTime()==5)this.button[3][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&entity.getTime()==6)this.button[3][5].setText(entity.getClass().toString());
+		
+		if(entity.getDay()=="金"&&entity.getTime()==1)this.button[4][0].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&entity.getTime()==2)this.button[4][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&entity.getTime()==3)this.button[4][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&entity.getTime()==4)this.button[4][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&entity.getTime()==5)this.button[4][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&entity.getTime()==6)this.button[4][5].setText(entity.getClass().toString());
+		}
+		
 		List<TimeTableDBEntity> timetable = dao.findAll();
 		System.out.println(timetable);
-		
-		
 		
 		if (savedInstanceState == null) {
 			
 		}
 		
 	}
-	
+
 	public void setButton(){
 		//ボタンID設定ここから
 		this.button[0][0] = (Button)findViewById(R.id.button11);
 		this.button[0][0].setOnClickListener(this);
-		this.button[0][0].setText("setText");
-		
 		this.button[0][1] = (Button)findViewById(R.id.button12);
 		this.button[0][1].setOnClickListener(this);
 		this.button[0][2] = (Button)findViewById(R.id.button13);

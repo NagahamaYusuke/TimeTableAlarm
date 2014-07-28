@@ -60,7 +60,7 @@ public class TimeTableDB {
 		return db.insert(TABLE_NAME, null, values);
 	}
 	
-	public TimeTableDBEntity getSingle(Context context,Integer ID){
+	public TimeTableDBEntity getSingle(){
 		final Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_ID + " DESC"); 
 		TimeTableDBEntity entity = null;
 		entity = new TimeTableDBEntity();
