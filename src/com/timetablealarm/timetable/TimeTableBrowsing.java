@@ -1,12 +1,23 @@
 package com.timetablealarm.timetable;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import com.model.DBHelper;
+import com.model.TwitterDB;
 import com.timetablealarm.R;
 import com.timetablealarm.R.id;
 import com.timetablealarm.R.layout;
+import com.timetablealarm.twitter.TwitterMode;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +37,10 @@ public class TimeTableBrowsing extends Activity implements OnClickListener{
 	private Button CA;
 	private Button CB;
 	private Button CC;
+	private TwitterDB twitterDB;
+	private DBHelper helper;
+	private SQLiteDatabase db;
+	
 	
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +50,10 @@ public class TimeTableBrowsing extends Activity implements OnClickListener{
 		this.share = (Button)findViewById(R.id.button1);
 		this.share.setOnClickListener(this);
 		
+		this.helper = new DBHelper(this);
+		this.db = this.helper.getReadableDatabase();
+		this.twitterDB = new TwitterDB(db);
+		
 //		LinearLayout linearLayout = new LinearLayout(this);
 //		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 //		setContentView(linearLayout);
@@ -43,12 +62,23 @@ public class TimeTableBrowsing extends Activity implements OnClickListener{
 //			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}    
-	
+
+    final String SAVE_DIR = "/MyPhoto/";
 	public void onClick(View v){
 		if(v == this.share){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
-			// SubActivity の起動
-			startActivity(intent);
+		    File file = new File(Environment.getExternalStorageDirectory().getPath() + SAVE_DIR + "tmp.png");
+		    if(this.twitterDB.findAll() != null){
+				TwitterMode tm = new TwitterMode(this.twitterDB.firstAccessToken());
+				FileInputStream fis;
+				try {
+					fis = new FileInputStream(file);
+					Bitmap bm = BitmapFactory.decodeStream(fis);
+					tm.TweetWithPicture("",bm);
+				} catch (FileNotFoundException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+		    }
 		}
 		
 		if(v == this.AA){

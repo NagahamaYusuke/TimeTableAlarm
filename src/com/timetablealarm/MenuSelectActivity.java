@@ -60,6 +60,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
@@ -175,8 +176,6 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	    this.alarmbutton.setTextSize(20 * scale);
 	    this.twitterbutton.setTextSize(20 * scale);
 	    
-	    
-	    
 	}
 	
 	@Override
@@ -209,6 +208,8 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 				e.printStackTrace();
 			}
         }
+	    
+	    
 	}
 	
 	GPSLoad gps;
@@ -381,12 +382,10 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 //        DisplayMetrics metrics = new DisplayMetrics();
 //        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         
-        float screenWidth = (float)view.getWidth();
-        float screenHeight = (float) view.getHeight();
+        float screenWidth = (float)((double)view.getHeight() * 0.8);
+        float screenHeight = (float)((double)view.getHeight() * 0.8);
         Log.d("test", "screenWidth = " + String.valueOf(screenWidth)
                 + " px, screenHeight = " + String.valueOf(screenHeight) + " px");
-        float[] a = {screenWidth,screenHeight};
-        matrix.setValues(a);
         float widthScale = screenWidth / srcWidth;
         float heightScale = screenHeight / srcHeight;
         Log.d("test", "widthScale = " + String.valueOf(widthScale)

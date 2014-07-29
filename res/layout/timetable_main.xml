@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:gravity="center"
     tools:context="${packageName}.${activityClass}" >
 
@@ -44,7 +45,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/InfoDetails"
+        android:id="@+id/InfoDetailslayout"
+        android:background="#FFFFFF"
         android:columnCount="11"
         android:orientation="horizontal"
         android:rowCount="14" >

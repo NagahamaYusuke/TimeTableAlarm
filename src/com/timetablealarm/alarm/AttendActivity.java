@@ -69,10 +69,12 @@ public class AttendActivity extends Activity implements LocationListener {
 		if(result[0] < this.DISTANCE){
 			if(dao.checkDay(1, mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH) + 1, mCalender.get(Calendar.DAY_OF_MONTH)));
 		}
-		Calendar mmCalendar = Calendar.getInstance();
-		mmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1,0, 0);
-		MyAlarmManager mA = new MyAlarmManager(this);
-		mA.addAtend(mmCalendar.getTimeInMillis());
+		if(pref.getBoolean(AlarmGPSSettingActivity.KEY_ATTENDCHECK, false)){
+			Calendar mmCalendar = Calendar.getInstance();
+			mmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1,0, 0);
+			MyAlarmManager mA = new MyAlarmManager(this);
+			mA.addAtend(mmCalendar.getTimeInMillis());
+		}
 		finish();
 	}
 

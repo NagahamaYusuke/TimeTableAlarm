@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -21,10 +22,13 @@ import com.model.TwitterDB;
 import com.model.TwitterDBEntity;
 
 import android.database.sqlite.SQLiteDatabase;
+
 import com.timetablealarm.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.graphics.BitmapFactory;
@@ -73,13 +77,18 @@ public class TwitterMode {
 	}
 
 	
-	public Bitmap QueryBitmap(Activity activity){
+	public List<String> QueryBitmap(Activity activity){
+		List<String> list_A = new ArrayList<String>();
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(TwitterOAuthActivity.CONSUMER_KEY, TwitterOAuthActivity.CONSUMER_SECRET);  
 		
 		twitter.setOAuthAccessToken(this.accessToken); 
-		
+		SharedPreferences pref = activity.getPreferences(Activity.MODE_PRIVATE);
+		Editor editor = pref.edit();  
 		try {
+			for(int i=0;i<pref.getInt("LIST_A_NUM", 0);i++){  
+				list_A.add(pref.getString("LIST_A"+i,""));  
+			}
 			Query query = new Query();
 			query.setQuery("#TimeTableAlarm");
 			query.setResultType(Query.RECENT);
@@ -95,7 +104,7 @@ public class TwitterMode {
 						DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 						InputStream input = new URL(media.getMediaURL()).openStream();
 						OutputStream imageOs = activity.openFileOutput(df.format(sts.getCreatedAt()) + ".png",activity.MODE_PRIVATE);
-						
+						list_A.add(df.format(sts.getCreatedAt()) + ".png");
 						try{
 							byte[] buf = new byte[1024];
 							int len = 0;
@@ -112,6 +121,11 @@ public class TwitterMode {
 					}
 				}
 			}
+			 
+			for(int i=0;i<list_A.size();i++){  
+			    editor.putString("LIST_A"+i,list_A.get(i));  
+			}  
+			editor.commit(); 
 		} catch (TwitterException e) {
 			// TODO 自動生成された catch ブロック
 			//Log.e("wow",e.getErrorMessage());
@@ -123,7 +137,7 @@ public class TwitterMode {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		return null;
+		return list_A;
 	}
 	
 	private void createNomedia(File file){

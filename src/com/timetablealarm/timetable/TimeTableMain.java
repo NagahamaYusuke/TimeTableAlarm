@@ -1,5 +1,9 @@
 package com.timetablealarm.timetable;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import com.model.*;
@@ -9,7 +13,11 @@ import android.app.Activity;
 import android.app.AliasActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +26,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 //import android.os.Build;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
 
 public class TimeTableMain extends Activity implements OnClickListener {
@@ -32,6 +42,7 @@ public class TimeTableMain extends Activity implements OnClickListener {
 	private Button[][] button = new Button[5][6];
 	private TimeTableDBEntity entity;
 	
+	private GridLayout gridView;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +60,9 @@ public class TimeTableMain extends Activity implements OnClickListener {
 		this.InfoDetails = (ImageButton)findViewById(R.id.InfoDetails);
 		this.InfoDetails.setOnClickListener(this);
 	
-
+		this.gridView = (GridLayout)findViewById(R.id.InfoDetailslayout);
+		
+		
 		this.helper = new DBHelper(this);
 		this.db = this.helper.getReadableDatabase();
 		this.dao = new TimeTableDB(this.db);
@@ -180,9 +193,19 @@ public class TimeTableMain extends Activity implements OnClickListener {
 	 * A placeholder fragment containing a simple view.
 	 * @return 
 	 */
-	
+
+    final String SAVE_DIR = "/MyPhoto/";
 
 	public void onClick(View v){
+	    File file = new File(Environment.getExternalStorageDirectory().getPath() + SAVE_DIR);
+	    try{
+	        if(!file.exists()){
+	            file.mkdir();
+	        }
+	    }catch(SecurityException e){
+	        e.printStackTrace();
+	        throw e;
+	    }
 		if(v == this.AddTimeTable){
 			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
@@ -191,6 +214,18 @@ public class TimeTableMain extends Activity implements OnClickListener {
 			startActivity(intent);}
 		if(v == this.ShareMenu){
 			Intent intent = new Intent(TimeTableMain.this,TimeTableBrowsing.class);
+		    String fileName ="tmp.png";
+		    String AttachName = file.getAbsolutePath() + "/" + fileName;
+		    Log.d("aa",AttachName);
+			try {
+		        FileOutputStream out = new FileOutputStream(AttachName);
+		        this.getViewBitmap(this.gridView).compress(CompressFormat.PNG, 100, out);
+		        out.flush();
+		        out.close();
+		    } catch(IOException e) {
+		        e.printStackTrace();
+		    }
+			
 			startActivity(intent);}
 		if(v == this.InfoDetails){
 			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
@@ -295,5 +330,12 @@ public class TimeTableMain extends Activity implements OnClickListener {
 		
 		//時間割ボタンアクション設定ここまで		
 		
+	}
+	
+	public Bitmap getViewBitmap(View view){
+	    view.setDrawingCacheEnabled(true);
+	    Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+	    view.setDrawingCacheEnabled(false);
+	    return bitmap;
 	}
 }

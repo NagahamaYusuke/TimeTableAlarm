@@ -53,6 +53,7 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 	private double SleepLongitude;
 	private double AttendLaitude;
 	private double AttendLongitude;
+	private Calendar mCalender;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,8 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 		if(!pref.getBoolean(this.KEY_ATTENDCHECK, false)){
 			this.GPSSetUpAttend.setVisibility(View.INVISIBLE);
 		}
-		
+
+		this.mCalender = Calendar.getInstance();
 		
 		onTimeSetListener=new OnTimeSetListener() {
 			
@@ -152,6 +154,12 @@ public class AlarmGPSSettingActivity extends Activity implements OnClickListener
 			editor.putString(KEY_SLEEPGPSLAITUDE, this.SleepLaitude + "");
 			editor.putString(KEY_SLEEPGPSLONGITUDE, this.SleepLongitude + "");
 			editor.commit();
+			if(this.AttendCheckBox.isChecked()){
+				Calendar mmCalendar = Calendar.getInstance();
+				mmCalendar.set(mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH), mCalender.get(Calendar.DAY_OF_MONTH) + 1,0, 0);
+				MyAlarmManager mA = new MyAlarmManager(this);
+				mA.addAtend(mmCalendar.getTimeInMillis());
+			}
 			finish();
 		}
 		if(v == this.TimeSetUpButton){
