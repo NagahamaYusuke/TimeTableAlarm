@@ -50,7 +50,7 @@ public abstract class TimeTableMain extends AliasActivity implements OnClickList
 		while((entity = this.dao.getSingle())!=null){
 		
 		if(entity.getDay()=="月"&&entity.getTime()==1)this.button[0][0].setText(entity.getClass().toString());
-		if(entity.getDay()=="月"&&entity.getTime()==2)this.button[0][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&(entity.getTime()==2||(entity.getTime()==1&&entity.continuity))this.button[0][1].setText(entity.getClass().toString());
 		if(entity.getDay()=="月"&&entity.getTime()==3)this.button[0][2].setText(entity.getClass().toString());
 		if(entity.getDay()=="月"&&entity.getTime()==4)this.button[0][3].setText(entity.getClass().toString());
 		if(entity.getDay()=="月"&&entity.getTime()==5)this.button[0][4].setText(entity.getClass().toString());
