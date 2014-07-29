@@ -69,6 +69,7 @@ public abstract class TimeTableCreate extends AliasActivity implements OnClickLi
 			if(entity.getDay()=="火")day.setSelection(2);
 			if(entity.getDay()=="水")day.setSelection(3);
 			if(entity.getDay()=="木")day.setSelection(4);
+			if(entity.getDay()=="金")day.setSelection(5);
 			
 		}
 		
