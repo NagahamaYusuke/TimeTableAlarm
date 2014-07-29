@@ -30,7 +30,7 @@ public abstract class TimeTableSetting extends AliasActivity implements OnClickL
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.timetable_create);
+		setContentView(R.layout.timetable_setting);
 		
 		this.subjectName = (EditText)getText(R.id.subjectName);
 		String sbjName = subjectName.getText().toString();
