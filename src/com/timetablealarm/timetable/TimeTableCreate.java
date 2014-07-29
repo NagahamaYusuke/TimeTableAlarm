@@ -4,6 +4,7 @@ import com.model.DBHelper;
 import com.model.TimeTableDB;
 import com.model.TimeTableDBEntity;
 import com.timetablealarm.R;
+import com.timetablealarm.timetable.TimeTableMain;
 
 import android.app.AliasActivity;
 import android.database.sqlite.SQLiteDatabase;
@@ -52,9 +53,24 @@ public abstract class TimeTableCreate extends AliasActivity implements OnClickLi
 		String str = Period.toString();
 		this.period = Integer.parseInt(str);
 		
+		this.ProfName = getText(R.id.profName).toString();
+		this.site = getText(R.id.site).toString();
+		
 		this.helper = new DBHelper(this);
 		this.db = this.helper.getReadableDatabase();
 		this.dao = new TimeTableDB(this.db);
+		
+		if (entity != null){
+			
+			sbjName.setText(entity.getName());
+			period.setText(entity.getTime());
+			site.setText(entity.getClassRoom());
+			if(entity.getDay()=="月")day.setSelection(1);
+			if(entity.getDay()=="火")day.setSelection(2);
+			if(entity.getDay()=="水")day.setSelection(3);
+			if(entity.getDay()=="木")day.setSelection(4);
+			
+		}
 		
 		if (savedInstanceState == null) {
 //			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
