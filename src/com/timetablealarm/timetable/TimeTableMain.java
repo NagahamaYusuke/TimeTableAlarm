@@ -50,39 +50,39 @@ public abstract class TimeTableMain extends AliasActivity implements OnClickList
 		while((entity = this.dao.getSingle())!=null){
 		
 		if(entity.getDay()=="月"&&entity.getTime()==1)this.button[0][0].setText(entity.getClass().toString());
-		if(entity.getDay()=="月"&&(entity.getTime()==2||(entity.getTime()==1&&entity.continuity))this.button[0][1].setText(entity.getClass().toString());
-		if(entity.getDay()=="月"&&entity.getTime()==3)this.button[0][2].setText(entity.getClass().toString());
-		if(entity.getDay()=="月"&&entity.getTime()==4)this.button[0][3].setText(entity.getClass().toString());
-		if(entity.getDay()=="月"&&entity.getTime()==5)this.button[0][4].setText(entity.getClass().toString());
-		if(entity.getDay()=="月"&&entity.getTime()==6)this.button[0][5].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&(entity.getTime()==2||(entity.getTime()==1&&entity.getContinuity()==true))this.button[0][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&(entity.getTime()==3||(entity.getTime()==2&&entity.getContinuity()==true))this.button[0][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&(entity.getTime()==4||(entity.getTime()==3&&entity.getContinuity()==true))this.button[0][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&(entity.getTime()==5||(entity.getTime()==4&&entity.getContinuity()==true))this.button[0][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="月"&&(entity.getTime()==6||(entity.getTime()==5&&entity.getContinuity()==true))this.button[0][5].setText(entity.getClass().toString());
 
 		if(entity.getDay()=="火"&&entity.getTime()==1)this.button[1][0].setText(entity.getClass().toString());
-		if(entity.getDay()=="火"&&entity.getTime()==2)this.button[1][1].setText(entity.getClass().toString());
-		if(entity.getDay()=="火"&&entity.getTime()==3)this.button[1][2].setText(entity.getClass().toString());
-		if(entity.getDay()=="火"&&entity.getTime()==4)this.button[1][3].setText(entity.getClass().toString());
-		if(entity.getDay()=="火"&&entity.getTime()==5)this.button[1][4].setText(entity.getClass().toString());
-		if(entity.getDay()=="火"&&entity.getTime()==6)this.button[1][5].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&(entity.getTime()==2||(entity.getTime()==1&&entity.getContinuity()==true))this.button[1][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&(entity.getTime()==3||(entity.getTime()==2&&entity.getContinuity()==true))this.button[1][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&(entity.getTime()==4||(entity.getTime()==3&&entity.getContinuity()==true))this.button[1][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&(entity.getTime()==5||(entity.getTime()==4&&entity.getContinuity()==true))this.button[1][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="火"&&(entity.getTime()==6||(entity.getTime()==5&&entity.getContinuity()==true))this.button[1][5].setText(entity.getClass().toString());
 		
 		if(entity.getDay()=="水"&&entity.getTime()==1)this.button[2][0].setText(entity.getClass().toString());
-		if(entity.getDay()=="水"&&entity.getTime()==2)this.button[2][1].setText(entity.getClass().toString());
-		if(entity.getDay()=="水"&&entity.getTime()==3)this.button[2][2].setText(entity.getClass().toString());
-		if(entity.getDay()=="水"&&entity.getTime()==4)this.button[2][3].setText(entity.getClass().toString());
-		if(entity.getDay()=="水"&&entity.getTime()==5)this.button[2][4].setText(entity.getClass().toString());
-		if(entity.getDay()=="水"&&entity.getTime()==6)this.button[2][5].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&(entity.getTime()==2||(entity.getTime()==1&&entity.getContinuity()==true))this.button[2][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&(entity.getTime()==3||(entity.getTime()==2&&entity.getContinuity()==true))this.button[2][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&(entity.getTime()==4||(entity.getTime()==3&&entity.getContinuity()==true))this.button[2][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&(entity.getTime()==5||(entity.getTime()==4&&entity.getContinuity()==true))this.button[2][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="水"&&(entity.getTime()==6||(entity.getTime()==5&&entity.getContinuity()==true))this.button[2][5].setText(entity.getClass().toString());
 
 		if(entity.getDay()=="木"&&entity.getTime()==1)this.button[3][0].setText(entity.getClass().toString());
-		if(entity.getDay()=="木"&&entity.getTime()==2)this.button[3][1].setText(entity.getClass().toString());
-		if(entity.getDay()=="木"&&entity.getTime()==3)this.button[3][2].setText(entity.getClass().toString());
-		if(entity.getDay()=="木"&&entity.getTime()==4)this.button[3][3].setText(entity.getClass().toString());
-		if(entity.getDay()=="木"&&entity.getTime()==5)this.button[3][4].setText(entity.getClass().toString());
-		if(entity.getDay()=="木"&&entity.getTime()==6)this.button[3][5].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&(entity.getTime()==2||(entity.getTime()==1&&entity.getContinuity()==true))this.button[3][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&(entity.getTime()==3||(entity.getTime()==2&&entity.getContinuity()==true))this.button[3][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&(entity.getTime()==4||(entity.getTime()==3&&entity.getContinuity()==true))this.button[3][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&(entity.getTime()==5||(entity.getTime()==4&&entity.getContinuity()==true))this.button[3][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="木"&&(entity.getTime()==6||(entity.getTime()==5&&entity.getContinuity()==true))this.button[3][5].setText(entity.getClass().toString());
 		
 		if(entity.getDay()=="金"&&entity.getTime()==1)this.button[4][0].setText(entity.getClass().toString());
-		if(entity.getDay()=="金"&&entity.getTime()==2)this.button[4][1].setText(entity.getClass().toString());
-		if(entity.getDay()=="金"&&entity.getTime()==3)this.button[4][2].setText(entity.getClass().toString());
-		if(entity.getDay()=="金"&&entity.getTime()==4)this.button[4][3].setText(entity.getClass().toString());
-		if(entity.getDay()=="金"&&entity.getTime()==5)this.button[4][4].setText(entity.getClass().toString());
-		if(entity.getDay()=="金"&&entity.getTime()==6)this.button[4][5].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&(entity.getTime()==2||(entity.getTime()==1&&entity.getContinuity()==true))this.button[4][1].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&(entity.getTime()==3||(entity.getTime()==2&&entity.getContinuity()==true))this.button[4][2].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&(entity.getTime()==4||(entity.getTime()==3&&entity.getContinuity()==true))this.button[4][3].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&(entity.getTime()==5||(entity.getTime()==4&&entity.getContinuity()==true))this.button[4][4].setText(entity.getClass().toString());
+		if(entity.getDay()=="金"&&(entity.getTime()==6||(entity.getTime()==5&&entity.getContinuity()==true)this.button[4][5].setText(entity.getClass().toString());
 		}
 		
 		List<TimeTableDBEntity> timetable = dao.findAll();
