@@ -181,98 +181,98 @@ public abstract class TimeTableMain extends AliasActivity implements OnClickList
 		//時間割ボタンアクション設定ここから
 		
 		if(v == this.button[0][0]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[0][1]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[0][2]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[0][3]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[0][4]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[0][5]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 
 		if(v == this.button[1][0]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[1][1]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[1][2]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[1][3]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[1][4]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[1][5]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		
 		if(v == this.button[2][0]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[2][1]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[2][2]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[2][3]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[2][4]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[2][5]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		
 		if(v == this.button[3][0]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[3][1]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[3][2]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[3][3]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[3][4]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[3][5]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		
 		if(v == this.button[4][0]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[4][1]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[4][2]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[4][3]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[4][4]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		if(v == this.button[4][5]){
-			Intent intent = new Intent(TimeTableMain.this,TimeTableInfomation.class);
+			Intent intent = new Intent(TimeTableMain.this,TimeTableCreate.class);
 			startActivity(intent);}
 		
 		//時間割ボタンアクション設定ここまで		
