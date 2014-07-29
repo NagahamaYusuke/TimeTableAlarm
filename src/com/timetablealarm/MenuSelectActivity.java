@@ -61,10 +61,13 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.ContactsContract.CommonDataKinds.Im;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -73,6 +76,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -83,6 +87,12 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	private Button attendancebutton;
 	private Button alarmbutton;
 	private Button twitterbutton;
+	private ImageButton timeicon;
+	private ImageButton sleepicon;
+	private ImageButton attendendanceicon;
+	private ImageButton alaramicon;
+	private ImageButton twittericon;
+	
 	private AccessToken accessToken;
 	private DBHelper helper;
 	private SQLiteDatabase db;
@@ -119,6 +129,20 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		this.twitterbutton = (Button)findViewById(R.id.twitterbutton);
 		this.twitterbutton.setOnClickListener(this);
 		
+		this.timeicon = (ImageButton)findViewById(R.id.Twittericon);
+		this.timeicon.setOnClickListener(this);
+		
+		this.sleepicon = (ImageButton)findViewById(R.id.Sleepicon);
+		this.sleepicon.setOnClickListener(this);
+		
+		this.attendendanceicon = (ImageButton)findViewById(R.id.Attendanceicon);
+		this.attendendanceicon.setOnClickListener(this);
+		
+		this.alaramicon = (ImageButton)findViewById(R.id.Alarmicon);
+		this.alaramicon.setOnClickListener(this);
+		
+		this.twittericon = (ImageButton)findViewById(R.id.Twittericon);
+		this.twittericon.setOnClickListener(this);
 		helper = new DBHelper(this);
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
@@ -145,11 +169,14 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	    float scale = width /480;
 	 
 	    //指定のテキストビューのテキストサイズに倍率をかける
-	    this.timebutton.setTextSize(25 * scale);
-	    this.sleepbutton.setTextSize(25 * scale);
-	    this.attendancebutton.setTextSize(25 * scale);
-	    this.alarmbutton.setTextSize(25 * scale);
-	    this.twitterbutton.setTextSize(25 * scale);
+	    this.timebutton.setTextSize(20 * scale);
+	    this.sleepbutton.setTextSize(20 * scale);
+	    this.attendancebutton.setTextSize(20 * scale);
+	    this.alarmbutton.setTextSize(20 * scale);
+	    this.twitterbutton.setTextSize(20 * scale);
+	    
+	    
+	    
 	}
 	
 	@Override
@@ -188,7 +215,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO 自動生成されたメソッド・スタブ
-		if(v == this.timebutton){
+		if(v == this.timebutton || v == this.timeicon){
 			if(dao2.findAll() == null){
 				Html_getter html_getter = new Html_getter();
 				List<HtmlCrawlerEntity> entityList = html_getter.gethtmlCrawlerData();
@@ -201,7 +228,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			db.close();
 			db = null;
 		}
-		if(v == this.sleepbutton){
+		if(v == this.sleepbutton || v == this.sleepicon){
 			if(dao3.findAll(30).size() == 0){
 				Toast.makeText(this, "おやすみなさい", Toast.LENGTH_SHORT).show();
 				SleepTimeDBEntity entity = new SleepTimeDBEntity();
@@ -241,35 +268,35 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			}
 			
 		}
-		if(v == this.attendancebutton){
+		if(v == this.attendancebutton || v == this.attendendanceicon){
 //			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
 
 			Toast.makeText(this, "出席しました", Toast.LENGTH_SHORT).show();
 
-			MyAlarmManager mam = new MyAlarmManager(this);
-			mam.addAlarm(0,0,30,0);
+//			MyAlarmManager mam = new MyAlarmManager(this);
+//			mam.addAlarm(0,0,30,0);
 
-			List<AttendDBEntity> entityList = dao4.findALL();
-
-			for(int i = 0; i < entityList.size(); i++){
-				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
-			}
+//			List<AttendDBEntity> entityList = dao4.findALL();
+//
+//			for(int i = 0; i < entityList.size(); i++){
+//				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+//			}
 			
 			if(dao4.checkDay(1, mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH) + 1, mCalender.get(Calendar.DAY_OF_MONTH)));
 			
-			entityList = dao4.findALL();
+//			entityList = dao4.findALL();
 			
-			for(int i = 0; i < entityList.size(); i++){
-				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
-			}
+//			for(int i = 0; i < entityList.size(); i++){
+//				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+//			}
 
-			if(dao4.checkDay(2, mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH) + 1, mCalender.get(Calendar.DAY_OF_MONTH)));
-
-			entityList = dao4.findALL();
-			
-			for(int i = 0; i < entityList.size(); i++){
-				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
-			}
+//			if(dao4.checkDay(2, mCalender.get(Calendar.YEAR), mCalender.get(Calendar.MONTH) + 1, mCalender.get(Calendar.DAY_OF_MONTH)));
+//
+//			entityList = dao4.findALL();
+//			
+//			for(int i = 0; i < entityList.size(); i++){
+//				Log.d("AttendDB", "rowID" + entityList.get(i).getRowID() + ", Name" + entityList.get(i).getName() + ", Num" + entityList.get(i).getNum());
+//			}
 
 			
 			
@@ -277,7 +304,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 //			this.TweetWithPicture("Test #TimeTableAlarm", this.getViewBitmap(this.findViewById(R.id.menu_select_layout)));
 
 		}
-		if(v == this.alarmbutton){
+		if(v == this.alarmbutton || v == this.alaramicon){
 			
 //			gps = new GPSLoad(this);
 //			(new Thread (new Runnable() {
@@ -298,7 +325,7 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 			db = null;
 			
 		}
-		if(v == this.twitterbutton){
+		if(v == this.twitterbutton || v == this.twittericon){
 			if(dao.findAll() == null){
 				Intent intent = new Intent(MenuSelectActivity.this, TwitterOAuthActivity.class);
 				startActivity(intent);
@@ -342,5 +369,43 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		}
 		return null;
 	}
+	
+	private Bitmap resizeBitmapToDisplaySize(View view, Bitmap src){
+        int srcWidth = src.getWidth(); // 元画像のwidth
+        int srcHeight = src.getHeight(); // 元画像のheight
+        Log.d("test", "srcWidth = " + String.valueOf(srcWidth)
+                + " px, srcHeight = " + String.valueOf(srcHeight) + " px");
+ 
+//        // 画面サイズを取得する
+          Matrix matrix = new Matrix();
+//        DisplayMetrics metrics = new DisplayMetrics();
+//        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        
+        float screenWidth = (float)view.getWidth();
+        float screenHeight = (float) view.getHeight();
+        Log.d("test", "screenWidth = " + String.valueOf(screenWidth)
+                + " px, screenHeight = " + String.valueOf(screenHeight) + " px");
+        float[] a = {screenWidth,screenHeight};
+        matrix.setValues(a);
+        float widthScale = screenWidth / srcWidth;
+        float heightScale = screenHeight / srcHeight;
+        Log.d("test", "widthScale = " + String.valueOf(widthScale)
+                + ", heightScale = " + String.valueOf(heightScale));
+//        if (widthScale > heightScale) {
+//            matrix.postScale(heightScale, heightScale);
+//        } else {
+//            matrix.postScale(widthScale, widthScale);
+//        }
+        
+        matrix.postScale(widthScale, heightScale);
+        // リサイズ
+        Bitmap dst = Bitmap.createBitmap(src, 0, 0, srcWidth, srcHeight, matrix, true);
+        int dstWidth = dst.getWidth(); // 変更後画像のwidth
+        int dstHeight = dst.getHeight(); // 変更後画像のheight
+        Log.d("test", "dstWidth = " + String.valueOf(dstWidth)
+                + " px, dstHeight = " + String.valueOf(dstHeight) + " px");
+        src = null;
+        return dst;
+    }
 	
 }
