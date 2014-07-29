@@ -28,7 +28,7 @@ public abstract class TimeTableCreate extends AliasActivity implements OnClickLi
 	private TimeTableDB dao;
 	
 	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
-    private String[] date = {"月", "火", "水", "木","金","土","日"};
+    private String[] date = {"月", "火", "水", "木","金"};
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timetable_create);
