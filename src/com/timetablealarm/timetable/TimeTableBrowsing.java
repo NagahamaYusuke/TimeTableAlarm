@@ -40,37 +40,37 @@ public abstract class TimeTableBrowsing extends AliasActivity implements OnClick
 	
 	public void onClick(View v){
 		if(v == this.share){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			// SubActivity の起動
 			startActivity(intent);
 		}
 		
 		if(v == this.AA){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.AB){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.AC){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.BA){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.BB){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.BC){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.CA){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.CB){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}if(v == this.CC){
-			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableCreate.class);
+			Intent intent = new Intent(TimeTableBrowsing.this,TimeTableBrowsing_view.class);
 			startActivity(intent);
 		}	
 		
