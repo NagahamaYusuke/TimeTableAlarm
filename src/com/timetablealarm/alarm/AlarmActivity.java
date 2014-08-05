@@ -63,7 +63,10 @@ public class AlarmActivity extends Activity implements OnClickListener {
 											   "これは，もはやセンスやな！寝坊のセンス",
 											   "ﾌﾄﾝ( ˘ω˘ )ｽﾔｧ",
 											   "ﾌﾄﾝVS単位　　　ﾌﾄﾝの勝ち",
-											   "単位なんて夢の中でも取れるもん！！"
+											   "単位なんて夢の中でも取れるもん！！",
+											   "二度寝なう",
+											   "お，おこしてく・れ・・・・",
+											   "僕が授業いないこと気づかれてるのかな"
 											   };
 	
 	@Override
@@ -144,24 +147,26 @@ public class AlarmActivity extends Activity implements OnClickListener {
 		}
 		if(v == this.SnoozeButton){
 			MyAlarmManager mam = new MyAlarmManager(this);
-			mam.addAlarm(0,5,0,0);
+			mam.addAlarm(0,0,10,0);
+			Log.d("SS",pref.getInt(KEY_FLAGNUM, 0) + "");
 			if(pref.getInt(KEY_FLAGNUM, 0) >= MAXNUM){
 				if(dao2.findAll() != null){
 					TwitterMode TMR = new TwitterMode(dao2.firstAccessToken());
 					String Tweet = this.RandomTweetText();
 					TMR.Tweet(Tweet);
 					this.Message.setText(Tweet);
+					Toast.makeText(this, Tweet, Toast.LENGTH_SHORT);
 				}
 				editor = pref.edit();
-				editor.putInt(KEY_FLAGNUM, pref.getInt(PREF_KEY, 0) + 1);
+				editor.putInt(KEY_FLAGNUM, pref.getInt(KEY_FLAGNUM, 0) + 1);
 				editor.commit();
 			} else {
 				editor = pref.edit();
-				editor.putInt(KEY_FLAGNUM, pref.getInt(PREF_KEY, 0) + 1);
+				editor.putInt(KEY_FLAGNUM, pref.getInt(KEY_FLAGNUM, 0) + 1);
 				editor.commit();
 			}
 			player.stop();
-			
+			finish();
 		}
 	}
 	

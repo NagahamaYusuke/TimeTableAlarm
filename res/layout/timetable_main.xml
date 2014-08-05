@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:visibility="gone"
         android:layout_toLeftOf="@+id/AddTimeTable"
         android:src="@android:drawable/ic_menu_manage" />
 
@@ -40,12 +41,13 @@
         android:src="@android:drawable/ic_menu_info_details" />
 
     <GridLayout
+        android:id="@+id/InfoDetailslayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:id="@+id/InfoDetailslayout"
+        android:layout_below="@+id/AddTimeTable"
         android:background="#FFFFFF"
         android:columnCount="11"
         android:orientation="horizontal"

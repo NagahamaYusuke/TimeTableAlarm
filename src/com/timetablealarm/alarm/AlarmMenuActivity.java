@@ -218,6 +218,7 @@ public class AlarmMenuActivity extends Activity implements OnClickListener, OnIt
 	        		xStrValue[j] = entity.get(i).getYear() + "/" + String.format("%1$02d", entity.get(i).getMonth()) + "/" + String.format("%1$02d", entity.get(i).getDay());
 	        		tmp = entity.get(i).getSleeptime();
 	        	} else {
+	        		
 	        		yDoubleValue[j] = (entity.get(i).getSleeptime() - tmp) / 1000.0 / 60.0 / 60.0;
 	        		tmp = 0;
 		        	Log.d("test", yDoubleValue[j]  + "");

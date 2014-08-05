@@ -69,6 +69,19 @@ public class TimeTableMain extends Activity implements OnClickListener {
 		
 		setButton();
 
+		
+
+		
+		if (savedInstanceState == null) {
+//			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO 自動生成されたメソッド・スタブ
+		super.onResume();
+
 		List<TimeTableDBEntity> timetable = dao.findAll();
 		for(int i = 0; i < timetable.size(); i++){
 			entity = timetable.get(i);
@@ -109,15 +122,7 @@ public class TimeTableMain extends Activity implements OnClickListener {
 			if(entity.getDay().equals("金")&&entity.getTime()==6)this.button[4][5].setText(entity.getName());
 		}
 		
-		System.out.println(timetable);
-		
-
-		
-		if (savedInstanceState == null) {
-//			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}
 	}
-
 
 	public void setButton(){
 		//ボタンID設定ここから

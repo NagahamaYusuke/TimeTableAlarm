@@ -66,7 +66,7 @@ public class TwitterOAuthActivity extends Activity {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
 		setContentView(R.layout.activity_twitter_oauth);
 
-		
+
 		helper = new DBHelper(this);
 		db = helper.getReadableDatabase();
 		dao = new TwitterDB(db);
@@ -81,6 +81,11 @@ public class TwitterOAuthActivity extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		if(db == null){
+			helper = new DBHelper(this);
+			db = helper.getReadableDatabase();
+			dao = new TwitterDB(db);
+		}
 		
 		Uri uri = getIntent().getData();
         if(uri != null && uri.toString().startsWith("twittercallback://TwitterOAuthActivity")){
@@ -89,11 +94,12 @@ public class TwitterOAuthActivity extends Activity {
             try {
 				this.accessToken = callbackTask.get();
 				dao.insert(this.accessToken.getTokenSecret(), this.accessToken.getToken());
-				this.TweetWithPicture("Test", this.getViewBitmap(this.findViewById(R.id.twitter_oauth_layout)));
+//				this.TweetWithPicture("Test", this.getViewBitmap(this.findViewById(R.id.twitter_oauth_layout)));
 				
 				Intent intent = new Intent(TwitterOAuthActivity.this,MenuSelectActivity.class);
 				startActivity(intent);
 				db.close();
+				db = null;
 				this.finish();
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック

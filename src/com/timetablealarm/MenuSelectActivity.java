@@ -153,6 +153,92 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 		dao5 = new AlarmTimeDB(this.db);
 		dao6 = new TimeTableDB(this.db);
 		
+		if(dao3.findAll(30).size() == 0){
+			SleepTimeDBEntity entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(20);
+			entity.setFlag(true);
+			Calendar mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 20, 22, 0);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(21);
+			entity.setFlag(false);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 21, 6, 0);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(21);
+			entity.setFlag(true);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 21, 23, 0);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(22);
+			entity.setFlag(false);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 22, 6, 0);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(22);
+			entity.setFlag(true);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 22, 23, 30);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(23);
+			entity.setFlag(false);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 23, 5, 30);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(23);
+			entity.setFlag(true);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 23, 23, 0);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+			
+
+			entity = new SleepTimeDBEntity();
+			entity.setYear(2014);
+			entity.setMonth(7);
+			entity.setDay(24);
+			entity.setFlag(false);
+			mcCalendar = Calendar.getInstance();
+			mcCalendar.set(2014, 7, 24, 5, 00);		
+			entity.setSleepTime(mcCalendar.getTimeInMillis());
+			dao3.insert(entity);
+		}
+		
 		this.k = 0;
 		this.mCalender = Calendar.getInstance();
 		
@@ -274,8 +360,8 @@ public class MenuSelectActivity extends Activity implements OnClickListener {
 
 			Toast.makeText(this, "出席しました", Toast.LENGTH_SHORT).show();
 
-//			MyAlarmManager mam = new MyAlarmManager(this);
-//			mam.addAlarm(0,0,30,0);
+			MyAlarmManager mam = new MyAlarmManager(this);
+			mam.addAlarm(0,0,10,0);
 
 //			List<AttendDBEntity> entityList = dao4.findALL();
 //

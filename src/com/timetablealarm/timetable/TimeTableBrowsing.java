@@ -3,6 +3,9 @@ package com.timetablealarm.timetable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 import com.model.DBHelper;
 import com.model.TwitterDB;
@@ -23,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class TimeTableBrowsing extends Activity implements OnClickListener{
@@ -41,7 +45,7 @@ public class TimeTableBrowsing extends Activity implements OnClickListener{
 	private DBHelper helper;
 	private SQLiteDatabase db;
 	
-	
+	private List<String> filenames;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +57,36 @@ public class TimeTableBrowsing extends Activity implements OnClickListener{
 		this.helper = new DBHelper(this);
 		this.db = this.helper.getReadableDatabase();
 		this.twitterDB = new TwitterDB(db);
-		
+		if(this.twitterDB.findAll() !=null){
+			TwitterMode tm = new TwitterMode(this.twitterDB.firstAccessToken());
+			this.filenames = tm.QueryBitmap(this);
+			ImageView im[] = new ImageView[9];
+			im[0] = (ImageView)findViewById(R.id.imageView1);
+			im[1] = (ImageView)findViewById(R.id.imageView2);
+			im[2] = (ImageView)findViewById(R.id.imageView3);
+			im[3] = (ImageView)findViewById(R.id.imageView4);
+			im[4] = (ImageView)findViewById(R.id.imageView5);
+			im[5] = (ImageView)findViewById(R.id.imageView6);
+			im[6] = (ImageView)findViewById(R.id.imageView7);
+			im[7] = (ImageView)findViewById(R.id.imageView8);
+			im[8] = (ImageView)findViewById(R.id.imageView9);
+			
+			
+			for(int i = 0; i < 9 && this.filenames.size() - i > 0; i++){
+				InputStream in;
+				try {
+					in = this.openFileInput(this.filenames.get(this.filenames.size() - 1));
+					im[i].setImageBitmap(BitmapFactory.decodeStream(in));
+					in.close();
+				} catch (FileNotFoundException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+			}
+		}
 //		LinearLayout linearLayout = new LinearLayout(this);
 //		linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 //		setContentView(linearLayout);
